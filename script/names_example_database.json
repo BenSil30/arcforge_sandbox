@@ -1,0 +1,766 @@
+[
+  {
+    "name": "Advanced ARC Powercell",
+    "wiki_url": "https://arcraiders.wiki/wiki/Advanced_ARC_Powercell",
+    "source_url": "https://arcraiders.wiki/w/index.php?title=Advanced_ARC_Powercell&action=edit",
+    "infobox": {
+      "image": "Advanced_ARC_Powercell.png",
+      "name": "Advanced ARC Powercell",
+      "rarity": "Rare",
+      "quote": "Very valuable resource that drops from certain ARC enemies.",
+      "type": "Topside Material",
+      "location": "ARC",
+      "weight": 0.5,
+      "sellprice": 640,
+      "stacksize": 5,
+      "shield": null,
+      "usetime": null
+    },
+    "image_urls": {
+      "thumb": "https://arcraiders.wiki/w/images/thumb/3/31/Advanced_ARC_Powercell.png/348px-Advanced_ARC_Powercell.png.webp",
+      "original": "https://arcraiders.wiki/w/images/3/31/Advanced_ARC_Powercell.png",
+      "file_page": "https://arcraiders.wiki/wiki/File:Advanced_ARC_Powercell.png"
+    },
+    "sources": [
+      "Sentinel",
+      "Bombardier",
+      "Bastion",
+      "Rocketeer",
+      "Leaper",
+      "The Queen",
+      "ARC Surveyor"
+    ],
+    "recycling": {
+      "recycling": [
+        {
+          "materials": [
+            {
+              "quantity": 2,
+              "item": "ARC Powercell"
+            }
+          ]
+        }
+      ],
+      "salvaging": [
+        {
+          "materials": [
+            {
+              "quantity": 1,
+              "item": "ARC Powercell"
+            }
+          ]
+        }
+      ]
+    }
+  },
+  {
+    "name": "Medium Shield",
+    "wiki_url": "https://arcraiders.wiki/wiki/Medium_Shield",
+    "source_url": "https://arcraiders.wiki/w/index.php?title=Medium_Shield&action=edit",
+    "infobox": {
+      "image": "Medium_Shield.png",
+      "name": "Medium Shield",
+      "rarity": "Rare",
+      "quote": "A standard shield that offers fair protection at a moderate cost to mobility.",
+      "sCharge": 70.0,
+      "damageM": 42.5,
+      "Movepen": 5.0,
+      "weight": 7.0,
+      "sellprice": 2000
+    },
+    "image_urls": {
+      "thumb": "https://arcraiders.wiki/w/images/thumb/4/41/Medium_Shield.png/348px-Medium_Shield.png.webp",
+      "original": "https://arcraiders.wiki/w/images/4/41/Medium_Shield.png",
+      "file_page": "https://arcraiders.wiki/wiki/File:Medium_Shield.png"
+    },
+    "sources": [
+      "Scavenging",
+      "Crafting",
+      "Sold by Lance",
+      "Raider Decks"
+    ],
+    "crafting": [
+      {
+        "recipe": [
+          {
+            "quantity": 4,
+            "item": "Battery"
+          },
+          {
+            "quantity": 1,
+            "item": "ARC Circuitry"
+          }
+        ],
+        "workshop": "Gear Bench 2"
+      }
+    ],
+    "repairs": [
+      {
+        "item_name": "1x Medium Shield",
+        "recipe": [
+          {
+            "quantity": 1,
+            "item": "ARC Circuitry"
+          },
+          {
+            "quantity": 1,
+            "item": "Battery"
+          }
+        ],
+        "durability": 50
+      }
+    ],
+    "recycling": {
+      "recycling": [
+        {
+          "materials": [
+            {
+              "quantity": 1,
+              "item": "ARC Circuitry"
+            }
+          ]
+        }
+      ],
+      "salvaging": []
+    }
+  },
+  {
+    "name": "Snap Hook",
+    "wiki_url": "https://arcraiders.wiki/wiki/Snap_Hook",
+    "source_url": "https://arcraiders.wiki/w/index.php?title=Snap_Hook&action=edit",
+    "infobox": {
+      "image": "Snap Hook.png",
+      "name": "Snap Hook",
+      "rarity": "Legendary",
+      "quote": "A gadget that allows the user to scale structures and cover large distances.",
+      "type": "Quick Use-Gadget",
+      "location": null,
+      "weight": 5.0,
+      "sellprice": 14000,
+      "stacksize": 1,
+      "healing": null,
+      "shield": null,
+      "stamina": null,
+      "damage": null,
+      "arcstun": null,
+      "raiderstun": null,
+      "persecond": null,
+      "usetime": null,
+      "duration": null,
+      "radius": null,
+      "range": "20m"
+    },
+    "image_urls": {
+      "thumb": "https://arcraiders.wiki/w/images/5/56/Snap_Hook.png",
+      "file_page": "https://arcraiders.wiki/wiki/File:Snap_Hook.png"
+    },
+    "sources": [
+      "Scavenging",
+      "Crafting",
+      "Reward for the quest Lost In Transmission"
+    ],
+    "crafting": [
+      {
+        "recipe": [
+          {
+            "quantity": 2,
+            "item": "Power Rod"
+          },
+          {
+            "quantity": 3,
+            "item": "Rope"
+          },
+          {
+            "quantity": 1,
+            "item": "Exodus Modules"
+          }
+        ],
+        "workshop": "Utility Station 3",
+        "blueprint_locked": true
+      }
+    ],
+    "repairs": [
+      {
+        "item_name": "1x Snap Hook",
+        "recipe": [
+          {
+            "quantity": 1,
+            "item": "Power Rod"
+          },
+          {
+            "quantity": 1,
+            "item": "Exodus Modules"
+          }
+        ]
+      }
+    ],
+    "recycling": {
+      "recycling": [
+        {
+          "materials": [
+            {
+              "quantity": 1,
+              "item": "Power Rod"
+            },
+            {
+              "quantity": 3,
+              "item": "Rope"
+            }
+          ]
+        }
+      ],
+      "salvaging": [
+        {
+          "materials": [
+            {
+              "quantity": 2,
+              "item": "Advanced Electrical Components"
+            }
+          ]
+        }
+      ]
+    }
+  },
+  {
+    "name": "Smoke Grenade Trap",
+    "wiki_url": "https://arcraiders.wiki/wiki/Smoke_Grenade_Trap",
+    "source_url": "https://arcraiders.wiki/w/index.php?title=Smoke_Grenade_Trap&action=edit",
+    "infobox": {
+      "image": "Smoke Grenade Trap.png",
+      "name": "Smoke Grenade Trap",
+      "rarity": "Rare",
+      "quote": "A laser trip write that detonates a Smoke Grenade.",
+      "type": "Quick Use-Trap",
+      "weight": 0.3,
+      "sellprice": 640,
+      "stacksize": 3,
+      "duration": "20s",
+      "radius": "7.5m"
+    },
+    "image_urls": {
+      "thumb": "https://arcraiders.wiki/w/images/thumb/a/ac/Smoke_Grenade_Trap.png/348px-Smoke_Grenade_Trap.png.webp",
+      "original": "https://arcraiders.wiki/w/images/a/ac/Smoke_Grenade_Trap.png",
+      "file_page": "https://arcraiders.wiki/wiki/File:Smoke_Grenade_Trap.png"
+    },
+    "sources": [
+      "Scavenging",
+      "Crafting"
+    ],
+    "crafting": [
+      {
+        "recipe": [
+          {
+            "quantity": 1,
+            "item": "Smoke Grenade"
+          },
+          {
+            "quantity": 1,
+            "item": "Wires"
+          }
+        ],
+        "workshop": "Workbench 1"
+      }
+    ]
+  },
+  {
+    "name": "Kettle",
+    "wiki_url": "https://arcraiders.wiki/wiki/Kettle",
+    "source_url": "https://arcraiders.wiki/w/index.php?title=Kettle&action=edit",
+    "infobox": {
+      "image": "Kettle-Level1.png",
+      "name": "Kettle",
+      "rarity": "Common",
+      "weaponquote": "Semi-automatic assault rifle. Quick and accurate, but has low bullet velocity and takes a long time reload.",
+      "compatiblemods": "Muzzle Underbarrel Light-Mag Stock",
+      "type": "Assault Rifle",
+      "ammo": "Light Ammo",
+      "magsize": 20,
+      "firingmode": "Semi-Automatic",
+      "ARCarmorpenetr": "Very Weak",
+      "damage": 10.0,
+      "range": 42.8,
+      "agility": 58.5,
+      "firerate": 28.0,
+      "stability": 69.8,
+      "stealth": 26.0,
+      "weight": 7.0,
+      "sellprice": [
+        840,
+        2000,
+        3000,
+        5000
+      ]
+    },
+    "image_urls": {
+      "thumb": "https://arcraiders.wiki/w/images/thumb/c/c1/Kettle-Level1.png/348px-Kettle-Level1.png.webp",
+      "original": "https://arcraiders.wiki/w/images/thumb/c/c1/Kettle-Level1.png/522px-Kettle-Level1.png.webp",
+      "file_page": "https://arcraiders.wiki/wiki/File:Kettle-Level1.png"
+    },
+    "sources": [
+      "Scavenging",
+      "Crafting",
+      "Sold by Tian Wen"
+    ],
+    "crafting": [
+      {
+        "recipe": [
+          {
+            "quantity": 6,
+            "item": "Metal Parts"
+          },
+          {
+            "quantity": 8,
+            "item": "Rubber Parts"
+          }
+        ],
+        "workshop": "Gunsmith 1",
+        "result_level": "Kettle I"
+      }
+    ],
+    "upgrades": [
+      {
+        "input_level": "Kettle I",
+        "recipe": [
+          {
+            "quantity": 8,
+            "item": "Metal Parts"
+          },
+          {
+            "quantity": 10,
+            "item": "Plastic Parts"
+          }
+        ],
+        "workshop": "Gunsmith 1",
+        "output_level": "Kettle II",
+        "upgrade_perks": [
+          "25% Increased Bullet Velocity",
+          "13% Reduced Reload Time",
+          "+10 Durability"
+        ]
+      },
+      {
+        "input_level": "Kettle II",
+        "recipe": [
+          {
+            "quantity": 10,
+            "item": "Metal Parts"
+          },
+          {
+            "quantity": 1,
+            "item": "Simple Gun Parts"
+          }
+        ],
+        "workshop": "Gunsmith 1",
+        "output_level": "Kettle III",
+        "upgrade_perks": [
+          "50% Increased Bullet Velocity",
+          "26% Reduced Reload Time",
+          "+20 Durability"
+        ]
+      },
+      {
+        "input_level": "Kettle III",
+        "recipe": [
+          {
+            "quantity": 3,
+            "item": "Mechanical Components"
+          },
+          {
+            "quantity": 1,
+            "item": "Simple Gun Parts"
+          }
+        ],
+        "workshop": "Gunsmith 1",
+        "output_level": "Kettle IV",
+        "upgrade_perks": [
+          "75% Increased Bullet Velocity",
+          "40% Reduced Reload Time",
+          "+30 Durability"
+        ]
+      }
+    ],
+    "repairs": [
+      {
+        "item_name": "Kettle I",
+        "recipe": [
+          {
+            "quantity": 3,
+            "item": "Metal Parts"
+          },
+          {
+            "quantity": 2,
+            "item": "Rubber Parts"
+          }
+        ],
+        "durability": 50
+      },
+      {
+        "item_name": "Kettle II",
+        "recipe": [
+          {
+            "quantity": 6,
+            "item": "Metal Parts"
+          },
+          {
+            "quantity": 6,
+            "item": "Rubber Parts"
+          }
+        ],
+        "durability": 55
+      },
+      {
+        "item_name": "Kettle III",
+        "recipe": [
+          {
+            "quantity": 12,
+            "item": "Metal Parts"
+          },
+          {
+            "quantity": 2,
+            "item": "Simple Gun Parts"
+          }
+        ],
+        "durability": 60
+      },
+      {
+        "item_name": "Kettle IV",
+        "recipe": [
+          {
+            "quantity": 2,
+            "item": "Mechanical Components"
+          },
+          {
+            "quantity": 2,
+            "item": "Simple Gun Parts"
+          }
+        ],
+        "durability": 65
+      }
+    ],
+    "recycling": {
+      "recycling": [
+        {
+          "materials": [
+            {
+              "quantity": 3,
+              "item": "Metal Parts"
+            },
+            {
+              "quantity": 2,
+              "item": "Rubber Parts"
+            }
+          ],
+          "input": "Kettle I"
+        },
+        {
+          "materials": [
+            {
+              "quantity": 6,
+              "item": "Metal Parts"
+            },
+            {
+              "quantity": 6,
+              "item": "Rubber Parts"
+            }
+          ],
+          "input": "Kettle II"
+        },
+        {
+          "materials": [
+            {
+              "quantity": 12,
+              "item": "Metal Parts"
+            },
+            {
+              "quantity": 1,
+              "item": "Simple Gun Parts"
+            }
+          ],
+          "input": "Kettle III"
+        },
+        {
+          "materials": [
+            {
+              "quantity": 2,
+              "item": "Mechanical Components"
+            },
+            {
+              "quantity": 2,
+              "item": "Simple Gun Parts"
+            }
+          ],
+          "input": "Kettle IV"
+        }
+      ],
+      "salvaging": [
+        {
+          "materials": [
+            {
+              "quantity": 3,
+              "item": "Metal Parts"
+            }
+          ],
+          "input": "Kettle I"
+        },
+        {
+          "materials": [
+            {
+              "quantity": 6,
+              "item": "Metal Parts"
+            }
+          ],
+          "input": "Kettle II"
+        },
+        {
+          "materials": [
+            {
+              "quantity": 1,
+              "item": "Simple Gun Parts"
+            }
+          ],
+          "input": "Kettle III"
+        },
+        {
+          "materials": [
+            {
+              "quantity": 2,
+              "item": "Simple Gun Parts"
+            }
+          ],
+          "input": "Kettle IV"
+        }
+      ]
+    }
+  },
+  {
+    "name": "Tactical Mk. 3 (Defensive)",
+    "wiki_url": "https://arcraiders.wiki/wiki/Tactical_Mk._3_%28Defensive%29",
+    "source_url": "https://arcraiders.wiki/w/index.php?title=Tactical_Mk._3_%28Defensive%29&action=edit",
+    "infobox": {
+      "image": "Tactical Mk. 3 (Defensive).png",
+      "name": "Tactical Mk. 3 (Defensive)",
+      "rarity": "Epic",
+      "warning": "Allows Shield Rechargers to be used while running.",
+      "quote": "A defensive-focused augment for keeping Shields topped up.",
+      "bslots": 20,
+      "spslots": 1,
+      "quslots": 5,
+      "wslots": 2,
+      "wlimit": 60.0,
+      "scomp": "Light,Medium,Heavy",
+      "weight": 5.0,
+      "sellprice": 5000
+    },
+    "image_urls": {
+      "thumb": "https://arcraiders.wiki/w/images/thumb/a/a9/Tactical_Mk._3_%28Defensive%29.png/348px-Tactical_Mk._3_%28Defensive%29.png.webp",
+      "original": "https://arcraiders.wiki/w/images/a/a9/Tactical_Mk._3_%28Defensive%29.png",
+      "file_page": "https://arcraiders.wiki/wiki/File:Tactical_Mk._3_(Defensive).png"
+    },
+    "sources": [
+      "Scavenging",
+      "Crafting"
+    ],
+    "crafting": [
+      {
+        "recipe": [
+          {
+            "quantity": 2,
+            "item": "Advanced Electrical Components"
+          },
+          {
+            "quantity": 3,
+            "item": "Processor"
+          }
+        ],
+        "workshop": "Gear Bench 3"
+      }
+    ],
+    "repairs": [
+      {
+        "recipe": [
+          {
+            "quantity": 1,
+            "item": "Advanced Electrical Components"
+          },
+          {
+            "quantity": 2,
+            "item": "Processor"
+          }
+        ],
+        "durability": 50
+      }
+    ],
+    "recycling": {
+      "recycling": [
+        {
+          "materials": [
+            {
+              "quantity": 1,
+              "item": "Advanced Electrical Components"
+            },
+            {
+              "quantity": 1,
+              "item": "Processor"
+            }
+          ]
+        }
+      ],
+      "salvaging": []
+    }
+  },
+  {
+    "name": "Trigger 'Nade",
+    "wiki_url": "https://arcraiders.wiki/wiki/Trigger_%27Nade",
+    "source_url": "https://arcraiders.wiki/w/index.php?title=Trigger_%27Nade&action=edit",
+    "infobox": {
+      "image": "Trigger Nade.png",
+      "name": "Trigger 'Nade",
+      "rarity": "Rare",
+      "quote": "A remote-detonated grenade that can stick to surfaces and ARC, dealing explosive damage when triggered.",
+      "type": "Quick Use-Grenade",
+      "location": null,
+      "weight": 0.4,
+      "sellprice": 1000,
+      "stacksize": 3,
+      "healing": null,
+      "shield": null,
+      "stamina": null,
+      "damage": 90.0,
+      "arcstun": null,
+      "raiderstun": null,
+      "persecond": null,
+      "usetime": null,
+      "duration": null,
+      "radius": "7.5m"
+    },
+    "image_urls": {
+      "thumb": "https://arcraiders.wiki/w/images/thumb/0/09/Trigger_Nade.png/348px-Trigger_Nade.png.webp",
+      "original": "https://arcraiders.wiki/w/images/0/09/Trigger_Nade.png",
+      "file_page": "https://arcraiders.wiki/wiki/File:Trigger_Nade.png"
+    },
+    "sources": [
+      "Scavenging",
+      "Crafting"
+    ],
+    "crafting": [
+      {
+        "recipe": [
+          {
+            "quantity": 2,
+            "item": "Crude Explosives"
+          },
+          {
+            "quantity": 1,
+            "item": "Processor"
+          }
+        ],
+        "workshop": "Explosives Station 2",
+        "blueprint_locked": true
+      }
+    ],
+    "recycling": {
+      "recycling": [
+        {
+          "materials": [
+            {
+              "quantity": 1,
+              "item": "Chemicals"
+            },
+            {
+              "quantity": 1,
+              "item": "Processor"
+            }
+          ]
+        }
+      ],
+      "salvaging": [
+        {
+          "materials": [
+            {
+              "quantity": 1,
+              "item": "Processor"
+            }
+          ]
+        }
+      ]
+    }
+  },
+  {
+    "name": "Defibrillator",
+    "wiki_url": "https://arcraiders.wiki/wiki/Defibrillator",
+    "source_url": "https://arcraiders.wiki/w/index.php?title=Defibrillator&action=edit",
+    "infobox": {
+      "image": "Defibrillator.png",
+      "name": "Defibrillator",
+      "rarity": "Rare",
+      "quote": "An injection that quickly revived downed raiders and restores some health.",
+      "type": "Quick Use-Regen",
+      "location": null,
+      "weight": 0.75,
+      "sellprice": 1000,
+      "stacksize": 3,
+      "healing": 50.0,
+      "shield": null,
+      "stamina": null,
+      "damage": null,
+      "arcstun": null,
+      "raiderstun": null,
+      "persecond": null,
+      "usetime": "1.5s",
+      "duration": null,
+      "radius": null
+    },
+    "image_urls": {
+      "thumb": "https://arcraiders.wiki/w/images/thumb/5/5f/Defibrillator.png/348px-Defibrillator.png.webp",
+      "original": "https://arcraiders.wiki/w/images/5/5f/Defibrillator.png",
+      "file_page": "https://arcraiders.wiki/wiki/File:Defibrillator.png"
+    },
+    "sources": [
+      "Scavenging",
+      "Crafting",
+      "Sold by Lance"
+    ],
+    "crafting": [
+      {
+        "recipe": [
+          {
+            "quantity": 9,
+            "item": "Plastic Parts"
+          },
+          {
+            "quantity": 1,
+            "item": "Moss"
+          }
+        ],
+        "workshop": "Medical Lab 2",
+        "blueprint_locked": true
+      }
+    ],
+    "recycling": {
+      "recycling": [
+        {
+          "materials": [
+            {
+              "quantity": 1,
+              "item": "Plastic Parts"
+            },
+            {
+              "quantity": 1,
+              "item": "Moss"
+            }
+          ]
+        }
+      ],
+      "salvaging": [
+        {
+          "materials": [
+            {
+              "quantity": 2,
+              "item": "Chemicals"
+            }
+          ]
+        }
+      ]
+    }
+  }
+]
