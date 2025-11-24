@@ -3,6 +3,7 @@ Fetch and parse item data from ARC Raiders Wiki
 Reads item names from a text file and constructs detailed JSON database
 """
 
+import html
 import json
 import re
 import time
@@ -17,6 +18,17 @@ from bs4 import BeautifulSoup
 def sanitize_item_name_for_url(item_name: str) -> str:
     """Convert item name to URL-safe format (spaces to underscores)."""
     return item_name.replace(' ', '_')
+
+
+def clean_text(text: str) -> str:
+    """Clean text by decoding HTML entities and normalizing whitespace."""
+    if not text:
+        return text
+    # Decode HTML entities like &nbsp;, &amp;, etc.
+    text = html.unescape(text)
+    # Normalize whitespace
+    text = ' '.join(text.split())
+    return text.strip()
 
 
 def parse_infobox(source_text: str, item_name: str) -> Dict[str, Any]:
@@ -101,15 +113,15 @@ def parse_infobox(source_text: str, item_name: str) -> Dict[str, Any]:
                     try:
                         infobox_data[key] = float(value_clean)
                     except ValueError:
-                        infobox_data[key] = value
+                        infobox_data[key] = clean_text(value)
                 elif key in int_fields:
                     value_clean = value.replace(',', '').strip()
                     try:
                         infobox_data[key] = int(value_clean)
                     except ValueError:
-                        infobox_data[key] = value
+                        infobox_data[key] = clean_text(value)
                 else:
-                    infobox_data[key] = value
+                    infobox_data[key] = clean_text(value)
     
     return infobox_data
 
@@ -125,7 +137,7 @@ def parse_list_items(section_text: str) -> List[str]:
             item = line[1:].strip()
             item = re.sub(r'\[\[([^\]|]+)(?:\|[^\]]+)?\]\]', r'\1', item)
             if item:
-                items.append(item)
+                items.append(clean_text(item))
     return items
 
 
@@ -164,7 +176,7 @@ def parse_recipe_table(table_text: str, table_type: str) -> List[Dict[str, Any]]
             # Extract item name from repair table
             item_match = re.search(r"'''([^']+)'''", line)
             if item_match:
-                current_recipe['item_name'] = item_match.group(1)
+                current_recipe['item_name'] = clean_text(item_match.group(1))
             column_index += 1
             continue
         
@@ -173,7 +185,7 @@ def parse_recipe_table(table_text: str, table_type: str) -> List[Dict[str, Any]]
         # These appear as plain text without wiki links
         if table_type == 'upgrade' and not '[[' in line and not 'style=' in line and re.search(r'\b(I{1,3}|IV)\b', line):
             # This might be an input or output level
-            level_text = line.strip()
+            level_text = clean_text(line.strip())
             if 'input_level' not in current_recipe:
                 current_recipe['input_level'] = level_text
             elif 'output_level' not in current_recipe:
@@ -194,19 +206,19 @@ def parse_recipe_table(table_text: str, table_type: str) -> List[Dict[str, Any]]
                 
                 # Check if this part is an input level (e.g., "Kettle I" for upgrades)
                 if table_type == 'upgrade' and not '[[' in part and re.search(r'\b(I{1,3}|IV)\b', part):
-                    input_level = part
+                    input_level = clean_text(part)
                     continue
                 
                 match = re.search(r"(\d+)x\s*\[\[([^\]|]+)(?:\|[^\]]+)?\]\]", part)
                 if match:
                     materials.append({
                         "quantity": int(match.group(1)),
-                        "item": match.group(2)
+                        "item": clean_text(match.group(2))
                     })
                 elif '[[' in part:
                     item_match = re.search(r'\[\[([^\]|]+)(?:\|[^\]]+)?\]\]', part)
                     if item_match:
-                        materials.append({"item": item_match.group(1)})
+                        materials.append({"item": clean_text(item_match.group(1))})
             
             if table_type == 'upgrade' and input_level:
                 current_recipe['input_level'] = input_level
@@ -220,7 +232,7 @@ def parse_recipe_table(table_text: str, table_type: str) -> List[Dict[str, Any]]
         # Check for workshop level
         workshop_match = re.search(r'(Workbench|Gunsmith|Medical Lab|Gear Bench|Explosives Station|Utility Station|Refiner|Inventory)\s*(\d+)?', line, re.IGNORECASE)
         if workshop_match:
-            workshop = workshop_match.group(1)
+            workshop = clean_text(workshop_match.group(1))
             level = workshop_match.group(2)
             current_recipe['workshop'] = f"{workshop} {level}" if level else workshop
         
@@ -238,12 +250,12 @@ def parse_recipe_table(table_text: str, table_type: str) -> List[Dict[str, Any]]
             perks_text = perks_text.strip()
             if perks_text and '→' not in perks_text:
                 # Split into list of perks
-                perks_list = [p.strip() for p in perks_text.split('\n') if p.strip()]
+                perks_list = [clean_text(p.strip()) for p in perks_text.split('\n') if p.strip()]
                 current_recipe['upgrade_perks'] = perks_list
         
         # For craft tables that result in specific levels (e.g., "Kettle I")
         if table_type == 'craft' and not '[[' in line and not 'style=' in line and re.search(r'\b(I{1,3}|IV)\b', line):
-            current_recipe['result_level'] = line.strip()
+            current_recipe['result_level'] = clean_text(line.strip())
         
         # Parse durability for repair
         if '+' in line and line.replace('+', '').replace(' ', '').isdigit():

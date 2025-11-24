@@ -13,7 +13,9 @@ def create_edge(
     direction: str,
     relation: str,
     quantity: int = None,
-    dependency: List[Dict[str, str]] = None
+    dependency: List[Dict[str, str]] = None,
+    input_level: str = None,
+    output_level: str = None
 ) -> Dict[str, Any]:
     """Create an edge dictionary."""
     edge = {
@@ -28,62 +30,21 @@ def create_edge(
     if dependency:
         edge["dependency"] = dependency
     
+    if input_level:
+        edge["input_level"] = input_level
+    
+    if output_level:
+        edge["output_level"] = output_level
+    
     return edge
 
 
-def get_item_levels(item_data: Dict[str, Any]) -> List[str]:
+def get_base_item_name(item_data: Dict[str, Any]) -> str:
     """
-    Extract all levels for an item (weapons/gear).
-    Returns list of level names like ["Ferro I", "Ferro II", ...]
+    Get the base item name (without level).
+    Always returns just the base name.
     """
-    levels = []
-    base_name = item_data.get("name", "")
-    
-    # Check if this item has upgrades or repairs with levels
-    has_levels = False
-    
-    # Check crafting for result_level
-    if "crafting" in item_data:
-        for craft in item_data["crafting"]:
-            if "result_level" in craft:
-                levels.append(craft["result_level"])
-                has_levels = True
-    
-    # Check upgrades for input/output levels
-    if "upgrades" in item_data:
-        for upgrade in item_data["upgrades"]:
-            if "input_level" in upgrade:
-                levels.append(upgrade["input_level"])
-                has_levels = True
-            if "output_level" in upgrade:
-                levels.append(upgrade["output_level"])
-                has_levels = True
-    
-    # Check repairs for item_name (which includes levels)
-    if "repairs" in item_data:
-        for repair in item_data["repairs"]:
-            if "item_name" in repair:
-                levels.append(repair["item_name"])
-                has_levels = True
-    
-    # Check recycling for input levels
-    if "recycling" in item_data:
-        recycling = item_data["recycling"]
-        if "recycling" in recycling:
-            for recycle in recycling["recycling"]:
-                if "input" in recycle:
-                    levels.append(recycle["input"])
-                    has_levels = True
-        if "salvaging" in recycling:
-            for salvage in recycling["salvaging"]:
-                if "input" in salvage:
-                    levels.append(salvage["input"])
-                    has_levels = True
-    
-    # Remove duplicates and sort
-    levels = sorted(list(set(levels)))
-    
-    return levels if has_levels else [base_name]
+    return item_data.get("name", "")
 
 
 def process_crafting(item_data: Dict[str, Any], item_name: str) -> List[Dict[str, Any]]:
@@ -94,6 +55,9 @@ def process_crafting(item_data: Dict[str, Any], item_name: str) -> List[Dict[str
         return edges
     
     for craft_recipe in item_data["crafting"]:
+        # Get result level if present
+        result_level = craft_recipe.get("result_level")
+        
         # Get dependency (workshop)
         dependency = None
         if "workshop" in craft_recipe:
@@ -104,6 +68,12 @@ def process_crafting(item_data: Dict[str, Any], item_name: str) -> List[Dict[str
             if dependency is None:
                 dependency = []
             dependency.append({"type": "blueprint", "name": "required"})
+        
+        # Add result level to dependency if present
+        if result_level:
+            if dependency is None:
+                dependency = []
+            dependency.append({"type": "result_level", "name": result_level})
         
         # Process recipe materials (incoming edges)
         if "recipe" in craft_recipe:
@@ -117,7 +87,8 @@ def process_crafting(item_data: Dict[str, Any], item_name: str) -> List[Dict[str
                         direction="in",
                         relation="craft_from",
                         quantity=quantity,
-                        dependency=dependency
+                        dependency=dependency,
+                        output_level=result_level
                     )
                     edges.append(edge)
     
@@ -132,12 +103,8 @@ def process_upgrades(item_data: Dict[str, Any], item_name: str) -> List[Dict[str
         return edges
     
     for upgrade in item_data["upgrades"]:
-        input_level = upgrade.get("input_level", item_name)
+        input_level = upgrade.get("input_level")
         output_level = upgrade.get("output_level")
-        
-        # Only process if this is the correct input level
-        if input_level != item_name:
-            continue
         
         # Get dependency (workshop, upgrade perks)
         dependency = None
@@ -148,6 +115,12 @@ def process_upgrades(item_data: Dict[str, Any], item_name: str) -> List[Dict[str
             if dependency is None:
                 dependency = []
             dependency.append({"type": "blueprint", "name": "required"})
+        
+        # Add level info to dependency
+        if input_level and output_level:
+            if dependency is None:
+                dependency = []
+            dependency.append({"type": "upgrade_level", "name": f"{input_level} -> {output_level}"})
         
         # Process upgrade materials (incoming edges for materials)
         if "recipe" in upgrade:
@@ -161,21 +134,25 @@ def process_upgrades(item_data: Dict[str, Any], item_name: str) -> List[Dict[str
                         direction="in",
                         relation="upgrade_from",
                         quantity=quantity,
-                        dependency=dependency
+                        dependency=dependency,
+                        input_level=input_level,
+                        output_level=output_level
                     )
                     edges.append(edge)
         
-        # Add edge to output level (upgrade_to)
-        if output_level:
+        # Add self-referencing edge for upgrade (item -> item at different level)
+        if input_level and output_level:
             edge_dep = dependency.copy() if dependency else []
             if "upgrade_perks" in upgrade:
                 edge_dep.append({"type": "perks", "name": ", ".join(upgrade["upgrade_perks"])})
             
             edge = create_edge(
-                name=output_level,
+                name=item_name,  # Self-reference for upgrades
                 direction="out",
                 relation="upgrade_to",
-                dependency=edge_dep if edge_dep else None
+                dependency=edge_dep if edge_dep else None,
+                input_level=input_level,
+                output_level=output_level
             )
             edges.append(edge)
     
@@ -190,16 +167,18 @@ def process_repairs(item_data: Dict[str, Any], item_name: str) -> List[Dict[str,
         return edges
     
     for repair in item_data["repairs"]:
-        repair_item_name = repair.get("item_name", item_name)
-        
-        # Only process if this is the correct item
-        if repair_item_name != item_name:
-            continue
+        repair_item_name = repair.get("item_name")
         
         # Get dependency (durability restored)
         dependency = None
         if "durability" in repair:
             dependency = [{"type": "durability", "name": f"+{repair['durability']}"}]
+        
+        # Add level info to dependency if present
+        if repair_item_name:
+            if dependency is None:
+                dependency = []
+            dependency.append({"type": "repair_level", "name": repair_item_name})
         
         # Process repair materials (incoming edges)
         if "recipe" in repair:
@@ -213,7 +192,8 @@ def process_repairs(item_data: Dict[str, Any], item_name: str) -> List[Dict[str,
                         direction="in",
                         relation="repair_from",
                         quantity=quantity,
-                        dependency=dependency
+                        dependency=dependency,
+                        input_level=repair_item_name
                     )
                     edges.append(edge)
     
@@ -232,11 +212,12 @@ def process_recycling(item_data: Dict[str, Any], item_name: str) -> List[Dict[st
     # Process recycling (item -> materials)
     if "recycling" in recycling:
         for recycle in recycling["recycling"]:
-            recycle_input = recycle.get("input", item_name)
+            recycle_input = recycle.get("input")
             
-            # Only process if this matches current item
-            if recycle_input != item_name:
-                continue
+            # Create dependency for level info if present
+            dependency = None
+            if recycle_input:
+                dependency = [{"type": "recycle_level", "name": recycle_input}]
             
             # Add outgoing edges to materials
             if "materials" in recycle:
@@ -249,18 +230,21 @@ def process_recycling(item_data: Dict[str, Any], item_name: str) -> List[Dict[st
                             name=material_name,
                             direction="out",
                             relation="recycle_to",
-                            quantity=quantity
+                            quantity=quantity,
+                            dependency=dependency,
+                            input_level=recycle_input
                         )
                         edges.append(edge)
     
     # Process salvaging (item -> materials)
     if "salvaging" in recycling:
         for salvage in recycling["salvaging"]:
-            salvage_input = salvage.get("input", item_name)
+            salvage_input = salvage.get("input")
             
-            # Only process if this matches current item
-            if salvage_input != item_name:
-                continue
+            # Create dependency for level info if present
+            dependency = None
+            if salvage_input:
+                dependency = [{"type": "salvage_level", "name": salvage_input}]
             
             # Add outgoing edges to materials
             if "materials" in salvage:
@@ -273,7 +257,9 @@ def process_recycling(item_data: Dict[str, Any], item_name: str) -> List[Dict[st
                             name=material_name,
                             direction="out",
                             relation="salvage_to",
-                            quantity=quantity
+                            quantity=quantity,
+                            dependency=dependency,
+                            input_level=salvage_input
                         )
                         edges.append(edge)
     
@@ -311,52 +297,47 @@ def build_relation_graph(items_database: List[Dict[str, Any]]) -> Dict[str, Dict
     """
     nodes = {}
     
-    # First pass: create all nodes
+    # First pass: create all nodes (one per base item, not per level)
     for item_data in items_database:
-        base_name = item_data.get("name")
+        base_name = get_base_item_name(item_data)
         if not base_name:
             continue
         
-        levels = get_item_levels(item_data)
-        
-        for level_name in levels:
-            if level_name not in nodes:
-                # Create node with basic info
-                nodes[level_name] = create_node(
-                    name=level_name,
-                    wiki_url=item_data.get("wiki_url"),
-                    source_url=item_data.get("source_url"),
-                    infobox=item_data.get("infobox"),
-                    image_urls=item_data.get("image_urls")
-                )
+        if base_name not in nodes:
+            # Create node with basic info
+            nodes[base_name] = create_node(
+                name=base_name,
+                wiki_url=item_data.get("wiki_url"),
+                source_url=item_data.get("source_url"),
+                infobox=item_data.get("infobox"),
+                image_urls=item_data.get("image_urls")
+            )
     
-    # Second pass: create edges
+    # Second pass: create edges (all edges for a base item)
     for item_data in items_database:
-        base_name = item_data.get("name")
+        base_name = get_base_item_name(item_data)
         if not base_name:
             continue
         
-        levels = get_item_levels(item_data)
+        if base_name not in nodes:
+            continue
         
-        for level_name in levels:
-            if level_name not in nodes:
-                continue
-            
-            edges = []
-            
-            # Process crafting
-            edges.extend(process_crafting(item_data, level_name))
-            
-            # Process upgrades
-            edges.extend(process_upgrades(item_data, level_name))
-            
-            # Process repairs
-            edges.extend(process_repairs(item_data, level_name))
-            
-            # Process recycling and salvaging
-            edges.extend(process_recycling(item_data, level_name))
-            
-            nodes[level_name]["edges"] = edges
+        edges = []
+        
+        # Process crafting
+        edges.extend(process_crafting(item_data, base_name))
+        
+        # Process upgrades
+        edges.extend(process_upgrades(item_data, base_name))
+        
+        # Process repairs
+        edges.extend(process_repairs(item_data, base_name))
+        
+        # Process recycling and salvaging
+        edges.extend(process_recycling(item_data, base_name))
+        
+        # Merge edges with existing ones
+        nodes[base_name]["edges"].extend(edges)
     
     # Third pass: add reverse edges
     # For each craft_from edge, add craft_to edge to the material
@@ -412,7 +393,9 @@ def build_relation_graph(items_database: List[Dict[str, Any]]) -> Dict[str, Dict
                     direction=reverse_direction,
                     relation=reverse_relation,
                     quantity=edge.get("quantity"),
-                    dependency=edge.get("dependency")
+                    dependency=edge.get("dependency"),
+                    input_level=edge.get("output_level"),  # Swap levels for reverse
+                    output_level=edge.get("input_level")
                 )
                 
                 reverse_edges.append((target_name, reverse_edge))

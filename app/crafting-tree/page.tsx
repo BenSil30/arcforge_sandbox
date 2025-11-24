@@ -10,8 +10,10 @@ interface Edge {
   name: string;
   direction: 'in' | 'out';
   relation: string;
-  quantity: number;
+  quantity?: number;
   dependency?: Array<{ type: string; name: string }>;
+  input_level?: string;
+  output_level?: string;
 }
 
 interface ItemData {
@@ -108,23 +110,51 @@ export default function CraftingTree() {
       }
     });
 
-    // Track node IDs to avoid duplicates
-    const leftNodes: Edge[] = [];
-    const rightNodes: Edge[] = [];
+    // Helper function to clean relation names
+    const cleanRelationName = (relation: string): string => {
+      return relation.replace(/_from$|_to$/g, '');
+    };
+
+    // Helper function to format edge label with level and quantity
+    const formatEdgeLabel = (edge: Edge): string => {
+      const relation = cleanRelationName(edge.relation);
+      const quantity = edge.quantity ? `${edge.quantity}x` : '';
+      const levelInfo = edge.input_level || edge.output_level || '';
+      
+      if (levelInfo && quantity) {
+        return `${relation} (${quantity}) [${levelInfo}]`;
+      } else if (levelInfo) {
+        return `${relation} [${levelInfo}]`;
+      } else if (quantity) {
+        return `${relation} (${quantity})`;
+      } else {
+        return relation;
+      }
+    };
+
+    // Group edges by item name and direction
+    const leftGrouped = new Map<string, Edge[]>();
+    const rightGrouped = new Map<string, Edge[]>();
     
-    // Separate edges by direction
     currentItem.edges.forEach(edge => {
       if (edge.direction === 'in') {
-        leftNodes.push(edge);
+        if (!leftGrouped.has(edge.name)) {
+          leftGrouped.set(edge.name, []);
+        }
+        leftGrouped.get(edge.name)!.push(edge);
       } else {
-        rightNodes.push(edge);
+        if (!rightGrouped.has(edge.name)) {
+          rightGrouped.set(edge.name, []);
+        }
+        rightGrouped.get(edge.name)!.push(edge);
       }
     });
 
     // Create left nodes (inputs)
-    leftNodes.forEach((edge, idx) => {
-      const nodeId = `left-${edge.name}-${idx}`;
-      const relatedItem = itemsLookup.get(edge.name);
+    let leftIdx = 0;
+    leftGrouped.forEach((edges, itemName) => {
+      const nodeId = `left-${itemName}`;
+      const relatedItem = itemsLookup.get(itemName);
       const imageUrl = relatedItem?.image_urls?.thumb 
         ? `/api/proxy-image?url=${encodeURIComponent(relatedItem.image_urls.thumb)}`
         : '';
@@ -132,29 +162,33 @@ export default function CraftingTree() {
       elements.push({
         data: {
           id: nodeId,
-          label: `${edge.name}\n(${edge.quantity}x)`,
+          label: itemName,
           type: 'input',
           rarity: relatedItem?.infobox?.rarity,
           imageUrl: imageUrl,
-          itemName: edge.name,
+          itemName: itemName,
         }
       });
 
-      // Create edge from left to center
+      // Create edge from left to center with combined labels
+      const edgeLabels = edges.map(formatEdgeLabel).join('\n');
+      
       elements.push({
         data: {
           source: nodeId,
           target: centerId,
-          label: edge.relation,
-          curvature: idx % 3 === 0 ? -CURVATURE : idx % 3 === 1 ? 0 : CURVATURE,
+          label: edgeLabels,
+          curvature: leftIdx % 3 === 0 ? -CURVATURE : leftIdx % 3 === 1 ? 0 : CURVATURE,
         }
       });
+      leftIdx++;
     });
 
     // Create right nodes (outputs)
-    rightNodes.forEach((edge, idx) => {
-      const nodeId = `right-${edge.name}-${idx}`;
-      const relatedItem = itemsLookup.get(edge.name);
+    let rightIdx = 0;
+    rightGrouped.forEach((edges, itemName) => {
+      const nodeId = `right-${itemName}`;
+      const relatedItem = itemsLookup.get(itemName);
       const imageUrl = relatedItem?.image_urls?.thumb 
         ? `/api/proxy-image?url=${encodeURIComponent(relatedItem.image_urls.thumb)}`
         : '';
@@ -162,23 +196,26 @@ export default function CraftingTree() {
       elements.push({
         data: {
           id: nodeId,
-          label: `${edge.name}\n(${edge.quantity}x)`,
+          label: itemName,
           type: 'output',
           rarity: relatedItem?.infobox?.rarity,
           imageUrl: imageUrl,
-          itemName: edge.name,
+          itemName: itemName,
         }
       });
 
-      // Create edge from center to right
+      // Create edge from center to right with combined labels
+      const edgeLabels = edges.map(formatEdgeLabel).join('\n');
+      
       elements.push({
         data: {
           source: centerId,
           target: nodeId,
-          label: edge.relation,
-          curvature: idx % 3 === 0 ? -CURVATURE : idx % 3 === 1 ? 0 : CURVATURE,
+          label: edgeLabels,
+          curvature: rightIdx % 3 === 0 ? -CURVATURE : rightIdx % 3 === 1 ? 0 : CURVATURE,
         }
       });
+      rightIdx++;
     });
 
     let cy;
@@ -272,12 +309,14 @@ export default function CraftingTree() {
             'control-point-weights': '0.33 0.67',
             'edge-distances': 'node-position',
             'label': 'data(label)',
-            'font-size': '10px',
+            'font-size': '9px',
             'color': '#c4b5fd',
             'text-background-color': '#07020b',
-            'text-background-opacity': 0.9,
-            'text-background-padding': 3 as any,
+            'text-background-opacity': 0.95,
+            'text-background-padding': 4 as any,
             'text-margin-y': -12,
+            'text-wrap': 'wrap',
+            'text-max-width': 120 as any,
           }
         },
         {
@@ -353,7 +392,7 @@ export default function CraftingTree() {
           // Left nodes (inputs)
           if (nodeType === 'input') {
             const leftNodeIndex = elements.filter(el => el.data?.type === 'input').findIndex(el => el.data.id === nodeId);
-            const totalLeftNodes = leftNodes.length;
+            const totalLeftNodes = leftGrouped.size;
             const startY = centerY - ((totalLeftNodes - 1) * spacing) / 2;
             return { x: leftX, y: startY + leftNodeIndex * spacing };
           }
@@ -361,7 +400,7 @@ export default function CraftingTree() {
           // Right nodes (outputs)
           if (nodeType === 'output') {
             const rightNodeIndex = elements.filter(el => el.data?.type === 'output').findIndex(el => el.data.id === nodeId);
-            const totalRightNodes = rightNodes.length;
+            const totalRightNodes = rightGrouped.size;
             const startY = centerY - ((totalRightNodes - 1) * spacing) / 2;
             return { x: rightX, y: startY + rightNodeIndex * spacing };
           }
