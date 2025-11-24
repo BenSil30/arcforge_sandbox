@@ -4,7 +4,7 @@ import { useState, useMemo } from 'react';
 import Image from 'next/image';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faSearch, faStar, faArrowUpAZ, faArrowDownAZ, faFilter } from '@fortawesome/free-solid-svg-icons';
-import itemsData from '../names_example_database.json';
+import itemsData from '../data/items_database.json';
 
 interface Item {
   name: string;
@@ -150,37 +150,31 @@ export default function Home() {
         <div className="flex items-center justify-between pr-8">
           {/* Logo */}
           <div className="flex-shrink-0 h-24 flex items-center">
-            <Image
+        <Image
               src="/logo.webp"
               alt="ARC Forge"
               width={320}
               height={96}
               className="h-full w-auto"
-              priority
-            />
+          priority
+        />
           </div>
           
-          {/* Navigation */}
-          <nav className="flex gap-2">
-            <a
-              href="#"
-              className="px-6 py-3 bg-purple-500/20 border border-purple-500/50 rounded-lg text-purple-300 font-medium hover:bg-purple-500/30 transition-all"
-            >
-              Item Database
-            </a>
-            <a
-              href="#"
-              className="px-6 py-3 bg-black/20 border border-purple-500/20 rounded-lg text-gray-400 font-medium hover:bg-purple-500/10 hover:text-gray-300 transition-all"
-            >
-              Crafting Tree
-            </a>
-            <a
-              href="#"
-              className="px-6 py-3 bg-black/20 border border-purple-500/20 rounded-lg text-gray-400 font-medium hover:bg-purple-500/10 hover:text-gray-300 transition-all"
-            >
-              Recycling Tree
-            </a>
-          </nav>
+            {/* Navigation */}
+            <nav className="flex gap-2">
+              <a
+                href="/"
+                className="px-6 py-3 bg-purple-500/20 border border-purple-500/50 rounded-lg text-purple-300 font-medium hover:bg-purple-500/30 transition-all"
+              >
+                Item Database
+              </a>
+              <a
+                href="/crafting-tree?item=Heavy%20Gun%20Parts"
+                className="px-6 py-3 bg-black/20 border border-purple-500/20 rounded-lg text-gray-400 font-medium hover:bg-purple-500/10 hover:text-gray-300 transition-all"
+              >
+                Crafting Tree
+              </a>
+            </nav>
         </div>
       </header>
 
@@ -445,37 +439,30 @@ export default function Home() {
                 </div>
               )}
 
-              {/* Quote */}
-              {selectedItem.infobox?.quote && (
-                <div className="mb-8 p-5 bg-black/30 rounded-lg border-l-4 border-purple-500">
-                  <p className="text-gray-300 italic leading-relaxed">"{selectedItem.infobox.quote}"</p>
-                </div>
-              )}
-
-              {/* Stats Grid */}
-              <div className="grid grid-cols-2 gap-4 mb-8">
+              {/* Stats Row */}
+              <div className="flex gap-3 mb-8 flex-wrap">
                 {selectedItem.infobox?.weight != null && (
-                  <div className="bg-black/30 p-4 rounded-lg">
+                  <div className="bg-black/30 px-4 py-3 rounded-lg flex-1 min-w-[100px]">
                     <div className="text-xs text-gray-500 mb-1">Weight</div>
-                    <div className="text-xl font-bold text-gray-100">{selectedItem.infobox.weight}</div>
+                    <div className="text-lg font-bold text-gray-100">{selectedItem.infobox.weight}</div>
                   </div>
                 )}
                 {selectedItem.infobox?.sellprice != null && (
-                  <div className="bg-black/30 p-4 rounded-lg">
+                  <div className="bg-black/30 px-4 py-3 rounded-lg flex-1 min-w-[100px]">
                     <div className="text-xs text-gray-500 mb-1">Sell Price</div>
-                    <div className="text-xl font-bold text-green-400">{getSellPrice(selectedItem.infobox.sellprice)}</div>
+                    <div className="text-lg font-bold text-green-400">{getSellPrice(selectedItem.infobox.sellprice)}</div>
                   </div>
                 )}
                 {selectedItem.infobox?.stacksize != null && (
-                  <div className="bg-black/30 p-4 rounded-lg">
+                  <div className="bg-black/30 px-4 py-3 rounded-lg flex-1 min-w-[100px]">
                     <div className="text-xs text-gray-500 mb-1">Stack Size</div>
-                    <div className="text-xl font-bold text-gray-100">{selectedItem.infobox.stacksize}</div>
+                    <div className="text-lg font-bold text-gray-100">{selectedItem.infobox.stacksize}</div>
                   </div>
                 )}
                 {selectedItem.infobox?.damage != null && (
-                  <div className="bg-black/30 p-4 rounded-lg">
+                  <div className="bg-black/30 px-4 py-3 rounded-lg flex-1 min-w-[100px]">
                     <div className="text-xs text-gray-500 mb-1">Damage</div>
-                    <div className="text-xl font-bold text-red-400">{selectedItem.infobox.damage}</div>
+                    <div className="text-lg font-bold text-red-400">{selectedItem.infobox.damage}</div>
                   </div>
                 )}
               </div>
@@ -497,37 +484,24 @@ export default function Home() {
                 </div>
               )}
 
-              {/* Crafting */}
-              {selectedItem.crafting && selectedItem.crafting.length > 0 && (
-                <div className="mb-8">
-                  <h3 className="text-sm font-semibold text-gray-300 mb-4 uppercase tracking-wide">Crafting Recipe</h3>
-                  {selectedItem.crafting.map((craft: any, idx: number) => (
-                    <div key={idx} className="bg-black/30 p-4 rounded-lg mb-2">
-                      {craft.workshop && (
-                        <div className="text-xs text-purple-400 mb-2">🛠️ {craft.workshop}</div>
-                      )}
-                      <div className="space-y-1">
-                        {craft.recipe?.map((mat: any, midx: number) => (
-                          <div key={midx} className="text-sm text-gray-300">
-                            • {mat.quantity}x {mat.item}
-                          </div>
-                        ))}
-                      </div>
-                    </div>
-                  ))}
-                </div>
-              )}
-
-              {/* Wiki Link */}
-              <a
-                href={selectedItem.wiki_url}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="block w-full py-3 bg-purple-500/20 hover:bg-purple-500/30 border border-purple-500/30 rounded-lg text-center text-purple-300 hover:text-purple-200 transition-all"
-              >
-                View on Wiki →
-              </a>
-            </div>
+              {/* Action Buttons */}
+              <div className="flex gap-3">
+                <a
+                  href={selectedItem.wiki_url}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="block flex-1 py-3 bg-purple-500/20 hover:bg-purple-500/30 border border-purple-500/30 rounded-lg text-center text-purple-300 hover:text-purple-200 transition-all"
+                >
+                  View on Wiki →
+                </a>
+                <a
+                  href={`/crafting-tree?item=${encodeURIComponent(selectedItem.name)}`}
+                  className="block flex-1 py-3 bg-blue-500/20 hover:bg-blue-500/30 border border-blue-500/30 rounded-lg text-center text-blue-300 hover:text-blue-200 transition-all"
+                >
+                  View in Craft Tree →
+                </a>
+              </div>
+        </div>
           </div>
         </>
       )}
