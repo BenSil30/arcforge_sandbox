@@ -1,8 +1,35 @@
 'use client';
 
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useRef, useState, useMemo } from 'react';
 import Image from 'next/image';
 import cytoscape from 'cytoscape';
+import { useSearchParams } from 'next/navigation';
+import itemsRelationData from '../../data/items_relation.json';
+
+interface Edge {
+  name: string;
+  direction: 'in' | 'out';
+  relation: string;
+  quantity: number;
+  dependency?: Array<{ type: string; name: string }>;
+}
+
+interface ItemData {
+  name: string;
+  wiki_url: string;
+  infobox: {
+    image: string;
+    rarity?: string;
+    type?: string;
+    [key: string]: any;
+  };
+  image_urls: {
+    thumb?: string;
+    original?: string;
+    file_page?: string;
+  };
+  edges: Edge[];
+}
 
 interface NodeInfo {
   id: string;
@@ -11,11 +38,40 @@ interface NodeInfo {
   rarity?: string;
 }
 
+const rarityColors: { [key: string]: string } = {
+  Common: '#717471',
+  Uncommon: '#41EB6A',
+  Rare: '#1ECBFC',
+  Epic: '#d8299b',
+  Legendary: '#fbc700',
+};
+
+const rarityGradients: { [key: string]: string } = {
+  Common: 'linear-gradient(to right, rgb(153 159 165 / 25%) 0%, rgb(5 13 36) 100%)',
+  Uncommon: 'linear-gradient(to right, rgb(86 203 134 / 25%) 0%, rgb(5 13 36) 100%)',
+  Rare: 'linear-gradient(to right, rgb(30 150 252 / 30%) 0%, rgb(5 13 36) 100%)',
+  Epic: 'linear-gradient(to right, rgb(216 41 155 / 25%) 0%, rgb(5 13 36) 100%)',
+  Legendary: 'linear-gradient(to right, rgb(251 199 0 / 25%) 0%, rgb(5 13 36) 100%)',
+};
+
 export default function CraftingTree() {
   const cyRef = useRef<cytoscape.Core | null>(null);
   const containerRef = useRef<HTMLDivElement>(null);
   const [selectedNode, setSelectedNode] = useState<NodeInfo | null>(null);
   const [isReady, setIsReady] = useState(false);
+  const searchParams = useSearchParams();
+  
+  const itemName = searchParams.get('item') || 'Heavy Gun Parts';
+
+  // Find the selected item and build item lookup
+  const { selectedItem, itemsLookup } = useMemo(() => {
+    const lookup = new Map<string, ItemData>();
+    (itemsRelationData as ItemData[]).forEach(item => {
+      lookup.set(item.name, item);
+    });
+    const selected = lookup.get(itemName);
+    return { selectedItem: selected, itemsLookup: lookup };
+  }, [itemName]);
 
   // Ensure DOM is ready
   useEffect(() => {
@@ -27,100 +83,177 @@ export default function CraftingTree() {
       return;
     }
 
-      // Initialize Cytoscape with fake data
-      // Central node: Medkit
-      // Left side: Sources (what creates Medkit)
-      // Right side: Outputs (what Medkit creates)
-      const CURVATURE = 140;
-      const cy = cytoscape({
-      container: containerRef.current,
+    // Get current item data
+    const currentItem = itemsLookup.get(itemName);
+    if (!currentItem) {
+      return;
+    }
+
+    // Build graph elements from actual data
+    const elements: any[] = [];
+    const CURVATURE = 140;
+    
+    // Center node - Selected item
+    const centerId = `center-${currentItem.name}`;
+    const centerImageUrl = currentItem.image_urls?.thumb 
+      ? `/api/proxy-image?url=${encodeURIComponent(currentItem.image_urls.thumb)}`
+      : '';
+    elements.push({
+      data: {
+        id: centerId,
+        label: currentItem.name,
+        type: 'center',
+        rarity: currentItem.infobox?.rarity,
+        imageUrl: centerImageUrl,
+      }
+    });
+
+    // Track node IDs to avoid duplicates
+    const leftNodes: Edge[] = [];
+    const rightNodes: Edge[] = [];
+    
+    // Separate edges by direction
+    currentItem.edges.forEach(edge => {
+      if (edge.direction === 'in') {
+        leftNodes.push(edge);
+      } else {
+        rightNodes.push(edge);
+      }
+    });
+
+    // Create left nodes (inputs)
+    leftNodes.forEach((edge, idx) => {
+      const nodeId = `left-${edge.name}-${idx}`;
+      const relatedItem = itemsLookup.get(edge.name);
+      const imageUrl = relatedItem?.image_urls?.thumb 
+        ? `/api/proxy-image?url=${encodeURIComponent(relatedItem.image_urls.thumb)}`
+        : '';
       
-      elements: [
-        // CENTER NODE - Item of Interest
-        { data: { id: 'medkit', label: 'Medkit\n(Selected)', type: 'center', rarity: 'Rare' } },
-        
-        // LEFT SIDE - Sources/Inputs
-        { data: { id: 'chemicals', label: 'Chemicals', type: 'material', rarity: 'Uncommon' } },
-        { data: { id: 'chemicals2', label: 'Chemicals', type: 'material', rarity: 'Uncommon' } },
-        { data: { id: 'fabric', label: 'Fabric', type: 'material', rarity: 'Common' } },
-        { data: { id: 'bandage', label: 'Bandage', type: 'item', rarity: 'Common' } },
-        { data: { id: 'lance', label: 'Lance\n(Vendor)', type: 'vendor', rarity: null } },
-        { data: { id: 'plastic', label: 'Plastic Parts', type: 'material', rarity: 'Common' } },
-        
-        // RIGHT SIDE - Outputs
-        { data: { id: 'first-aid', label: 'First Aid Kit', type: 'item', rarity: 'Epic' } },
-        { data: { id: 'health-pack', label: 'Health Pack', type: 'item', rarity: 'Rare' } },
-        { data: { id: 'salvaged-parts', label: 'Salvaged Parts', type: 'material', rarity: 'Common' } },
-        
-        // EDGES - Left to Center (Sources)
-        { data: { source: 'chemicals', target: 'medkit', label: 'craft_material', curvature: -CURVATURE } },
-        { data: { source: 'chemicals2', target: 'medkit', label: 'craft_material', curvature: -CURVATURE } },
-        { data: { source: 'fabric', target: 'medkit', label: 'craft_material', curvature: -CURVATURE } },
-        { data: { source: 'bandage', target: 'medkit', label: 'craft_component', curvature: CURVATURE } },
-        { data: { source: 'lance', target: 'medkit', label: 'sold_by', curvature: 0 } },
-        { data: { source: 'plastic', target: 'medkit', label: 'craft_material', curvature: CURVATURE } },
-        
-        // EDGES - Center to Right (Outputs)
-        { data: { source: 'medkit', target: 'first-aid', label: 'used_in_craft', curvature: CURVATURE } },
-        { data: { source: 'medkit', target: 'health-pack', label: 'used_in_craft', curvature: 0 } },
-        { data: { source: 'medkit', target: 'salvaged-parts', label: 'salvage_to', curvature: -CURVATURE } },
-      ],
+      elements.push({
+        data: {
+          id: nodeId,
+          label: `${edge.name}\n(${edge.quantity}x)`,
+          type: 'input',
+          rarity: relatedItem?.infobox?.rarity,
+          imageUrl: imageUrl,
+          itemName: edge.name,
+        }
+      });
+
+      // Create edge from left to center
+      elements.push({
+        data: {
+          source: nodeId,
+          target: centerId,
+          label: edge.relation,
+          curvature: idx % 3 === 0 ? -CURVATURE : idx % 3 === 1 ? 0 : CURVATURE,
+        }
+      });
+    });
+
+    // Create right nodes (outputs)
+    rightNodes.forEach((edge, idx) => {
+      const nodeId = `right-${edge.name}-${idx}`;
+      const relatedItem = itemsLookup.get(edge.name);
+      const imageUrl = relatedItem?.image_urls?.thumb 
+        ? `/api/proxy-image?url=${encodeURIComponent(relatedItem.image_urls.thumb)}`
+        : '';
+      
+      elements.push({
+        data: {
+          id: nodeId,
+          label: `${edge.name}\n(${edge.quantity}x)`,
+          type: 'output',
+          rarity: relatedItem?.infobox?.rarity,
+          imageUrl: imageUrl,
+          itemName: edge.name,
+        }
+      });
+
+      // Create edge from center to right
+      elements.push({
+        data: {
+          source: centerId,
+          target: nodeId,
+          label: edge.relation,
+          curvature: idx % 3 === 0 ? -CURVATURE : idx % 3 === 1 ? 0 : CURVATURE,
+        }
+      });
+    });
+
+    let cy;
+    try {
+      cy = cytoscape({
+        container: containerRef.current,
+        elements: elements,
 
       style: [
         {
           selector: 'node',
           style: {
-            'background-color': '#8b5cf6',
+            'shape': 'roundrectangle',
+            'background-fill': 'linear-gradient',
+            'background-gradient-direction': 'to-right',
+            'background-gradient-stop-colors': ((ele: any) => {
+              const rarity = ele.data('rarity');
+              const gradientColors: { [key: string]: string[] } = {
+                Common: ['rgba(153,159,165,0.25)', 'rgba(5,13,36,1)'],
+                Uncommon: ['rgba(86,203,134,0.25)', 'rgba(5,13,36,1)'],
+                Rare: ['rgba(30,150,252,0.3)', 'rgba(5,13,36,1)'],
+                Epic: ['rgba(216,41,155,0.25)', 'rgba(5,13,36,1)'],
+                Legendary: ['rgba(251,199,0,0.25)', 'rgba(5,13,36,1)'],
+              };
+              return gradientColors[rarity] || gradientColors.Common;
+            }) as any,
+            'background-gradient-stop-positions': [0, 100] as any,
+            'background-image': (ele: any) => ele.data('imageUrl') || '',
+            'background-fit': 'contain',
+            'background-clip': 'none',
+            'background-position-x': '50%',
+            'background-position-y': '50%',
+            'padding': '12px',
             'label': 'data(label)',
             'color': '#e9d5ff',
             'text-valign': 'bottom',
             'text-halign': 'center',
-            'text-margin-y': 5,
-            'font-size': '14px',
+            'text-margin-y': 8,
+            'font-size': '11px',
             'font-weight': 'bold',
-            'width': 80,
-            'height': 80,
-            'border-width': 4,
-            'border-color': '#6d28d9',
+            'width': 100,
+            'height': 100,
+            'border-width': 3,
+            'border-color': (ele: any) => {
+              const rarity = ele.data('rarity');
+              return rarityColors[rarity] || '#717471';
+            },
             'text-wrap': 'wrap',
-            'text-max-width': 100,
+            'text-max-width': 90 as any,
+            'text-background-color': '#07020b',
+            'text-background-opacity': 0.85,
+            'text-background-padding': 3 as any,
           }
         },
         {
           selector: 'node[type="center"]',
           style: {
-            'background-color': '#c084fc',
-            'border-color': '#e879f9',
-            'border-width': 6,
-            'width': 120,
-            'height': 120,
-            'font-size': '16px',
+            'border-width': 5,
+            'width': 140,
+            'height': 140,
+            'font-size': '14px',
             'font-weight': 'bold',
-            'color': '#fae8ff',
+            'text-margin-y': 10,
           }
         },
         {
-          selector: 'node[type="item"]',
+          selector: 'node[type="input"]',
           style: {
-            'background-color': '#a78bfa',
-            'border-color': '#8b5cf6',
+            'border-width': 3,
           }
         },
         {
-          selector: 'node[type="material"]',
+          selector: 'node[type="output"]',
           style: {
-            'background-color': '#60a5fa',
-            'border-color': '#3b82f6',
-          }
-        },
-        {
-          selector: 'node[type="vendor"]',
-          style: {
-            'background-color': '#fbbf24',
-            'border-color': '#f59e0b',
-            'shape': 'diamond',
-            'width': 90,
-            'height': 90,
+            'border-width': 3,
           }
         },
         {
@@ -128,56 +261,65 @@ export default function CraftingTree() {
           style: {
             'width': 3,
             'line-color': '#6366f1',
-            'target-arrow-shape': 'none',
-            'source-arrow-shape': 'none',
+            'target-arrow-shape': 'triangle',
+            'target-arrow-color': '#6366f1',
             'curve-style': 'unbundled-bezier',
-            'source-endpoint': '90deg',  // Right side of source node
-            'target-endpoint': '270deg', // Left side of target node
             'control-point-distances': (ele: any) => {
               const curvature = ele.data('curvature') || 0;
-              // Scale curvature - positive for S-curve, negative for mirrored S
               const dist = Math.abs(curvature) * 0.35;
               return curvature >= 0 ? `${dist} -${dist}` : `-${dist} ${dist}`;
             },
             'control-point-weights': '0.33 0.67',
             'edge-distances': 'node-position',
             'label': 'data(label)',
-            'font-size': '11px',
+            'font-size': '10px',
             'color': '#c4b5fd',
             'text-background-color': '#07020b',
             'text-background-opacity': 0.9,
-            'text-background-padding': 4,
-            'text-margin-y': -15,
+            'text-background-padding': 3 as any,
+            'text-margin-y': -12,
           }
         },
         {
-          selector: 'edge[label="craft_material"]',
+          selector: 'edge[label="craft_from"]',
           style: {
             'line-color': '#60a5fa',
+            'target-arrow-color': '#60a5fa',
           }
         },
         {
-          selector: 'edge[label="craft_component"]',
-          style: {
-            'line-color': '#a78bfa',
-          }
-        },
-        {
-          selector: 'edge[label="sold_by"]',
-          style: {
-            'line-color': '#fbbf24',
-          }
-        },
-        {
-          selector: 'edge[label="used_in_craft"]',
+          selector: 'edge[label="craft_to"]',
           style: {
             'line-color': '#c084fc',
+            'target-arrow-color': '#c084fc',
           }
         },
         {
-          selector: 'edge[label="salvage_to"]',
+          selector: 'edge[label="recycle_from"], edge[label="recycle_to"]',
           style: {
             'line-color': '#34d399',
+            'target-arrow-color': '#34d399',
+          }
+        },
+        {
+          selector: 'edge[label="salvage_from"], edge[label="salvage_to"]',
+          style: {
+            'line-color': '#10b981',
+            'target-arrow-color': '#10b981',
+          }
+        },
+        {
+          selector: 'edge[label="upgrade_from"], edge[label="upgrade_to"]',
+          style: {
+            'line-color': '#f59e0b',
+            'target-arrow-color': '#f59e0b',
+          }
+        },
+        {
+          selector: 'edge[label="repair_from"]',
+          style: {
+            'line-color': '#ef4444',
+            'target-arrow-color': '#ef4444',
           }
         },
         {
@@ -195,54 +337,78 @@ export default function CraftingTree() {
         name: 'preset',
         positions: (node: any) => {
           const nodeId = node.id();
-          const leftX = 200;
-          const centerX = 600;
-          const rightX = 1000;
-          const centerY = 400;
-          const spacing = 140; // vertical spacing between nodes
+          const nodeType = node.data('type');
           
-          // Center column - Single node
-          if (nodeId === 'medkit') {
+          const leftX = 250;
+          const centerX = 700;
+          const rightX = 1150;
+          const centerY = 400;
+          const spacing = 120;
+          
+          // Center node
+          if (nodeType === 'center') {
             return { x: centerX, y: centerY };
           }
           
-          // Left column - Sources (5 nodes, centered around middle)
-          if (nodeId === 'chemicals') return { x: leftX, y: centerY - spacing * 2 };
-          if (nodeId === 'chemicals2') return { x: leftX, y: centerY - spacing * 3 };
-          if (nodeId === 'fabric') return { x: leftX, y: centerY - spacing };
-          if (nodeId === 'lance') return { x: leftX, y: centerY };
-          if (nodeId === 'bandage') return { x: leftX, y: centerY + spacing };
-          if (nodeId === 'plastic') return { x: leftX, y: centerY + spacing * 2 };
+          // Left nodes (inputs)
+          if (nodeType === 'input') {
+            const leftNodeIndex = elements.filter(el => el.data?.type === 'input').findIndex(el => el.data.id === nodeId);
+            const totalLeftNodes = leftNodes.length;
+            const startY = centerY - ((totalLeftNodes - 1) * spacing) / 2;
+            return { x: leftX, y: startY + leftNodeIndex * spacing };
+          }
           
-          // Right column - Outputs (3 nodes, centered around middle)
-          if (nodeId === 'first-aid') return { x: rightX, y: centerY - spacing };
-          if (nodeId === 'health-pack') return { x: rightX, y: centerY };
-          if (nodeId === 'salvaged-parts') return { x: rightX, y: centerY + spacing };
+          // Right nodes (outputs)
+          if (nodeType === 'output') {
+            const rightNodeIndex = elements.filter(el => el.data?.type === 'output').findIndex(el => el.data.id === nodeId);
+            const totalRightNodes = rightNodes.length;
+            const startY = centerY - ((totalRightNodes - 1) * spacing) / 2;
+            return { x: rightX, y: startY + rightNodeIndex * spacing };
+          }
           
           return { x: 0, y: 0 };
         },
         fit: true,
-        padding: 100,
+        padding: 120,
       },
 
-      // Enable interactivity
-      userZoomingEnabled: true,
-      userPanningEnabled: true,
-      boxSelectionEnabled: false,
-    });
+        // Enable interactivity
+        userZoomingEnabled: true,
+        userPanningEnabled: true,
+        boxSelectionEnabled: false,
+      });
+
+    } catch (error) {
+      console.error('Error initializing Cytoscape:', error);
+      return;
+    }
 
     cyRef.current = cy;
 
-    // Handle node clicks
+    // Force a resize and fit after a short delay to ensure container is sized
+    setTimeout(() => {
+      if (cyRef.current) {
+        cyRef.current.resize();
+        cyRef.current.fit(undefined, 100);
+      }
+    }, 100);
+
+    // Handle node clicks - navigate to item if not center node
     cy.on('tap', 'node', (event) => {
       const node = event.target;
       const nodeData = node.data();
-      setSelectedNode({
-        id: nodeData.id,
-        label: nodeData.label,
-        type: nodeData.type,
-        rarity: nodeData.rarity,
-      });
+      
+      if (nodeData.type !== 'center' && nodeData.itemName) {
+        // Navigate to the clicked item
+        window.location.href = `/crafting-tree?item=${encodeURIComponent(nodeData.itemName)}`;
+      } else {
+        setSelectedNode({
+          id: nodeData.id,
+          label: nodeData.label,
+          type: nodeData.type,
+          rarity: nodeData.rarity,
+        });
+      }
     });
 
     // Handle background clicks
@@ -257,12 +423,72 @@ export default function CraftingTree() {
         cyRef.current.destroy();
       }
     };
-  }, [isReady]);
+  }, [isReady, itemName, itemsLookup]);
+
+  // Show loading or error state
+  if (!isReady) {
+    return (
+      <div className="min-h-screen bg-[#07020b] text-gray-100 flex items-center justify-center">
+        <div className="text-center">
+          <div className="text-2xl mb-2">Loading...</div>
+        </div>
+      </div>
+    );
+  }
+
+  if (!selectedItem) {
+    return (
+      <div className="min-h-screen bg-[#07020b] text-gray-100 flex flex-col">
+        <header className="bg-[#07020b] border-b border-purple-500/20 sticky top-0 z-40">
+          <div className="flex items-center justify-between pr-8">
+            <div className="flex-shrink-0 h-24 flex items-center">
+              <Image
+                src="/logo.webp"
+                alt="ARC Forge"
+                width={320}
+                height={96}
+                className="w-auto"
+                style={{ height: '100%' }}
+                priority
+              />
+            </div>
+            <nav className="flex gap-2">
+              <a
+                href="/"
+                className="px-6 py-3 bg-black/20 border border-purple-500/20 rounded-lg text-gray-400 font-medium hover:bg-purple-500/10 hover:text-gray-300 transition-all"
+              >
+                Item Database
+              </a>
+              <a
+                href="/crafting-tree?item=Heavy%20Gun%20Parts"
+                className="px-6 py-3 bg-purple-500/20 border border-purple-500/50 rounded-lg text-purple-300 font-medium hover:bg-purple-500/30 transition-all"
+              >
+                Crafting Tree
+              </a>
+            </nav>
+          </div>
+        </header>
+        <div className="flex-1 flex items-center justify-center">
+          <div className="text-center">
+            <div className="text-6xl mb-4">❌</div>
+            <h2 className="text-2xl font-bold text-gray-300 mb-2">Item not found</h2>
+            <p className="text-gray-500 mb-4">"{itemName}" could not be found in the database</p>
+            <a
+              href="/crafting-tree?item=Heavy%20Gun%20Parts"
+              className="px-6 py-3 bg-purple-500/20 border border-purple-500/30 rounded-lg text-purple-300 hover:bg-purple-500/30 transition-all inline-block"
+            >
+              Go to Heavy Gun Parts
+            </a>
+          </div>
+        </div>
+      </div>
+    );
+  }
 
   return (
-    <div className="min-h-screen bg-[#07020b] text-gray-100 flex flex-col">
+    <div className="h-screen bg-[#07020b] text-gray-100 flex flex-col overflow-hidden">
       {/* Header */}
-      <header className="bg-[#07020b] border-b border-purple-500/20 sticky top-0 z-40">
+      <header className="bg-[#07020b] border-b border-purple-500/20 z-40 flex-shrink-0">
         <div className="flex items-center justify-between pr-8">
           <div className="flex-shrink-0 h-24 flex items-center">
             <Image
@@ -270,7 +496,8 @@ export default function CraftingTree() {
               alt="ARC Forge"
               width={320}
               height={96}
-              className="h-full w-auto"
+              className="w-auto"
+              style={{ height: '100%' }}
               priority
             />
           </div>
@@ -283,35 +510,24 @@ export default function CraftingTree() {
               Item Database
             </a>
             <a
-              href="/crafting-tree"
+              href="/crafting-tree?item=Heavy%20Gun%20Parts"
               className="px-6 py-3 bg-purple-500/20 border border-purple-500/50 rounded-lg text-purple-300 font-medium hover:bg-purple-500/30 transition-all"
             >
               Crafting Tree
-            </a>
-            <a
-              href="#"
-              className="px-6 py-3 bg-black/20 border border-purple-500/20 rounded-lg text-gray-400 font-medium hover:bg-purple-500/10 hover:text-gray-300 transition-all"
-            >
-              Recycling Tree
             </a>
           </nav>
         </div>
       </header>
 
-      {/* Main Content */}
-      <div className="flex flex-1 overflow-hidden">
-        {/* Graph Canvas */}
-        <main className="flex-1 relative bg-[#07020b]">
-          <div 
-            ref={containerRef}
-            className="absolute inset-0"
-            style={{ 
-              width: '100%', 
-              height: '100%',
-              background: 'radial-gradient(circle at center, rgba(139, 92, 246, 0.05) 0%, rgba(7, 2, 11, 1) 100%)'
-            }}
-          />
-        </main>
+      {/* Graph Canvas */}
+      <div className="flex-1 relative bg-[#07020b] overflow-hidden">
+        <div 
+          ref={containerRef}
+          className="w-full h-full"
+          style={{ 
+            background: 'radial-gradient(circle at center, rgba(139, 92, 246, 0.05) 0%, rgba(7, 2, 11, 1) 100%)'
+          }}
+        />
       </div>
     </div>
   );
