@@ -203,18 +203,32 @@ export default function Home() {
           const rarityA = rarityOrder[a.infobox?.rarity || 'Common'] || 0;
           const rarityB = rarityOrder[b.infobox?.rarity || 'Common'] || 0;
           compareResult = rarityA - rarityB;
+          // Secondary sort by name when rarity is the same
+          if (compareResult === 0) {
+            compareResult = a.name.localeCompare(b.name);
+          }
           break;
         case 'sellprice':
           const priceA = Array.isArray(a.infobox?.sellprice) 
-            ? a.infobox.sellprice[0] 
-            : (a.infobox?.sellprice || 0);
+            ? Number(a.infobox.sellprice[0]) 
+            : Number(a.infobox?.sellprice || 0);
           const priceB = Array.isArray(b.infobox?.sellprice) 
-            ? b.infobox.sellprice[0] 
-            : (b.infobox?.sellprice || 0);
+            ? Number(b.infobox.sellprice[0]) 
+            : Number(b.infobox?.sellprice || 0);
           compareResult = priceA - priceB;
+          // Secondary sort by name when price is the same
+          if (compareResult === 0) {
+            compareResult = a.name.localeCompare(b.name);
+          }
           break;
         case 'weight':
-          compareResult = (a.infobox?.weight || 0) - (b.infobox?.weight || 0);
+          const weightA = Number(a.infobox?.weight || 0);
+          const weightB = Number(b.infobox?.weight || 0);
+          compareResult = weightA - weightB;
+          // Secondary sort by name when weight is the same
+          if (compareResult === 0) {
+            compareResult = a.name.localeCompare(b.name);
+          }
           break;
       }
 

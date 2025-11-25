@@ -11828,7 +11828,7 @@
       "location": "Exodus",
       "weight": 1.5,
       "stacksize": 3,
-      "sellprice": "6,000}}",
+      "sellprice": 6000,
       "input1": "Magnetron",
       "recycling1": "1 Magnetic Accelerator + 1 Steel Spring",
       "salvaging1": "1 Advanced Mechanical Components"
@@ -19518,9 +19518,20 @@
     "wiki_url": "https://arcraiders.wiki/wiki/Radio_Relay",
     "source_url": "https://arcraiders.wiki/w/index.php?title=Radio_Relay&action=edit",
     "infobox": {
-      "input1": "Radio Relay",
-      "recycling1": "2 Speaker Component + 2 Sensors",
-      "salvaging1": "2 Sensors"
+      "image": "Radio Relay.png",
+      "rarity": "Rare",
+      "type": "Recyclable",
+      "name": "Radio Relay",
+      "quote": "Can be recylced into crafting materials.",
+      "location": "Exodus",
+      "weight": 1.5,
+      "stacksize": 3,
+      "sellprice": 3000
+    },
+    "image_urls": {
+      "thumb": "https://arcraiders.wiki/w/images/thumb/b/b6/Radio_Relay.png/348px-Radio_Relay.png.webp",
+      "original": "https://arcraiders.wiki/w/images/b/b6/Radio_Relay.png",
+      "file_page": "https://arcraiders.wiki/wiki/File:Radio_Relay.png"
     },
     "edges": [
       {
@@ -20071,7 +20082,7 @@
       "location": "Exodus",
       "weight": 1.5,
       "stacksize": 3,
-      "sellprice": "3,000}}",
+      "sellprice": 3000,
       "input1": "Rotary Encoder",
       "recycling1": "2 Electrical Components + 2 Processor",
       "salvaging1": "2 Processor"
@@ -24477,6 +24488,7 @@
       "quote": "Used to craft a wide range of items. Can be recycled into scrap metal.",
       "type": "Topside Material",
       "location": null,
+      "weight": 0.25,
       "sellprice": 300,
       "stacksize": 15,
       "healing": null,
@@ -24917,7 +24929,7 @@
       "quote": "Unlocks a door in Assembly in Stella Montis",
       "type": "Key",
       "location": null,
-      "weight": "0.25KG",
+      "weight": 0.25,
       "sellprice": 250,
       "stacksize": 1,
       "healing": null,

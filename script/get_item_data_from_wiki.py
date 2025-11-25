@@ -661,7 +661,7 @@ if __name__ == "__main__":
     # UPDATE SPECIFIC WEAPONS - Modify this list to update specific items
     # =============================================================================
     ITEMS_TO_UPDATE = [
-        # "Compensator I",
+        "Radio Relay",
         # Add more item names here to update them
         # "Kettle",
         # "ARC Helmet",
