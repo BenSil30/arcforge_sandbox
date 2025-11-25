@@ -7,6 +7,7 @@ import '@fortawesome/fontawesome-svg-core/styles.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faSearch, faStar, faArrowUpAZ, faArrowDownAZ, faFilter, faExternalLinkAlt, faDiagramProject, faBars, faCog } from '@fortawesome/free-solid-svg-icons';
 import itemsData from '../data/items_database.json';
+import StructuredData from './components/StructuredData';
 
 // Prevent FontAwesome from adding its CSS automatically since we're importing it manually
 config.autoAddCss = false;
@@ -231,8 +232,34 @@ export default function Home() {
     return price.toString();
   };
 
+  const baseUrl = typeof window !== 'undefined' ? window.location.origin : 'http://localhost:3000';
+
   return (
-    <div className="min-h-screen bg-gradient-to-br from-[#07020b] via-[#0a0514] to-[#07020b] text-gray-100 flex flex-col relative overflow-hidden">
+    <>
+      {/* Structured Data for SEO */}
+      <StructuredData
+        type="WebSite"
+        data={{
+          name: 'ARC Forge',
+          description: 'Complete ARC Raiders item database with crafting trees, recipes, and item information',
+          url: baseUrl,
+        }}
+      />
+      <StructuredData
+        type="ItemList"
+        data={{
+          name: 'ARC Raiders Items',
+          description: 'Complete list of items in ARC Raiders',
+          numberOfItems: (itemsData as Item[]).length,
+          items: (itemsData as Item[]).slice(0, 100).map((item) => ({
+            name: item.name,
+            description: item.infobox?.quote || `${item.infobox?.rarity} ${item.infobox?.type}`,
+            image: item.image_urls?.thumb,
+            url: `${baseUrl}/?search=${encodeURIComponent(item.name)}`,
+          })),
+        }}
+      />
+      <div className="min-h-screen bg-gradient-to-br from-[#07020b] via-[#0a0514] to-[#07020b] text-gray-100 flex flex-col relative overflow-hidden">
       {/* Header - Logo and Navigation */}
       <header className="bg-black/20 backdrop-blur-xl border-b border-purple-500/30 sticky top-0 z-40 shadow-lg shadow-purple-500/5">
         <div className="flex items-center justify-between pr-8 relative">
@@ -872,5 +899,6 @@ export default function Home() {
         </>
       )}
     </div>
+    </>
   );
 }

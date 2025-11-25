@@ -6,6 +6,9 @@ import cytoscape from 'cytoscape';
 import { useSearchParams } from 'next/navigation';
 import itemsRelationData from '../../data/items_relation.json';
 
+// Metadata is handled in layout.tsx for client components
+// For better SEO, consider creating a server component wrapper
+
 interface Edge {
   name: string;
   direction: 'in' | 'out';
