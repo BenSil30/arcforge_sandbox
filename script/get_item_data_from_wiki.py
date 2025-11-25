@@ -26,6 +26,8 @@ def clean_text(text: str) -> str:
         return text
     # Decode HTML entities like &nbsp;, &amp;, etc.
     text = html.unescape(text)
+    # Remove MediaWiki bold (''') and italic ('') markup
+    text = re.sub(r"'{2,}", '', text)
     # Normalize whitespace
     text = ' '.join(text.split())
     return text.strip()
@@ -538,6 +540,63 @@ def parse_item_from_wiki(item_name: str, delay: float = 0.5, include_raw: bool =
         return None
 
 
+def update_specific_items(item_names: List[str], include_raw: bool = False) -> None:
+    """Update specific items in the database."""
+    data_dir = Path(__file__).parent.parent / "data"
+    database_file = data_dir / "items_database.json"
+    
+    # Load existing database
+    if database_file.exists():
+        with open(database_file, 'r', encoding='utf-8') as f:
+            items_database = json.load(f)
+        print(f"Loaded existing database with {len(items_database)} items")
+    else:
+        items_database = []
+        print("No existing database found, creating new one")
+    
+    # Create a dictionary for quick lookup
+    items_dict = {item['name']: item for item in items_database}
+    
+    print(f"\nUpdating {len(item_names)} specific items:\n")
+    
+    updated_items = []
+    failed_items = []
+    
+    for i, item_name in enumerate(item_names, 1):
+        print(f"[{i}/{len(item_names)}] ", end='')
+        
+        item_data = parse_item_from_wiki(item_name, include_raw=include_raw)
+        
+        if item_data:
+            # Update or add the item
+            items_dict[item_data['name']] = item_data
+            updated_items.append(item_data['name'])
+        else:
+            failed_items.append(item_name)
+    
+    # Convert back to list
+    items_database = list(items_dict.values())
+    
+    # Save to JSON
+    with open(database_file, 'w', encoding='utf-8') as f:
+        json.dump(items_database, f, indent=2, ensure_ascii=False)
+    
+    print(f"\n{'='*60}")
+    print(f"[OK] Successfully updated: {len(updated_items)} items")
+    if updated_items:
+        for item in updated_items:
+            print(f"  ✓ {item}")
+    
+    if failed_items:
+        print(f"\n[FAILED] Failed: {len(failed_items)} items")
+        for item in failed_items:
+            print(f"  ✗ {item}")
+    
+    print(f"\n[OK] Database saved to: {database_file}")
+    print(f"  Total items: {len(items_database)}")
+    print(f"  Total size: {database_file.stat().st_size / 1024:.1f} KB")
+
+
 def main():
     """Main function to process items from names file."""
     data_dir = Path(__file__).parent.parent / "data"
@@ -598,5 +657,28 @@ def main():
 
 
 if __name__ == "__main__":
-    main()
+    # =============================================================================
+    # UPDATE SPECIFIC WEAPONS - Modify this list to update specific items
+    # =============================================================================
+    ITEMS_TO_UPDATE = [
+        # "Compensator I",
+        # Add more item names here to update them
+        # "Kettle",
+        # "ARC Helmet",
+    ]
+    
+    # Choose mode:
+    # 1. Update specific items (recommended for incremental updates)
+    # 2. Process entire names.txt file (full rebuild)
+    
+    if ITEMS_TO_UPDATE:
+        print("=" * 60)
+        print("MODE: UPDATE SPECIFIC ITEMS")
+        print("=" * 60)
+        update_specific_items(ITEMS_TO_UPDATE, include_raw=False)
+    else:
+        print("=" * 60)
+        print("MODE: FULL DATABASE REBUILD")
+        print("=" * 60)
+        main()
 

@@ -6861,7 +6861,11 @@
           "materials": [
             {
               "quantity": 1,
-              "item": "Magnet 1 Durable Cloth"
+              "item": "Magnet"
+            },
+            {
+              "quantity": 1,
+              "item": "Durable Cloth"
             }
           ],
           "input": "Ripped Safety Vest"
@@ -12320,7 +12324,7 @@
     ],
     "upgrades": [
       {
-        "input_level": "'''Il Toro I'''",
+        "input_level": "Il Toro I",
         "recipe": [
           {
             "quantity": 3,
@@ -12340,7 +12344,7 @@
         ]
       },
       {
-        "input_level": "'''Il Toro II'''",
+        "input_level": "Il Toro II",
         "recipe": [
           {
             "quantity": 4,
@@ -12360,7 +12364,7 @@
         ]
       },
       {
-        "input_level": "'''Il Toro III'''",
+        "input_level": "Il Toro III",
         "recipe": [
           {
             "quantity": 4,
@@ -14904,7 +14908,8 @@
       "weight": 1.0,
       "wlimit": 35.0,
       "scomp": "Light",
-      "sellprice": 100
+      "sellprice": 100,
+      "type": "Augment"
     },
     "image_urls": {
       "thumb": "https://arcraiders.wiki/w/images/thumb/c/cf/Free_Loadout_Augment.png/348px-Free_Loadout_Augment.png.webp",
@@ -14932,7 +14937,8 @@
       "weight": 1.0,
       "wlimit": 50.0,
       "scomp": "Light",
-      "sellprice": 640
+      "sellprice": 640,
+      "type": "Augment"
     },
     "image_urls": {
       "thumb": "https://arcraiders.wiki/w/images/thumb/2/27/Looting_Mk._1.png/348px-Looting_Mk._1.png.webp",
@@ -15017,7 +15023,8 @@
       "weight": 2.0,
       "wlimit": 45.0,
       "scomp": "Light, Medium",
-      "sellprice": 640
+      "sellprice": 640,
+      "type": "Augment"
     },
     "image_urls": {
       "thumb": "https://arcraiders.wiki/w/images/thumb/1/14/Combat_Mk._1.png/348px-Combat_Mk._1.png.webp",
@@ -15093,6 +15100,7 @@
     "infobox": {
       "image": "Tactical Mk. 1.png",
       "name": "Tactical Mk. 1",
+      "type": "Augment",
       "quote": "Basic tactical augment. More Quick Use slots for more tactical choice, but limited survivability and slightly lower looting potential.",
       "rarity": "Uncommon",
       "bslots": 15,
@@ -15193,7 +15201,8 @@
       "wlimit": 60.0,
       "scomp": "Light",
       "weight": 2.0,
-      "sellprice": 2000
+      "sellprice": 2000,
+      "type": "Augment"
     },
     "image_urls": {
       "thumb": "https://arcraiders.wiki/w/images/thumb/7/7c/Looting_Mk._2.png/348px-Looting_Mk._2.png.webp",
@@ -15283,7 +15292,8 @@
       "wlimit": 55.0,
       "scomp": "Light, Medium, Heavy",
       "weight": 3.0,
-      "sellprice": 2000
+      "sellprice": 2000,
+      "type": "Augment"
     },
     "image_urls": {
       "thumb": "https://arcraiders.wiki/w/images/thumb/5/54/Combat_Mk._2.png/348px-Combat_Mk._2.png.webp",
@@ -15373,7 +15383,8 @@
       "wlimit": 45.0,
       "scomp": "Light, Medium",
       "weight": 2.0,
-      "sellprice": 2000
+      "sellprice": 2000,
+      "type": "Augment"
     },
     "image_urls": {
       "thumb": "https://arcraiders.wiki/w/images/thumb/6/6c/Tactical_Mk._2.png/348px-Tactical_Mk._2.png.webp",
@@ -15462,7 +15473,8 @@
       "wlimit": 70.0,
       "scomp": "Light",
       "weight": 3.0,
-      "sellprice": 5000
+      "sellprice": 5000,
+      "type": "Augment"
     },
     "image_urls": {
       "thumb": "https://arcraiders.wiki/w/images/thumb/6/68/Looting_Mk._3_%28Cautious%29.png/348px-Looting_Mk._3_%28Cautious%29.png.webp",
@@ -15541,7 +15553,8 @@
       "wlimit": 80.0,
       "scomp": "Light, Medium",
       "weight": 4.0,
-      "sellprice": 5000
+      "sellprice": 5000,
+      "type": "Augment"
     },
     "image_urls": {
       "thumb": "https://arcraiders.wiki/w/images/thumb/7/74/Looting_Mk._3_%28Survivor%29.png/348px-Looting_Mk._3_%28Survivor%29.png.webp",
@@ -15622,7 +15635,8 @@
       "wlimit": 65.0,
       "scomp": "Light, Medium, Heavy",
       "weight": 5.0,
-      "sellprice": 5000
+      "sellprice": 5000,
+      "type": "Augment"
     },
     "image_urls": {
       "thumb": "https://arcraiders.wiki/w/images/thumb/a/a4/Combat_Mk._3_%28Aggressive%29.png/348px-Combat_Mk._3_%28Aggressive%29.png.webp",
@@ -15702,7 +15716,8 @@
       "wlimit": 60.0,
       "scomp": "Light Shield",
       "weight": 3.0,
-      "sellprice": 3000
+      "sellprice": 3000,
+      "type": "Augment"
     },
     "image_urls": {
       "thumb": "https://arcraiders.wiki/w/images/thumb/7/73/Combat_Mk._3_%28Flanking%29.png/348px-Combat_Mk._3_%28Flanking%29.png.webp",
@@ -15779,7 +15794,8 @@
       "wlimit": 60.0,
       "scomp": "Light,Medium,Heavy",
       "weight": 5.0,
-      "sellprice": 5000
+      "sellprice": 5000,
+      "type": "Augment"
     },
     "image_urls": {
       "thumb": "https://arcraiders.wiki/w/images/thumb/a/a9/Tactical_Mk._3_%28Defensive%29.png/348px-Tactical_Mk._3_%28Defensive%29.png.webp",
@@ -15859,7 +15875,8 @@
       "wlimit": 55.0,
       "scomp": "Light, Medium",
       "weight": 4.0,
-      "sellprice": 5000
+      "sellprice": 5000,
+      "type": "Augment"
     },
     "image_urls": {
       "thumb": "https://arcraiders.wiki/w/images/thumb/1/12/Tactical_Mk._3_%28Healing%29.png/348px-Tactical_Mk._3_%28Healing%29.png.webp",
@@ -15942,7 +15959,8 @@
       "Movepen": null,
       "comp": null,
       "weight": 5.0,
-      "sellprice": 640
+      "sellprice": 640,
+      "type": "Shield"
     },
     "image_urls": {
       "thumb": "https://arcraiders.wiki/w/images/thumb/4/40/Light_Shield.png/348px-Light_Shield.png.webp",
@@ -15967,7 +15985,7 @@
           }
         ],
         "workshop": "Workbench",
-        "result_level": "'''Workbench I'''"
+        "result_level": "Workbench I"
       },
       {
         "recipe": [
@@ -15981,7 +15999,7 @@
           }
         ],
         "workshop": "Gear Bench",
-        "result_level": "'''Gear Bench I'''"
+        "result_level": "Gear Bench I"
       }
     ],
     "repairs": [
@@ -16032,7 +16050,8 @@
       "damageM": 42.5,
       "Movepen": 5.0,
       "weight": 7.0,
-      "sellprice": 2000
+      "sellprice": 2000,
+      "type": "Shield"
     },
     "image_urls": {
       "thumb": "https://arcraiders.wiki/w/images/thumb/4/41/Medium_Shield.png/348px-Medium_Shield.png.webp",
@@ -16103,7 +16122,8 @@
       "damageM": 52.5,
       "Movepen": 15.0,
       "weight": 9.0,
-      "sellprice": 5500
+      "sellprice": 5500,
+      "type": "Shield"
     },
     "image_urls": {
       "thumb": "https://arcraiders.wiki/w/images/thumb/f/f9/Heavy_Shield.png/348px-Heavy_Shield.png.webp",
@@ -16752,7 +16772,7 @@
           }
         ],
         "workshop": "Workbench",
-        "result_level": "'''Workbench I'''"
+        "result_level": "Workbench I"
       },
       {
         "recipe": [
@@ -19477,7 +19497,7 @@
           }
         ],
         "workshop": "Gunsmith 1",
-        "result_level": "'''1x Compensator I'''"
+        "result_level": "1x Compensator I"
       }
     ],
     "recycling": {
@@ -19560,7 +19580,7 @@
           }
         ],
         "workshop": "Gunsmith 1",
-        "result_level": "'''1x Muzzle Brake I'''"
+        "result_level": "1x Muzzle Brake I"
       }
     ],
     "recycling": {
@@ -19630,7 +19650,7 @@
           }
         ],
         "workshop": "Gunsmith 1",
-        "result_level": "'''1x Shotgun Choke I'''"
+        "result_level": "1x Shotgun Choke I"
       }
     ]
   },
@@ -19687,7 +19707,7 @@
           }
         ],
         "workshop": "Gunsmith 1",
-        "result_level": "'''1x Angled Grip I'''"
+        "result_level": "1x Angled Grip I"
       }
     ],
     "recycling": {
@@ -19766,7 +19786,7 @@
           }
         ],
         "workshop": "Gunsmith 1",
-        "result_level": "'''1x Vertical Grip I'''"
+        "result_level": "1x Vertical Grip I"
       }
     ]
   },
@@ -19822,7 +19842,7 @@
           }
         ],
         "workshop": "Gunsmith 1",
-        "result_level": "'''1x Extended Light Mag I'''"
+        "result_level": "1x Extended Light Mag I"
       }
     ]
   },
@@ -19944,7 +19964,7 @@
           }
         ],
         "workshop": "Gunsmith 1",
-        "result_level": "'''1x Extended Shotgun Mag I'''"
+        "result_level": "1x Extended Shotgun Mag I"
       }
     ],
     "recycling": {
@@ -20026,7 +20046,7 @@
           }
         ],
         "workshop": "Gunsmith 1",
-        "result_level": "'''1x Stable Stock I'''"
+        "result_level": "1x Stable Stock I"
       }
     ]
   },
@@ -20563,7 +20583,7 @@
           }
         ],
         "workshop": "Gunsmith",
-        "result_level": "1x Extended Medium Mag II'''",
+        "result_level": "1x Extended Medium Mag II",
         "blueprint_locked": true
       }
     ],

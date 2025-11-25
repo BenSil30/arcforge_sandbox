@@ -3037,10 +3037,10 @@
           },
           {
             "type": "result_level",
-            "name": "'''Workbench I'''"
+            "name": "Workbench I"
           }
         ],
-        "input_level": "'''Workbench I'''"
+        "input_level": "Workbench I"
       },
       {
         "name": "Light Shield",
@@ -3054,10 +3054,10 @@
           },
           {
             "type": "result_level",
-            "name": "'''Gear Bench I'''"
+            "name": "Gear Bench I"
           }
         ],
-        "input_level": "'''Gear Bench I'''"
+        "input_level": "Gear Bench I"
       },
       {
         "name": "Light Shield",
@@ -3514,10 +3514,10 @@
           },
           {
             "type": "result_level",
-            "name": "'''Workbench I'''"
+            "name": "Workbench I"
           }
         ],
-        "input_level": "'''Workbench I'''"
+        "input_level": "Workbench I"
       },
       {
         "name": "Shield Recharger",
@@ -7170,10 +7170,10 @@
           },
           {
             "type": "result_level",
-            "name": "'''1x Angled Grip I'''"
+            "name": "1x Angled Grip I"
           }
         ],
-        "input_level": "'''1x Angled Grip I'''"
+        "input_level": "1x Angled Grip I"
       },
       {
         "name": "Vertical Grip I",
@@ -7187,10 +7187,10 @@
           },
           {
             "type": "result_level",
-            "name": "'''1x Vertical Grip I'''"
+            "name": "1x Vertical Grip I"
           }
         ],
-        "input_level": "'''1x Vertical Grip I'''"
+        "input_level": "1x Vertical Grip I"
       },
       {
         "name": "Stable Stock I",
@@ -7204,10 +7204,10 @@
           },
           {
             "type": "result_level",
-            "name": "'''1x Stable Stock I'''"
+            "name": "1x Stable Stock I"
           }
         ],
-        "input_level": "'''1x Stable Stock I'''"
+        "input_level": "1x Stable Stock I"
       },
       {
         "name": "Angled Grip II",
@@ -7446,6 +7446,19 @@
         "direction": "out",
         "relation": "salvage_to",
         "quantity": 2
+      },
+      {
+        "name": "Ripped Safety Vest",
+        "direction": "in",
+        "relation": "recycle_from",
+        "quantity": 1,
+        "dependency": [
+          {
+            "type": "recycle_level",
+            "name": "Ripped Safety Vest"
+          }
+        ],
+        "output_level": "Ripped Safety Vest"
       },
       {
         "name": "Spring Cushion",
@@ -9613,11 +9626,11 @@
           },
           {
             "type": "upgrade_level",
-            "name": "'''Il Toro II''' -> Il Toro III"
+            "name": "Il Toro II -> Il Toro III"
           }
         ],
         "input_level": "Il Toro III",
-        "output_level": "'''Il Toro II'''"
+        "output_level": "Il Toro II"
       },
       {
         "name": "Il Toro",
@@ -9631,11 +9644,11 @@
           },
           {
             "type": "upgrade_level",
-            "name": "'''Il Toro III''' -> Il Toro IV"
+            "name": "Il Toro III -> Il Toro IV"
           }
         ],
         "input_level": "Il Toro IV",
-        "output_level": "'''Il Toro III'''"
+        "output_level": "Il Toro III"
       },
       {
         "name": "Vulcano",
@@ -11341,6 +11354,19 @@
         "output_level": "Microscope"
       },
       {
+        "name": "Ripped Safety Vest",
+        "direction": "in",
+        "relation": "recycle_from",
+        "quantity": 1,
+        "dependency": [
+          {
+            "type": "recycle_level",
+            "name": "Ripped Safety Vest"
+          }
+        ],
+        "output_level": "Ripped Safety Vest"
+      },
+      {
         "name": "Ruined Tactical Vest",
         "direction": "in",
         "relation": "recycle_from",
@@ -12682,11 +12708,11 @@
           },
           {
             "type": "upgrade_level",
-            "name": "'''Il Toro I''' -> Il Toro II"
+            "name": "Il Toro I -> Il Toro II"
           }
         ],
         "input_level": "Il Toro II",
-        "output_level": "'''Il Toro I'''"
+        "output_level": "Il Toro I"
       },
       {
         "name": "Il Toro",
@@ -12700,11 +12726,11 @@
           },
           {
             "type": "upgrade_level",
-            "name": "'''Il Toro II''' -> Il Toro III"
+            "name": "Il Toro II -> Il Toro III"
           }
         ],
         "input_level": "Il Toro III",
-        "output_level": "'''Il Toro II'''"
+        "output_level": "Il Toro II"
       },
       {
         "name": "Il Toro",
@@ -12718,11 +12744,11 @@
           },
           {
             "type": "upgrade_level",
-            "name": "'''Il Toro III''' -> Il Toro IV"
+            "name": "Il Toro III -> Il Toro IV"
           }
         ],
         "input_level": "Il Toro IV",
-        "output_level": "'''Il Toro III'''"
+        "output_level": "Il Toro III"
       },
       {
         "name": "Il Toro",
@@ -13496,10 +13522,10 @@
           },
           {
             "type": "result_level",
-            "name": "1x Extended Medium Mag II'''"
+            "name": "1x Extended Medium Mag II"
           }
         ],
-        "input_level": "1x Extended Medium Mag II'''"
+        "input_level": "1x Extended Medium Mag II"
       },
       {
         "name": "Extended Medium Mag II",
@@ -16306,10 +16332,10 @@
           },
           {
             "type": "result_level",
-            "name": "'''1x Compensator I'''"
+            "name": "1x Compensator I"
           }
         ],
-        "input_level": "'''1x Compensator I'''"
+        "input_level": "1x Compensator I"
       },
       {
         "name": "Compensator I",
@@ -16335,10 +16361,10 @@
           },
           {
             "type": "result_level",
-            "name": "'''1x Muzzle Brake I'''"
+            "name": "1x Muzzle Brake I"
           }
         ],
-        "input_level": "'''1x Muzzle Brake I'''"
+        "input_level": "1x Muzzle Brake I"
       },
       {
         "name": "Muzzle Brake I",
@@ -16364,10 +16390,10 @@
           },
           {
             "type": "result_level",
-            "name": "'''1x Shotgun Choke I'''"
+            "name": "1x Shotgun Choke I"
           }
         ],
-        "input_level": "'''1x Shotgun Choke I'''"
+        "input_level": "1x Shotgun Choke I"
       }
     ]
   },
@@ -17918,10 +17944,10 @@
           },
           {
             "type": "result_level",
-            "name": "'''Workbench I'''"
+            "name": "Workbench I"
           }
         ],
-        "input_level": "'''Workbench I'''"
+        "input_level": "Workbench I"
       },
       {
         "name": "Light Shield",
@@ -17935,10 +17961,10 @@
           },
           {
             "type": "result_level",
-            "name": "'''Gear Bench I'''"
+            "name": "Gear Bench I"
           }
         ],
-        "input_level": "'''Gear Bench I'''"
+        "input_level": "Gear Bench I"
       },
       {
         "name": "Light Shield",
@@ -18163,10 +18189,10 @@
           },
           {
             "type": "result_level",
-            "name": "'''1x Angled Grip I'''"
+            "name": "1x Angled Grip I"
           }
         ],
-        "input_level": "'''1x Angled Grip I'''"
+        "input_level": "1x Angled Grip I"
       },
       {
         "name": "Angled Grip I",
@@ -18192,10 +18218,10 @@
           },
           {
             "type": "result_level",
-            "name": "'''1x Vertical Grip I'''"
+            "name": "1x Vertical Grip I"
           }
         ],
-        "input_level": "'''1x Vertical Grip I'''"
+        "input_level": "1x Vertical Grip I"
       },
       {
         "name": "Extended Light Mag I",
@@ -18209,10 +18235,10 @@
           },
           {
             "type": "result_level",
-            "name": "'''1x Extended Light Mag I'''"
+            "name": "1x Extended Light Mag I"
           }
         ],
-        "input_level": "'''1x Extended Light Mag I'''"
+        "input_level": "1x Extended Light Mag I"
       },
       {
         "name": "Extended Medium Mag I",
@@ -18255,10 +18281,10 @@
           },
           {
             "type": "result_level",
-            "name": "'''1x Extended Shotgun Mag I'''"
+            "name": "1x Extended Shotgun Mag I"
           }
         ],
-        "input_level": "'''1x Extended Shotgun Mag I'''"
+        "input_level": "1x Extended Shotgun Mag I"
       },
       {
         "name": "Extended Shotgun Mag I",
@@ -19732,7 +19758,20 @@
     },
     "edges": [
       {
-        "name": "Magnet 1 Durable Cloth",
+        "name": "Magnet",
+        "direction": "out",
+        "relation": "recycle_to",
+        "quantity": 1,
+        "dependency": [
+          {
+            "type": "recycle_level",
+            "name": "Ripped Safety Vest"
+          }
+        ],
+        "input_level": "Ripped Safety Vest"
+      },
+      {
+        "name": "Durable Cloth",
         "direction": "out",
         "relation": "recycle_to",
         "quantity": 1,
@@ -20951,10 +20990,10 @@
           },
           {
             "type": "result_level",
-            "name": "'''Workbench I'''"
+            "name": "Workbench I"
           }
         ],
-        "input_level": "'''Workbench I'''"
+        "input_level": "Workbench I"
       },
       {
         "name": "Shield Recharger",
@@ -21074,10 +21113,10 @@
           },
           {
             "type": "result_level",
-            "name": "'''1x Stable Stock I'''"
+            "name": "1x Stable Stock I"
           }
         ],
-        "input_level": "'''1x Stable Stock I'''"
+        "input_level": "1x Stable Stock I"
       }
     ]
   },
@@ -23076,11 +23115,11 @@
           },
           {
             "type": "upgrade_level",
-            "name": "'''Il Toro I''' -> Il Toro II"
+            "name": "Il Toro I -> Il Toro II"
           }
         ],
         "input_level": "Il Toro II",
-        "output_level": "'''Il Toro I'''"
+        "output_level": "Il Toro I"
       },
       {
         "name": "Il Toro",
@@ -24643,10 +24682,10 @@
           },
           {
             "type": "result_level",
-            "name": "'''1x Extended Light Mag I'''"
+            "name": "1x Extended Light Mag I"
           }
         ],
-        "input_level": "'''1x Extended Light Mag I'''"
+        "input_level": "1x Extended Light Mag I"
       },
       {
         "name": "Extended Medium Mag I",
@@ -24677,10 +24716,10 @@
           },
           {
             "type": "result_level",
-            "name": "'''1x Extended Shotgun Mag I'''"
+            "name": "1x Extended Shotgun Mag I"
           }
         ],
-        "input_level": "'''1x Extended Shotgun Mag I'''"
+        "input_level": "1x Extended Shotgun Mag I"
       },
       {
         "name": "Extended Light Mag II",
@@ -24725,10 +24764,10 @@
           },
           {
             "type": "result_level",
-            "name": "1x Extended Medium Mag II'''"
+            "name": "1x Extended Medium Mag II"
           }
         ],
-        "input_level": "1x Extended Medium Mag II'''"
+        "input_level": "1x Extended Medium Mag II"
       },
       {
         "name": "Extended Medium Mag II",
@@ -26574,10 +26613,10 @@
           },
           {
             "type": "result_level",
-            "name": "'''1x Compensator I'''"
+            "name": "1x Compensator I"
           }
         ],
-        "input_level": "'''1x Compensator I'''"
+        "input_level": "1x Compensator I"
       },
       {
         "name": "Muzzle Brake I",
@@ -26591,10 +26630,10 @@
           },
           {
             "type": "result_level",
-            "name": "'''1x Muzzle Brake I'''"
+            "name": "1x Muzzle Brake I"
           }
         ],
-        "input_level": "'''1x Muzzle Brake I'''"
+        "input_level": "1x Muzzle Brake I"
       },
       {
         "name": "Shotgun Choke I",
@@ -26608,10 +26647,10 @@
           },
           {
             "type": "result_level",
-            "name": "'''1x Shotgun Choke I'''"
+            "name": "1x Shotgun Choke I"
           }
         ],
-        "input_level": "'''1x Shotgun Choke I'''"
+        "input_level": "1x Shotgun Choke I"
       },
       {
         "name": "Compensator II",
@@ -31989,10 +32028,10 @@
           },
           {
             "type": "upgrade_level",
-            "name": "'''Il Toro I''' -> Il Toro II"
+            "name": "Il Toro I -> Il Toro II"
           }
         ],
-        "input_level": "'''Il Toro I'''",
+        "input_level": "Il Toro I",
         "output_level": "Il Toro II"
       },
       {
@@ -32007,10 +32046,10 @@
           },
           {
             "type": "upgrade_level",
-            "name": "'''Il Toro I''' -> Il Toro II"
+            "name": "Il Toro I -> Il Toro II"
           }
         ],
-        "input_level": "'''Il Toro I'''",
+        "input_level": "Il Toro I",
         "output_level": "Il Toro II"
       },
       {
@@ -32024,14 +32063,14 @@
           },
           {
             "type": "upgrade_level",
-            "name": "'''Il Toro I''' -> Il Toro II"
+            "name": "Il Toro I -> Il Toro II"
           },
           {
             "type": "perks",
             "name": "17.5% Increased Fire Rate, +1 Magazine Size, +10 Durability"
           }
         ],
-        "input_level": "'''Il Toro I'''",
+        "input_level": "Il Toro I",
         "output_level": "Il Toro II"
       },
       {
@@ -32046,10 +32085,10 @@
           },
           {
             "type": "upgrade_level",
-            "name": "'''Il Toro II''' -> Il Toro III"
+            "name": "Il Toro II -> Il Toro III"
           }
         ],
-        "input_level": "'''Il Toro II'''",
+        "input_level": "Il Toro II",
         "output_level": "Il Toro III"
       },
       {
@@ -32064,10 +32103,10 @@
           },
           {
             "type": "upgrade_level",
-            "name": "'''Il Toro II''' -> Il Toro III"
+            "name": "Il Toro II -> Il Toro III"
           }
         ],
-        "input_level": "'''Il Toro II'''",
+        "input_level": "Il Toro II",
         "output_level": "Il Toro III"
       },
       {
@@ -32081,14 +32120,14 @@
           },
           {
             "type": "upgrade_level",
-            "name": "'''Il Toro II''' -> Il Toro III"
+            "name": "Il Toro II -> Il Toro III"
           },
           {
             "type": "perks",
             "name": "35% Increased Fire Rate, +2 Magazine Size, +20 Durability"
           }
         ],
-        "input_level": "'''Il Toro II'''",
+        "input_level": "Il Toro II",
         "output_level": "Il Toro III"
       },
       {
@@ -32103,10 +32142,10 @@
           },
           {
             "type": "upgrade_level",
-            "name": "'''Il Toro III''' -> Il Toro IV"
+            "name": "Il Toro III -> Il Toro IV"
           }
         ],
-        "input_level": "'''Il Toro III'''",
+        "input_level": "Il Toro III",
         "output_level": "Il Toro IV"
       },
       {
@@ -32121,10 +32160,10 @@
           },
           {
             "type": "upgrade_level",
-            "name": "'''Il Toro III''' -> Il Toro IV"
+            "name": "Il Toro III -> Il Toro IV"
           }
         ],
-        "input_level": "'''Il Toro III'''",
+        "input_level": "Il Toro III",
         "output_level": "Il Toro IV"
       },
       {
@@ -32138,14 +32177,14 @@
           },
           {
             "type": "upgrade_level",
-            "name": "'''Il Toro III''' -> Il Toro IV"
+            "name": "Il Toro III -> Il Toro IV"
           },
           {
             "type": "perks",
             "name": "50% Increased Fire Rate, +3 Magazine Size, +30 Durability"
           }
         ],
-        "input_level": "'''Il Toro III'''",
+        "input_level": "Il Toro III",
         "output_level": "Il Toro IV"
       },
       {
@@ -32451,7 +32490,7 @@
           },
           {
             "type": "upgrade_level",
-            "name": "'''Il Toro I''' -> Il Toro II"
+            "name": "Il Toro I -> Il Toro II"
           },
           {
             "type": "perks",
@@ -32459,7 +32498,7 @@
           }
         ],
         "input_level": "Il Toro II",
-        "output_level": "'''Il Toro I'''"
+        "output_level": "Il Toro I"
       },
       {
         "name": "Il Toro",
@@ -32472,7 +32511,7 @@
           },
           {
             "type": "upgrade_level",
-            "name": "'''Il Toro II''' -> Il Toro III"
+            "name": "Il Toro II -> Il Toro III"
           },
           {
             "type": "perks",
@@ -32480,7 +32519,7 @@
           }
         ],
         "input_level": "Il Toro III",
-        "output_level": "'''Il Toro II'''"
+        "output_level": "Il Toro II"
       },
       {
         "name": "Il Toro",
@@ -32493,7 +32532,7 @@
           },
           {
             "type": "upgrade_level",
-            "name": "'''Il Toro III''' -> Il Toro IV"
+            "name": "Il Toro III -> Il Toro IV"
           },
           {
             "type": "perks",
@@ -32501,7 +32540,7 @@
           }
         ],
         "input_level": "Il Toro IV",
-        "output_level": "'''Il Toro III'''"
+        "output_level": "Il Toro III"
       }
     ]
   },
@@ -37225,7 +37264,8 @@
       "weight": 1.0,
       "wlimit": 35.0,
       "scomp": "Light",
-      "sellprice": 100
+      "sellprice": 100,
+      "type": "Augment"
     },
     "image_urls": {
       "thumb": "https://arcraiders.wiki/w/images/thumb/c/cf/Free_Loadout_Augment.png/348px-Free_Loadout_Augment.png.webp",
@@ -37250,7 +37290,8 @@
       "weight": 1.0,
       "wlimit": 50.0,
       "scomp": "Light",
-      "sellprice": 640
+      "sellprice": 640,
+      "type": "Augment"
     },
     "image_urls": {
       "thumb": "https://arcraiders.wiki/w/images/thumb/2/27/Looting_Mk._1.png/348px-Looting_Mk._1.png.webp",
@@ -37344,7 +37385,8 @@
       "weight": 2.0,
       "wlimit": 45.0,
       "scomp": "Light, Medium",
-      "sellprice": 640
+      "sellprice": 640,
+      "type": "Augment"
     },
     "image_urls": {
       "thumb": "https://arcraiders.wiki/w/images/thumb/1/14/Combat_Mk._1.png/348px-Combat_Mk._1.png.webp",
@@ -37429,6 +37471,7 @@
     "infobox": {
       "image": "Tactical Mk. 1.png",
       "name": "Tactical Mk. 1",
+      "type": "Augment",
       "quote": "Basic tactical augment. More Quick Use slots for more tactical choice, but limited survivability and slightly lower looting potential.",
       "rarity": "Uncommon",
       "bslots": 15,
@@ -37545,7 +37588,8 @@
       "wlimit": 60.0,
       "scomp": "Light",
       "weight": 2.0,
-      "sellprice": 2000
+      "sellprice": 2000,
+      "type": "Augment"
     },
     "image_urls": {
       "thumb": "https://arcraiders.wiki/w/images/thumb/7/7c/Looting_Mk._2.png/348px-Looting_Mk._2.png.webp",
@@ -37642,7 +37686,8 @@
       "wlimit": 55.0,
       "scomp": "Light, Medium, Heavy",
       "weight": 3.0,
-      "sellprice": 2000
+      "sellprice": 2000,
+      "type": "Augment"
     },
     "image_urls": {
       "thumb": "https://arcraiders.wiki/w/images/thumb/5/54/Combat_Mk._2.png/348px-Combat_Mk._2.png.webp",
@@ -37739,7 +37784,8 @@
       "wlimit": 45.0,
       "scomp": "Light, Medium",
       "weight": 2.0,
-      "sellprice": 2000
+      "sellprice": 2000,
+      "type": "Augment"
     },
     "image_urls": {
       "thumb": "https://arcraiders.wiki/w/images/thumb/6/6c/Tactical_Mk._2.png/348px-Tactical_Mk._2.png.webp",
@@ -37835,7 +37881,8 @@
       "wlimit": 70.0,
       "scomp": "Light",
       "weight": 3.0,
-      "sellprice": 5000
+      "sellprice": 5000,
+      "type": "Augment"
     },
     "image_urls": {
       "thumb": "https://arcraiders.wiki/w/images/thumb/6/68/Looting_Mk._3_%28Cautious%29.png/348px-Looting_Mk._3_%28Cautious%29.png.webp",
@@ -37925,7 +37972,8 @@
       "wlimit": 80.0,
       "scomp": "Light, Medium",
       "weight": 4.0,
-      "sellprice": 5000
+      "sellprice": 5000,
+      "type": "Augment"
     },
     "image_urls": {
       "thumb": "https://arcraiders.wiki/w/images/thumb/7/74/Looting_Mk._3_%28Survivor%29.png/348px-Looting_Mk._3_%28Survivor%29.png.webp",
@@ -38024,7 +38072,8 @@
       "wlimit": 65.0,
       "scomp": "Light, Medium, Heavy",
       "weight": 5.0,
-      "sellprice": 5000
+      "sellprice": 5000,
+      "type": "Augment"
     },
     "image_urls": {
       "thumb": "https://arcraiders.wiki/w/images/thumb/a/a4/Combat_Mk._3_%28Aggressive%29.png/348px-Combat_Mk._3_%28Aggressive%29.png.webp",
@@ -38115,7 +38164,8 @@
       "wlimit": 60.0,
       "scomp": "Light Shield",
       "weight": 3.0,
-      "sellprice": 3000
+      "sellprice": 3000,
+      "type": "Augment"
     },
     "image_urls": {
       "thumb": "https://arcraiders.wiki/w/images/thumb/7/73/Combat_Mk._3_%28Flanking%29.png/348px-Combat_Mk._3_%28Flanking%29.png.webp",
@@ -38210,7 +38260,8 @@
       "wlimit": 60.0,
       "scomp": "Light,Medium,Heavy",
       "weight": 5.0,
-      "sellprice": 5000
+      "sellprice": 5000,
+      "type": "Augment"
     },
     "image_urls": {
       "thumb": "https://arcraiders.wiki/w/images/thumb/a/a9/Tactical_Mk._3_%28Defensive%29.png/348px-Tactical_Mk._3_%28Defensive%29.png.webp",
@@ -38301,7 +38352,8 @@
       "wlimit": 55.0,
       "scomp": "Light, Medium",
       "weight": 4.0,
-      "sellprice": 5000
+      "sellprice": 5000,
+      "type": "Augment"
     },
     "image_urls": {
       "thumb": "https://arcraiders.wiki/w/images/thumb/1/12/Tactical_Mk._3_%28Healing%29.png/348px-Tactical_Mk._3_%28Healing%29.png.webp",
@@ -38399,7 +38451,8 @@
       "Movepen": null,
       "comp": null,
       "weight": 5.0,
-      "sellprice": 640
+      "sellprice": 640,
+      "type": "Shield"
     },
     "image_urls": {
       "thumb": "https://arcraiders.wiki/w/images/thumb/4/40/Light_Shield.png/348px-Light_Shield.png.webp",
@@ -38419,10 +38472,10 @@
           },
           {
             "type": "result_level",
-            "name": "'''Workbench I'''"
+            "name": "Workbench I"
           }
         ],
-        "output_level": "'''Workbench I'''"
+        "output_level": "Workbench I"
       },
       {
         "name": "Plastic Parts",
@@ -38436,10 +38489,10 @@
           },
           {
             "type": "result_level",
-            "name": "'''Workbench I'''"
+            "name": "Workbench I"
           }
         ],
-        "output_level": "'''Workbench I'''"
+        "output_level": "Workbench I"
       },
       {
         "name": "ARC Alloy",
@@ -38453,10 +38506,10 @@
           },
           {
             "type": "result_level",
-            "name": "'''Gear Bench I'''"
+            "name": "Gear Bench I"
           }
         ],
-        "output_level": "'''Gear Bench I'''"
+        "output_level": "Gear Bench I"
       },
       {
         "name": "Plastic Parts",
@@ -38470,10 +38523,10 @@
           },
           {
             "type": "result_level",
-            "name": "'''Gear Bench I'''"
+            "name": "Gear Bench I"
           }
         ],
-        "output_level": "'''Gear Bench I'''"
+        "output_level": "Gear Bench I"
       },
       {
         "name": "Plastic Parts",
@@ -38519,7 +38572,8 @@
       "damageM": 42.5,
       "Movepen": 5.0,
       "weight": 7.0,
-      "sellprice": 2000
+      "sellprice": 2000,
+      "type": "Shield"
     },
     "image_urls": {
       "thumb": "https://arcraiders.wiki/w/images/thumb/4/41/Medium_Shield.png/348px-Medium_Shield.png.webp",
@@ -38606,7 +38660,8 @@
       "damageM": 52.5,
       "Movepen": 15.0,
       "weight": 9.0,
-      "sellprice": 5500
+      "sellprice": 5500,
+      "type": "Shield"
     },
     "image_urls": {
       "thumb": "https://arcraiders.wiki/w/images/thumb/f/f9/Heavy_Shield.png/348px-Heavy_Shield.png.webp",
@@ -39293,10 +39348,10 @@
           },
           {
             "type": "result_level",
-            "name": "'''Workbench I'''"
+            "name": "Workbench I"
           }
         ],
-        "output_level": "'''Workbench I'''"
+        "output_level": "Workbench I"
       },
       {
         "name": "ARC Powercell",
@@ -39310,10 +39365,10 @@
           },
           {
             "type": "result_level",
-            "name": "'''Workbench I'''"
+            "name": "Workbench I"
           }
         ],
-        "output_level": "'''Workbench I'''"
+        "output_level": "Workbench I"
       },
       {
         "name": "Rubber Parts",
@@ -42159,10 +42214,10 @@
           },
           {
             "type": "result_level",
-            "name": "'''1x Compensator I'''"
+            "name": "1x Compensator I"
           }
         ],
-        "output_level": "'''1x Compensator I'''"
+        "output_level": "1x Compensator I"
       },
       {
         "name": "Wires",
@@ -42176,10 +42231,10 @@
           },
           {
             "type": "result_level",
-            "name": "'''1x Compensator I'''"
+            "name": "1x Compensator I"
           }
         ],
-        "output_level": "'''1x Compensator I'''"
+        "output_level": "1x Compensator I"
       },
       {
         "name": "Metal Parts",
@@ -42247,10 +42302,10 @@
           },
           {
             "type": "result_level",
-            "name": "'''1x Muzzle Brake I'''"
+            "name": "1x Muzzle Brake I"
           }
         ],
-        "output_level": "'''1x Muzzle Brake I'''"
+        "output_level": "1x Muzzle Brake I"
       },
       {
         "name": "Wires",
@@ -42264,10 +42319,10 @@
           },
           {
             "type": "result_level",
-            "name": "'''1x Muzzle Brake I'''"
+            "name": "1x Muzzle Brake I"
           }
         ],
-        "output_level": "'''1x Muzzle Brake I'''"
+        "output_level": "1x Muzzle Brake I"
       },
       {
         "name": "Metal Parts",
@@ -42322,10 +42377,10 @@
           },
           {
             "type": "result_level",
-            "name": "'''1x Shotgun Choke I'''"
+            "name": "1x Shotgun Choke I"
           }
         ],
-        "output_level": "'''1x Shotgun Choke I'''"
+        "output_level": "1x Shotgun Choke I"
       },
       {
         "name": "Wires",
@@ -42339,10 +42394,10 @@
           },
           {
             "type": "result_level",
-            "name": "'''1x Shotgun Choke I'''"
+            "name": "1x Shotgun Choke I"
           }
         ],
-        "output_level": "'''1x Shotgun Choke I'''"
+        "output_level": "1x Shotgun Choke I"
       }
     ]
   },
@@ -42394,10 +42449,10 @@
           },
           {
             "type": "result_level",
-            "name": "'''1x Angled Grip I'''"
+            "name": "1x Angled Grip I"
           }
         ],
-        "output_level": "'''1x Angled Grip I'''"
+        "output_level": "1x Angled Grip I"
       },
       {
         "name": "Duct Tape",
@@ -42411,10 +42466,10 @@
           },
           {
             "type": "result_level",
-            "name": "'''1x Angled Grip I'''"
+            "name": "1x Angled Grip I"
           }
         ],
-        "output_level": "'''1x Angled Grip I'''"
+        "output_level": "1x Angled Grip I"
       },
       {
         "name": "Plastic Parts",
@@ -42478,10 +42533,10 @@
           },
           {
             "type": "result_level",
-            "name": "'''1x Vertical Grip I'''"
+            "name": "1x Vertical Grip I"
           }
         ],
-        "output_level": "'''1x Vertical Grip I'''"
+        "output_level": "1x Vertical Grip I"
       },
       {
         "name": "Duct Tape",
@@ -42495,10 +42550,10 @@
           },
           {
             "type": "result_level",
-            "name": "'''1x Vertical Grip I'''"
+            "name": "1x Vertical Grip I"
           }
         ],
-        "output_level": "'''1x Vertical Grip I'''"
+        "output_level": "1x Vertical Grip I"
       }
     ]
   },
@@ -42549,10 +42604,10 @@
           },
           {
             "type": "result_level",
-            "name": "'''1x Extended Light Mag I'''"
+            "name": "1x Extended Light Mag I"
           }
         ],
-        "output_level": "'''1x Extended Light Mag I'''"
+        "output_level": "1x Extended Light Mag I"
       },
       {
         "name": "Steel Spring",
@@ -42566,10 +42621,10 @@
           },
           {
             "type": "result_level",
-            "name": "'''1x Extended Light Mag I'''"
+            "name": "1x Extended Light Mag I"
           }
         ],
-        "output_level": "'''1x Extended Light Mag I'''"
+        "output_level": "1x Extended Light Mag I"
       }
     ]
   },
@@ -42691,10 +42746,10 @@
           },
           {
             "type": "result_level",
-            "name": "'''1x Extended Shotgun Mag I'''"
+            "name": "1x Extended Shotgun Mag I"
           }
         ],
-        "output_level": "'''1x Extended Shotgun Mag I'''"
+        "output_level": "1x Extended Shotgun Mag I"
       },
       {
         "name": "Steel Spring",
@@ -42708,10 +42763,10 @@
           },
           {
             "type": "result_level",
-            "name": "'''1x Extended Shotgun Mag I'''"
+            "name": "1x Extended Shotgun Mag I"
           }
         ],
-        "output_level": "'''1x Extended Shotgun Mag I'''"
+        "output_level": "1x Extended Shotgun Mag I"
       },
       {
         "name": "Plastic Parts",
@@ -42778,10 +42833,10 @@
           },
           {
             "type": "result_level",
-            "name": "'''1x Stable Stock I'''"
+            "name": "1x Stable Stock I"
           }
         ],
-        "output_level": "'''1x Stable Stock I'''"
+        "output_level": "1x Stable Stock I"
       },
       {
         "name": "Duct Tape",
@@ -42795,10 +42850,10 @@
           },
           {
             "type": "result_level",
-            "name": "'''1x Stable Stock I'''"
+            "name": "1x Stable Stock I"
           }
         ],
-        "output_level": "'''1x Stable Stock I'''"
+        "output_level": "1x Stable Stock I"
       }
     ]
   },
@@ -43396,10 +43451,10 @@
           },
           {
             "type": "result_level",
-            "name": "1x Extended Medium Mag II'''"
+            "name": "1x Extended Medium Mag II"
           }
         ],
-        "output_level": "1x Extended Medium Mag II'''"
+        "output_level": "1x Extended Medium Mag II"
       },
       {
         "name": "Steel Spring",
@@ -43417,10 +43472,10 @@
           },
           {
             "type": "result_level",
-            "name": "1x Extended Medium Mag II'''"
+            "name": "1x Extended Medium Mag II"
           }
         ],
-        "output_level": "1x Extended Medium Mag II'''"
+        "output_level": "1x Extended Medium Mag II"
       },
       {
         "name": "Mechanical Components",
@@ -45010,24 +45065,6 @@
         "direction": "out",
         "relation": "salvage_to",
         "quantity": 2
-      }
-    ]
-  },
-  {
-    "name": "Magnet 1 Durable Cloth",
-    "edges": [
-      {
-        "name": "Ripped Safety Vest",
-        "direction": "in",
-        "relation": "recycle_from",
-        "quantity": 1,
-        "dependency": [
-          {
-            "type": "recycle_level",
-            "name": "Ripped Safety Vest"
-          }
-        ],
-        "output_level": "Ripped Safety Vest"
       }
     ]
   }
