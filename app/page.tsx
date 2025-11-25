@@ -255,7 +255,7 @@ export default function Home() {
         type="WebSite"
         data={{
           name: 'ARC Forge',
-          description: 'Complete ARC Raiders item database with crafting trees, recipes, and item information',
+          description: 'Complete ARC Raiders item database with crafting graphs, recipes, and item information',
           url: baseUrl,
         }}
       />
@@ -299,10 +299,10 @@ export default function Home() {
                 <div className="absolute inset-0 bg-gradient-to-br from-purple-400/0 to-purple-600/20 rounded-xl opacity-0 group-hover:opacity-100 transition-opacity" />
               </a>
               <a
-                href="/crafting-tree?item=Power%20Rod"
+                href="/crafting-graph?item=Power%20Rod"
                 className="group relative px-6 py-3 bg-black/40 backdrop-blur-sm border border-purple-500/30 rounded-xl text-gray-300 font-semibold hover:bg-purple-500/20 hover:text-purple-200 hover:border-purple-400/50 transition-all duration-300 hover:scale-105"
               >
-                <span className="relative z-10">Crafting Tree</span>
+                <span className="relative z-10">Crafting Graph</span>
               </a>
             </nav>
         </div>
@@ -764,13 +764,13 @@ export default function Home() {
                   </span>
                 </a>
                 <a
-                  href={`/crafting-tree?item=${encodeURIComponent(selectedItem.name)}`}
+                  href={`/crafting-graph?item=${encodeURIComponent(selectedItem.name)}`}
                   className="group relative block py-4 bg-gradient-to-br from-blue-500/30 to-cyan-500/30 hover:from-blue-500/40 hover:to-cyan-500/40 backdrop-blur-sm border border-blue-400/50 hover:border-blue-400/70 rounded-xl text-center text-blue-200 hover:text-blue-100 font-semibold transition-all duration-300 shadow-lg shadow-blue-500/20 hover:shadow-blue-500/40 hover:scale-105 overflow-hidden"
                 >
                   <div className="absolute inset-0 bg-gradient-to-r from-blue-400/0 via-blue-400/20 to-blue-400/0 translate-x-[-100%] group-hover:translate-x-[100%] transition-transform duration-700" />
                   <span className="relative z-10 flex items-center justify-center gap-3">
                     <FontAwesomeIcon icon={faDiagramProject} />
-                    View Crafting Tree
+                    View in Crafting Graph
                   </span>
                 </a>
               </div>

@@ -66,7 +66,7 @@ function CraftingTreeContent() {
   const [isReady, setIsReady] = useState(false);
   const searchParams = useSearchParams();
   
-  const itemName = searchParams.get('item') || 'Heavy Gun Parts';
+  const itemName = searchParams.get('item') || 'Power Rod';
 
   // Find the selected item and build item lookup
   const { selectedItem, itemsLookup } = useMemo(() => {
@@ -508,7 +508,7 @@ function CraftingTreeContent() {
       
       if (nodeData.type !== 'center' && nodeData.itemName) {
         // Navigate to the clicked item
-        window.location.href = `/crafting-tree?item=${encodeURIComponent(nodeData.itemName)}`;
+        window.location.href = `/crafting-graph?item=${encodeURIComponent(nodeData.itemName)}`;
       } else {
         setSelectedNode({
           id: nodeData.id,
@@ -568,10 +568,10 @@ function CraftingTreeContent() {
                 Item Database
               </a>
               <a
-                href="/crafting-tree?item=Heavy%20Gun%20Parts"
+                href="/crafting-graph?item=Power%20Rod"
                 className="px-6 py-3 bg-purple-500/20 border border-purple-500/50 rounded-lg text-purple-300 font-medium hover:bg-purple-500/30 transition-all"
               >
-                Crafting Tree
+                Crafting Graph
               </a>
             </nav>
           </div>
@@ -582,10 +582,10 @@ function CraftingTreeContent() {
             <h2 className="text-2xl font-bold text-gray-300 mb-2">Item not found</h2>
             <p className="text-gray-500 mb-4">"{itemName}" could not be found in the database</p>
             <a
-              href="/crafting-tree?item=Heavy%20Gun%20Parts"
+              href="/crafting-graph?item=Power%20Rod"
               className="px-6 py-3 bg-purple-500/20 border border-purple-500/30 rounded-lg text-purple-300 hover:bg-purple-500/30 transition-all inline-block"
             >
-              Go to Heavy Gun Parts
+              Go to Power Rod
             </a>
           </div>
         </div>
@@ -618,10 +618,10 @@ function CraftingTreeContent() {
               Item Database
             </a>
             <a
-              href="/crafting-tree?item=Heavy%20Gun%20Parts"
+              href="/crafting-graph?item=Power%20Rod"
               className="px-6 py-3 bg-purple-500/20 border border-purple-500/50 rounded-lg text-purple-300 font-medium hover:bg-purple-500/30 transition-all"
             >
-              Crafting Tree
+              Crafting Graph
             </a>
           </nav>
         </div>
