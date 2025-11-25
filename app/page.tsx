@@ -2,9 +2,14 @@
 
 import { useState, useMemo } from 'react';
 import Image from 'next/image';
+import { config } from '@fortawesome/fontawesome-svg-core';
+import '@fortawesome/fontawesome-svg-core/styles.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faSearch, faStar, faArrowUpAZ, faArrowDownAZ, faFilter, faExternalLinkAlt, faDiagramProject, faBars, faCog } from '@fortawesome/free-solid-svg-icons';
 import itemsData from '../data/items_database.json';
+
+// Prevent FontAwesome from adding its CSS automatically since we're importing it manually
+config.autoAddCss = false;
 
 interface Item {
   name: string;
@@ -232,7 +237,7 @@ export default function Home() {
       <header className="bg-black/20 backdrop-blur-xl border-b border-purple-500/30 sticky top-0 z-40 shadow-lg shadow-purple-500/5">
         <div className="flex items-center justify-between pr-8 relative">
           {/* Logo */}
-          <a href="/" className="flex-shrink-0 h-24 flex items-center cursor-pointer hover:scale-105 transition-transform duration-300">
+          <a href="/" className="flex-shrink-0 h-24 flex items-center cursor-pointer">
         <Image
               src="/logo.webp"
               alt="ARC Forge"
