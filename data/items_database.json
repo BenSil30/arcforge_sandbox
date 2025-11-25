@@ -14500,7 +14500,7 @@
     ],
     "repairs": [
       {
-        "item_name": "{{PAGENAME}}",
+        "item_name": "Jupiter",
         "recipe": [
           {
             "quantity": 2,
@@ -14863,7 +14863,7 @@
     ],
     "repairs": [
       {
-        "item_name": "{{PAGENAME}}",
+        "item_name": "Equalizer",
         "recipe": [
           {
             "quantity": 2,
