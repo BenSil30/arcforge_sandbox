@@ -5,7 +5,7 @@ import Image from 'next/image';
 import { config } from '@fortawesome/fontawesome-svg-core';
 import '@fortawesome/fontawesome-svg-core/styles.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faSearch, faStar, faArrowUpAZ, faArrowDownAZ, faFilter, faExternalLinkAlt, faDiagramProject, faBars, faCog } from '@fortawesome/free-solid-svg-icons';
+import { faSearch, faStar, faArrowUpAZ, faArrowDownAZ, faFilter, faExternalLinkAlt, faDiagramProject, faBars, faCog, faEye } from '@fortawesome/free-solid-svg-icons';
 import { faGithub } from '@fortawesome/free-brands-svg-icons';
 import itemsData from '../data/items_database.json';
 import StructuredData from './components/StructuredData';
@@ -119,6 +119,8 @@ export default function Home() {
       return new Set();
     }
   });
+
+  const [isTrackedOpen, setIsTrackedOpen] = useState(false);
 
   const toggleItemTracked = (name: string) => {
     setTrackedItems(prev => {
@@ -360,10 +362,20 @@ export default function Home() {
         <FontAwesomeIcon icon={faBars} className="text-white text-xl relative z-10 drop-shadow-lg" />
       </button>
 
+      {/* Tracked Pane Button */}
+      <button
+        onClick={() => setIsTrackedOpen(true)}
+        className="fixed bottom-25 left-25 lg:bottom-25 lg:right-8 lg:left-auto z-30 w-14 h-14 flex items-center justify-center bg-gradient-to-br from-blue-500/30 to-purple-500/20 backdrop-blur-xl rounded-full shadow-2xl hover:from-blue-500/40 hover:to-purple-500/30 transition-all duration-300 border border-white/20 hover:border-white/30 hover:shadow-blue-500/50 hover:scale-105"
+        aria-label="Open tracked items"
+      >
+        <div className="absolute inset-0 bg-gradient-to-br from-white/10 to-transparent rounded-full pointer-events-none"></div>
+        <FontAwesomeIcon icon={faEye} className="text-white text-xl relative z-10 drop-shadow-lg"/>
+      </button>
+
       {/* Settings Button */}
       <button
         onClick={() => setIsSettingsOpen(true)}
-        className="fixed bottom-6 left-24 lg:bottom-8 lg:right-8 lg:left-auto z-30 w-14 h-14 flex items-center justify-center bg-gradient-to-br from-blue-500/30 to-purple-500/20 backdrop-blur-xl rounded-full shadow-2xl hover:from-blue-500/40 hover:to-purple-500/30 transition-all duration-300 border border-white/20 hover:border-white/30 hover:shadow-blue-500/50 hover:scale-105"
+        className="fixed bottom-6 left-25 lg:bottom-8 lg:right-8 lg:left-auto z-30 w-14 h-14 flex items-center justify-center bg-gradient-to-br from-blue-500/30 to-purple-500/20 backdrop-blur-xl rounded-full shadow-2xl hover:from-blue-500/40 hover:to-purple-500/30 transition-all duration-300 border border-white/20 hover:border-white/30 hover:shadow-blue-500/50 hover:scale-105"
         aria-label="Open settings"
       >
         <div className="absolute inset-0 bg-gradient-to-br from-white/10 to-transparent rounded-full pointer-events-none"></div>
@@ -577,32 +589,35 @@ export default function Home() {
                     onClick={() => setSelectedItem(item)}
                     className="group relative bg-gradient-to-br from-black/60 via-black/40 to-black/60 backdrop-blur-sm rounded-2xl overflow-hidden hover:scale-105 hover:-translate-y-1 transition-all duration-300 cursor-pointer"
                     style={{
-                      borderWidth: '2px',
-                      borderStyle: 'solid',
+                      borderWidth: "2px",
+                      borderStyle: "solid",
                       borderColor: borderColor,
-                      boxShadow: `0 4px 20px ${borderColor}30, 0 0 40px ${borderColor}10, inset 0 1px 0 rgba(255,255,255,0.1)`
-                    }}
-                  >
-                    {/* Item Tracking toggle */}
+                      boxShadow: `0 4px 20px ${borderColor}30, 0 0 40px ${borderColor}10, inset 0 1px 0 rgba(255,255,255,0.1)`,
+                    }}>
+                    {/* Item Tracking Button */}
                     <button
-                    onClick={(e) => 
-                      {
+                      onClick={(e) => {
                         e.stopPropagation();
                         toggleItemTracked(item.name);
                       }}
-                    title={isTracked(item.name) ? 'Untrack' : 'Track'}
-                    className={`absolute top-2 left-2 z-20 w-8 h-8 rounded-md flex items-center justify-center text-sm ${
-                        isTracked(item.name) ? 'bg-yellow-400 text-black' : 'bg-black/40 text-gray-300'
-                    }`}
-                    style={{ cursor: 'pointer' }}
-                    >
-
+                      title={isTracked(item.name) ? "Untrack" : "Track"}
+                      className={`absolute top-2 left-2 z-20 w-8 h-8 rounded-md flex items-center justify-center text-sm ${
+                        isTracked(item.name)
+                          ? "bg-yellow-400 text-black"
+                          : "bg-black/40 text-gray-300"
+                      }`}
+                      style={{ cursor: "pointer" }}>
+                        <div className="absolute inset-0 bg-gradient-to-br from-white/10 to-transparent rounded-full pointer-events-none"></div>
+                        <FontAwesomeIcon
+                          icon={faEye}
+                          className="text-white text-xl relative z-10 drop-shadow-lg"
+                        />
                     </button>
                     {/* Animated border glow on hover */}
-                    <div 
+                    <div
                       className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none rounded-2xl"
                       style={{
-                        boxShadow: `0 0 30px ${borderColor}60, inset 0 0 20px ${borderColor}20`
+                        boxShadow: `0 0 30px ${borderColor}60, inset 0 0 20px ${borderColor}20`,
                       }}
                     />
 
@@ -610,9 +625,15 @@ export default function Home() {
                     <div className="absolute top-2 right-2 z-20 flex flex-col gap-1">
                       {displayPrice && item.infobox?.sellprice != null && (
                         <div className="flex items-center gap-1 bg-black/80 backdrop-blur-sm px-2 py-1 rounded-lg border border-yellow-500/30">
-                          <Image src="/coin.webp" alt="Coin" width={16} height={16} className="w-4 h-4" />
+                          <Image
+                            src="/coin.webp"
+                            alt="Coin"
+                            width={16}
+                            height={16}
+                            className="w-4 h-4"
+                          />
                           <span className="text-yellow-400 text-xs font-bold">
-                            {Array.isArray(item.infobox.sellprice) 
+                            {Array.isArray(item.infobox.sellprice)
                               ? item.infobox.sellprice[0]
                               : item.infobox.sellprice}
                           </span>
@@ -620,27 +641,34 @@ export default function Home() {
                       )}
                       {displayWeight && item.infobox?.weight != null && (
                         <div className="flex items-center gap-1 bg-black/80 backdrop-blur-sm px-2 py-1 rounded-lg border border-gray-500/30">
-                          <Image src="/weight.webp" alt="Weight" width={16} height={16} className="w-4 h-4" />
-                          <span className="text-gray-300 text-xs font-bold">{item.infobox.weight}</span>
+                          <Image
+                            src="/weight.webp"
+                            alt="Weight"
+                            width={16}
+                            height={16}
+                            className="w-4 h-4"
+                          />
+                          <span className="text-gray-300 text-xs font-bold">
+                            {item.infobox.weight}
+                          </span>
                         </div>
                       )}
                     </div>
 
                     {/* Image Section */}
-                    <div 
+                    <div
                       className="aspect-square flex items-center justify-center p-4 relative overflow-hidden"
-                      style={{ background: gradient }}
-                    >
+                      style={{ background: gradient }}>
                       {/* Subtle shine effect */}
                       <div className="absolute inset-0 bg-gradient-to-br from-white/5 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-                      
+
                       {item.image_urls?.thumb ? (
                         <img
                           src={item.image_urls.thumb}
                           alt={item.name}
                           className="w-full h-full object-contain relative z-10 group-hover:scale-110 group-hover:rotate-2 transition-all duration-300 drop-shadow-2xl"
                           onError={(e) => {
-                            e.currentTarget.style.display = 'none';
+                            e.currentTarget.style.display = "none";
                           }}
                         />
                       ) : (
@@ -649,23 +677,24 @@ export default function Home() {
                     </div>
 
                     {/* Name Section */}
-                    <div className="p-2.5 bg-gradient-to-br from-black/80 to-black/60 backdrop-blur-sm border-t" style={{ borderColor: `${borderColor}20` }}>
-                      <h3 
+                    <div
+                      className="p-2.5 bg-gradient-to-br from-black/80 to-black/60 backdrop-blur-sm border-t"
+                      style={{ borderColor: `${borderColor}20` }}>
+                      <h3
                         className="font-semibold text-xs group-hover:brightness-125 transition-all line-clamp-2 text-center leading-tight drop-shadow-lg"
-                        style={{ 
+                        style={{
                           color: borderColor,
-                          textShadow: `0 2px 8px ${borderColor}40`
-                        }}
-                      >
+                          textShadow: `0 2px 8px ${borderColor}40`,
+                        }}>
                         {item.name}
                       </h3>
                     </div>
 
                     {/* Hover Effect Overlay */}
-                    <div 
+                    <div
                       className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none rounded-2xl"
-                      style={{ 
-                        background: `radial-gradient(circle at center, ${borderColor}20 0%, transparent 70%)`
+                      style={{
+                        background: `radial-gradient(circle at center, ${borderColor}20 0%, transparent 70%)`,
                       }}
                     />
                   </div>
@@ -729,15 +758,35 @@ export default function Home() {
                   <FontAwesomeIcon icon={faStar} className="text-xs" />
                   {selectedItem.infobox?.rarity || 'Common'}
                 </div>
-                <h2 className="text-4xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-gray-100 via-purple-200 to-gray-100 mb-3 drop-shadow-lg">
+
+                {/* Track Item Button */}
+                <div className="flex items-center gap-3 mb-3">
+                  <h2 className="text-4xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-gray-100 via-purple-200 to-gray-100 drop-shadow-lg">
                   {selectedItem.name}
-                </h2>
-                {selectedItem.infobox?.type && (
-                  <p className="text-purple-400 text-sm font-semibold uppercase tracking-wider inline-flex items-center gap-2 px-3 py-1 bg-purple-500/20 rounded-lg border border-purple-500/30">
-                    {selectedItem.infobox.type}
-                  </p>
-                )}
-              </div>
+                  </h2>
+                  <button
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    toggleItemTracked(selectedItem.name);
+                  }}
+                  title={isTracked(selectedItem.name) ? 'Untrack' : 'Track'}
+                  className={`z-20 w-8 h-8 rounded-md flex items-center justify-center text-sm ${
+                    isTracked(selectedItem.name) ? 'bg-yellow-400 text-black' : 'bg-black/40 text-purple-200'
+                  }`}
+                  style={{ cursor: 'pointer' }}
+                  >
+                  <FontAwesomeIcon
+                    icon={faEye}
+                    className="text-white text-xl relative z-10 drop-shadow-lg"
+                  />
+                  </button>
+                </div>
+                  {selectedItem.infobox?.type && (
+                    <p className="text-purple-400 text-sm font-semibold uppercase tracking-wider inline-flex items-center gap-2 px-3 py-1 bg-purple-500/20 rounded-lg border border-purple-500/30">
+                      {selectedItem.infobox.type}
+                    </p>
+                  )}
+                </div>
 
               {/* Item Image */}
               {selectedItem.image_urls?.thumb && (
@@ -966,6 +1015,191 @@ export default function Home() {
                     </div>
                   </label>
                 </div>
+              </div>
+            </div>
+          </div>
+        </>
+      )}
+
+      {/* Tracked Items Panel */}
+      {isTrackedOpen && (
+        <>
+          {/* Backdrop */}
+          <div
+            className="fixed inset-0 bg-black/70 z-40 backdrop-blur-md"
+            onClick={() => setIsTrackedOpen(false)}
+          />
+          {/* Panel */}
+          <div className="fixed bottom-0 left-0 w-full md:w-[70vw] h-[80vh] md:bottom-8 md:right-8 md:left-auto bg-gradient-to-br from-black/95 via-blue-950/30 to-black/95 backdrop-blur-2xl border border-blue-500/40 z-50 rounded-t-3xl md:rounded-2xl shadow-2xl animate-slide-up">
+            {/* Gradient */}
+            <div className="absolute inset-0 bg-gradient-to-br from-blue-500/5 via-transparent to-purple-500/5 pointer-events-none rounded-t-3xl md:rounded2-xl"/>
+
+            <div className="relative z-10 p-6">
+              {/* Header */}
+              <div className="flex items-center justify-between mb-6">
+                <h2 className="text-2xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-blue-300 to-purple-300 flex items-center gap-3">
+                  Tracked Items
+                </h2>
+                <div className="flex">
+                  <button
+                    onClick={() => {
+                    setTrackedItems(new Set());
+                    try {
+                      localStorage.setItem('tracked_items', JSON.stringify([]));
+                    } catch {}
+                    }}
+                    className="flex items-center justify-center px-4 py-2 rounded-lg bg-red-500/30 text-red-200 font-semibold hover:bg-red-500/50 hover:text-white transition-all mr-4"
+                    title="Clear all tracked items"
+                  >
+                    Clear All
+                  </button>
+                  <button
+                  onClick={() => setIsTrackedOpen(false)}
+                  className="w-10 h-10 flex items-center justify-center bg-black/60 hover:bg-red-500/30 backdrop-blur-sm rounded-xl transition-all duration-300 text-gray-400 hover:text-red-300 border border-blue-500/20 hover:border-red-500/50"
+                  >
+                    <span className="text-lg">✕</span>
+                  </button>
+                </div>
+              </div>
+
+              {/* Tracked Items */}
+              <div
+                className={`grid gap-3 sm:gap-4 lg:gap-6 ${
+                  itemSize === 'small'
+                    ? 'grid-cols-3 sm:grid-cols-4 md:grid-cols-6 lg:grid-cols-7 xl:grid-cols-8 2xl:grid-cols-10'
+                    : itemSize === 'medium'
+                    ? 'grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-4 xl:grid-cols-5 2xl:grid-cols-6'
+                    : 'grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-4'
+                }`}
+                style={{
+                  maxHeight: '55vh',
+                  overflowY: 'auto',
+                  paddingRight: '0.5rem',
+                }}
+              >
+                {(itemsData as Item[])
+                  .filter(item => isTracked(item.name))
+                  .map((item, index) => {
+                    const rarity = item.infobox?.rarity || 'Common';
+                    const borderColor = rarityColors[rarity] || '#717471';
+                    const gradient = rarityGradients[rarity] || rarityGradients.Common;
+                    return (
+                      <div
+                        key={`${item.name}-${index}`}
+                        onClick={() => {
+                          setSelectedItem(item);
+                          setIsTrackedOpen(false);
+                        }}
+                        className="group relative bg-gradient-to-br from-black/60 via-black/40 to-black/60 backdrop-blur-sm rounded-2xl overflow-hidden transition-all duration-300 cursor-pointer"
+                        style={{
+                          borderWidth: "2px",
+                          borderStyle: "solid",
+                          borderColor: borderColor,
+                          boxShadow: `0 4px 20px ${borderColor}30, 0 0 40px ${borderColor}10, inset 0 1px 0 rgba(255,255,255,0.1)`,
+                        }}>
+                        {/* Item Tracking toggle */}
+                        <button
+                          onClick={(e) => {
+                            e.stopPropagation();
+                            toggleItemTracked(item.name);
+                          }}
+                          title={isTracked(item.name) ? "Untrack" : "Track"}
+                          className={`absolute top-2 left-2 z-20 w-8 h-8 rounded-md flex items-center justify-center text-sm ${
+                            isTracked(item.name)
+                              ? "bg-yellow-400 text-black"
+                              : "bg-black/40 text-gray-300"
+                          }`}
+                          style={{ cursor: "pointer" }}
+                        >
+                          <div className="absolute inset-0 bg-gradient-to-br from-white/10 to-transparent rounded-full pointer-events-none"></div>
+                          <FontAwesomeIcon
+                            icon={faEye}
+                            className="text-white text-xl relative z-10 drop-shadow-lg"
+                          />
+                        </button>
+                        {/* Animated border glow on hover */}
+                        <div
+                          className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none rounded-2xl"
+                          style={{
+                            boxShadow: `0 0 30px ${borderColor}60, inset 0 0 20px ${borderColor}20`,
+                          }}
+                        />
+                        {/* Price/Weight Display */}
+                        <div className="absolute top-2 right-2 z-20 flex flex-col gap-1">
+                          {displayPrice && item.infobox?.sellprice != null && (
+                            <div className="flex items-center gap-1 bg-black/80 backdrop-blur-sm px-2 py-1 rounded-lg border border-yellow-500/30">
+                              <Image
+                                src="/coin.webp"
+                                alt="Coin"
+                                width={16}
+                                height={16}
+                                className="w-4 h-4"
+                              />
+                              <span className="text-yellow-400 text-xs font-bold">
+                                {Array.isArray(item.infobox.sellprice)
+                                  ? item.infobox.sellprice[0]
+                                  : item.infobox.sellprice}
+                              </span>
+                            </div>
+                          )}
+                          {displayWeight && item.infobox?.weight != null && (
+                            <div className="flex items-center gap-1 bg-black/80 backdrop-blur-sm px-2 py-1 rounded-lg border border-gray-500/30">
+                              <Image
+                                src="/weight.webp"
+                                alt="Weight"
+                                width={16}
+                                height={16}
+                                className="w-4 h-4"
+                              />
+                              <span className="text-gray-300 text-xs font-bold">
+                                {item.infobox.weight}
+                              </span>
+                            </div>
+                          )}
+                        </div>
+                        {/* Image Section */}
+                        <div
+                          className="aspect-square flex items-center justify-center p-4 relative overflow-hidden"
+                          style={{ background: gradient }}>
+                          <div className="absolute inset-0 bg-gradient-to-br from-white/5 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+                          {item.image_urls?.thumb ? (
+                            <img
+                              src={item.image_urls.thumb}
+                              alt={item.name}
+                              className="w-full h-full object-contain relative z-10 group-hover:scale-110 group-hover:rotate-2 transition-all duration-300 drop-shadow-2xl"
+                              onError={(e) => {
+                                e.currentTarget.style.display = "none";
+                              }}
+                            />
+                          ) : (
+                            <div className="text-2xl text-gray-700/50">?</div>
+                          )}
+                        </div>
+                        {/* Name Section */}
+                        <div
+                          className="p-2.5 bg-gradient-to-br from-black/80 to-black/60 backdrop-blur-sm border-t"
+                          style={{ borderColor: `${borderColor}20` }}>
+                          <h3
+                            className="font-semibold text-xs group-hover:brightness-125 transition-all line-clamp-2 text-center leading-tight drop-shadow-lg"
+                            style={{
+                              color: borderColor,
+                              textShadow: `0 2px 8px ${borderColor}40`,
+                            }}>
+                            {item.name}
+                          </h3>
+                        </div>
+                        <div
+                          className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none rounded-2xl"
+                          style={{
+                            background: `radial-gradient(circle at center, ${borderColor}20 0%, transparent 70%)`,
+                          }}
+                        />
+                      </div>
+                    );
+                  })}
+                {Array.from(trackedItems).length === 0 && (
+                  <div className="text-center text-gray-400 py-16 text-lg">No tracked items yet.</div>
+                )}
               </div>
             </div>
           </div>
