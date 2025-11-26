@@ -9,6 +9,7 @@ import { faSearch, faStar, faArrowUpAZ, faArrowDownAZ, faFilter, faExternalLinkA
 import { faGithub } from '@fortawesome/free-brands-svg-icons';
 import itemsData from '../data/items_database.json';
 import StructuredData from './components/StructuredData';
+import { json } from 'stream/consumers';
 
 // Prevent FontAwesome from adding its CSS automatically since we're importing it manually
 config.autoAddCss = false;
@@ -109,6 +110,34 @@ export default function Home() {
   const [itemSize, setItemSize] = useState<'small' | 'medium' | 'large'>('medium');
   const [displayPrice, setDisplayPrice] = useState(false);
   const [displayWeight, setDisplayWeight] = useState(false);
+
+  const [trackedItems, setTrackedItems] = useState<Set<string>>(() => {
+    try {
+      const raw = localStorage.getItem('tracked_items');
+      return raw ? new Set<string>(JSON.parse(raw)) : new Set();
+    } catch {
+      return new Set();
+    }
+  });
+
+  const toggleItemTracked = (name: string) => {
+    setTrackedItems(prev => {
+      const next = new Set(prev);
+      if(next.has(name)) {
+        next.delete(name);
+      } else {
+        next.add(name);
+      }
+
+      try{
+        localStorage.setItem('tracked_items', JSON.stringify(Array.from(next)));
+      }
+      catch {}
+      return next;
+    })
+  }
+
+  const isTracked = (name: string) => trackedItems.has(name);
 
   // Get all unique types grouped by category
   const typesByCategory = useMemo(() => {
@@ -554,6 +583,21 @@ export default function Home() {
                       boxShadow: `0 4px 20px ${borderColor}30, 0 0 40px ${borderColor}10, inset 0 1px 0 rgba(255,255,255,0.1)`
                     }}
                   >
+                    {/* Item Tracking toggle */}
+                    <button
+                    onClick={(e) => 
+                      {
+                        e.stopPropagation();
+                        toggleItemTracked(item.name);
+                      }}
+                    title={isTracked(item.name) ? 'Untrack' : 'Track'}
+                    className={`absolute top-2 left-2 z-20 w-8 h-8 rounded-md flex items-center justify-center text-sm ${
+                        isTracked(item.name) ? 'bg-yellow-400 text-black' : 'bg-black/40 text-gray-300'
+                    }`}
+                    style={{ cursor: 'pointer' }}
+                    >
+
+                    </button>
                     {/* Animated border glow on hover */}
                     <div 
                       className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none rounded-2xl"
