@@ -16,21 +16,22 @@ interface Edge {
   direction: 'in' | 'out';
   relation: string;
   quantity?: number;
-  dependency?: Array<{ type: string; name: string }>;
+  dependency?: Array<{ type: string; [key: string]: any }>;
   input_level?: string;
   output_level?: string;
 }
 
 interface ItemData {
   name: string;
+  node_type: 'item' | 'trader';
   wiki_url: string;
-  infobox: {
+  infobox?: {
     image: string;
     rarity?: string;
     type?: string;
     [key: string]: any;
   };
-  image_urls: {
+  image_urls?: {
     thumb?: string;
     original?: string;
     file_page?: string;
@@ -110,6 +111,7 @@ function CraftingTreeContent() {
         id: centerId,
         label: currentItem.name,
         type: 'center',
+        nodeType: currentItem.node_type || 'item',
         rarity: currentItem.infobox?.rarity,
         imageUrl: centerImageUrl,
       }
@@ -120,21 +122,30 @@ function CraftingTreeContent() {
       return relation.replace(/_from$|_to$/g, '');
     };
 
-    // Helper function to format edge label with level and quantity
+    // Helper function to format edge label with level, quantity, and price
     const formatEdgeLabel = (edge: Edge): string => {
       const relation = cleanRelationName(edge.relation);
-      const quantity = edge.quantity ? `${edge.quantity}x` : '';
+      const quantity = edge.quantity && edge.quantity > 1 ? `${edge.quantity}x` : '';
       const levelInfo = edge.input_level || edge.output_level || '';
       
-      if (levelInfo && quantity) {
-        return `${relation} (${quantity}) [${levelInfo}]`;
-      } else if (levelInfo) {
-        return `${relation} [${levelInfo}]`;
-      } else if (quantity) {
-        return `${relation} (${quantity})`;
-      } else {
-        return relation;
+      // Extract price info from dependency for trader edges
+      let priceInfo = '';
+      if (edge.relation === 'trader' || edge.relation === 'sold_by') {
+        const priceDep = edge.dependency?.find(d => d.type === 'price');
+        if (priceDep) {
+          const amount = priceDep.amount;
+          const currency = priceDep.currency;
+          priceInfo = `${amount} ${currency}`;
+        }
       }
+      
+      // Build label
+      const parts = [relation];
+      if (quantity) parts.push(`(${quantity})`);
+      if (priceInfo) parts.push(`[${priceInfo}]`);
+      else if (levelInfo) parts.push(`[${levelInfo}]`);
+      
+      return parts.join(' ');
     };
 
     // Group edges by item name and direction
@@ -173,6 +184,7 @@ function CraftingTreeContent() {
           id: nodeId,
           label: itemName,
           type: 'input',
+          nodeType: relatedItem?.node_type || 'item',
           rarity: relatedItem?.infobox?.rarity,
           imageUrl: imageUrl,
           itemName: itemName,
@@ -194,6 +206,7 @@ function CraftingTreeContent() {
           source: nodeId,
           target: centerId,
           label: edgeLabels,
+          relation: edges.map(e => cleanRelationName(e.relation)).join(','),
           curvature: curvature,
         }
       });
@@ -218,6 +231,7 @@ function CraftingTreeContent() {
           id: nodeId,
           label: itemName,
           type: 'output',
+          nodeType: relatedItem?.node_type || 'item',
           rarity: relatedItem?.infobox?.rarity,
           imageUrl: imageUrl,
           itemName: itemName,
@@ -239,6 +253,7 @@ function CraftingTreeContent() {
           source: centerId,
           target: nodeId,
           label: edgeLabels,
+          relation: edges.map(e => cleanRelationName(e.relation)).join(','),
           curvature: curvature,
         }
       });
@@ -321,6 +336,23 @@ function CraftingTreeContent() {
           }
         },
         {
+          selector: 'node[nodeType="trader"]',
+          style: {
+            'shape': 'ellipse',
+            'border-color': '#fbbf24',
+            'width': 120,
+            'height': 120,
+            'background-gradient-stop-colors': ['rgba(251,191,36,0.2)', 'rgba(5,13,36,1)'] as any,
+          }
+        },
+        {
+          selector: 'node[nodeType="trader"][type="center"]',
+          style: {
+            'width': 160,
+            'height': 160,
+          }
+        },
+        {
           selector: 'edge',
           style: {
             'width': 3,
@@ -357,40 +389,42 @@ function CraftingTreeContent() {
             'text-max-width': 140 as any,
           }
         },
+        // Edge coloring by relation type (priority order: lowest to highest)
+        // Later selectors override earlier ones for edges with multiple types
         {
-          selector: 'edge[label="craft_from"]',
+          selector: 'edge[relation*="repair"]',
           style: {
-            'line-color': '#60a5fa',
+            'line-color': '#ef4444',
           }
         },
         {
-          selector: 'edge[label="craft_to"]',
-          style: {
-            'line-color': '#c084fc',
-          }
-        },
-        {
-          selector: 'edge[label="recycle_from"], edge[label="recycle_to"]',
-          style: {
-            'line-color': '#34d399',
-          }
-        },
-        {
-          selector: 'edge[label="salvage_from"], edge[label="salvage_to"]',
-          style: {
-            'line-color': '#10b981',
-          }
-        },
-        {
-          selector: 'edge[label="upgrade_from"], edge[label="upgrade_to"]',
+          selector: 'edge[relation*="upgrade"]',
           style: {
             'line-color': '#f59e0b',
           }
         },
         {
-          selector: 'edge[label="repair_from"]',
+          selector: 'edge[relation*="salvage"]',
           style: {
-            'line-color': '#ef4444',
+            'line-color': '#10b981',
+          }
+        },
+        {
+          selector: 'edge[relation*="recycle"]',
+          style: {
+            'line-color': '#34d399',
+          }
+        },
+        {
+          selector: 'edge[relation*="craft"]',
+          style: {
+            'line-color': '#60a5fa',
+          }
+        },
+        {
+          selector: 'edge[relation*="trader"], edge[relation*="sold_by"]',
+          style: {
+            'line-color': '#fbbf24',
           }
         },
         {
