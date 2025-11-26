@@ -4,9 +4,8 @@ import { useEffect, useRef, useState, useMemo, Suspense } from 'react';
 import Image from 'next/image';
 import cytoscape from 'cytoscape';
 import { useSearchParams } from 'next/navigation';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faGithub } from '@fortawesome/free-brands-svg-icons';
 import itemsRelationData from '../../data/items_relation.json';
+import Header from '../components/Header';
 
 // Metadata is handled in layout.tsx for client components
 // For better SEO, consider creating a server component wrapper
@@ -583,46 +582,7 @@ function CraftingTreeContent() {
   if (!selectedItem) {
     return (
       <div className="min-h-screen bg-[#07020b] text-gray-100 flex flex-col">
-        <header className="bg-[#07020b] border-b border-purple-500/20 sticky top-0 z-40">
-          <div className="flex items-center justify-between px-2 sm:px-4 md:pr-8">
-            <a href="/" className="flex-shrink-0 h-16 sm:h-20 md:h-24 flex items-center cursor-pointer">
-              <Image
-                src="/logo.webp"
-                alt="ARC Forge"
-                width={320}
-                height={96}
-                className="w-auto"
-                style={{ height: '100%' }}
-                priority
-              />
-            </a>
-            <nav className="flex gap-1 sm:gap-2 items-center">
-              <a
-                href="/"
-                className="px-2 py-2 sm:px-4 sm:py-2.5 md:px-6 md:py-3 bg-black/20 border border-purple-500/20 rounded-lg text-gray-400 text-xs sm:text-sm md:text-base font-medium hover:bg-purple-500/10 hover:text-gray-300 transition-all whitespace-nowrap"
-              >
-                <span className="hidden sm:inline">Item Database</span>
-                <span className="sm:hidden">Items</span>
-              </a>
-              <a
-                href="/crafting-graph?item=Power%20Rod"
-                className="px-2 py-2 sm:px-4 sm:py-2.5 md:px-6 md:py-3 bg-purple-500/20 border border-purple-500/50 rounded-lg text-purple-300 text-xs sm:text-sm md:text-base font-medium hover:bg-purple-500/30 transition-all whitespace-nowrap"
-              >
-                <span className="hidden sm:inline">Crafting Graph</span>
-                <span className="sm:hidden">Graph</span>
-              </a>
-              <a
-                href="https://github.com/wangyz1999/arcforge"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="w-10 h-10 sm:w-11 sm:h-11 md:w-12 md:h-12 flex-shrink-0 flex items-center justify-center bg-black/20 border border-purple-500/20 rounded-lg text-gray-400 hover:bg-purple-500/10 hover:text-gray-300 transition-all"
-                aria-label="View on GitHub"
-              >
-                <FontAwesomeIcon icon={faGithub} className="text-lg sm:text-xl" />
-              </a>
-            </nav>
-          </div>
-        </header>
+        <Header activePage="graph" />
         <div className="flex-1 flex items-center justify-center">
           <div className="text-center">
             <div className="text-6xl mb-4">❌</div>
@@ -643,47 +603,7 @@ function CraftingTreeContent() {
   return (
     <div className="h-screen bg-[#07020b] text-gray-100 flex flex-col overflow-hidden">
       {/* Header */}
-      <header className="bg-[#07020b] border-b border-purple-500/20 z-40 flex-shrink-0">
-        <div className="flex items-center justify-between px-2 sm:px-4 md:pr-8">
-          <a href="/" className="flex-shrink-0 h-16 sm:h-20 md:h-24 flex items-center cursor-pointer">
-            <Image
-              src="/logo.webp"
-              alt="ARC Forge"
-              width={320}
-              height={96}
-              className="w-auto"
-              style={{ height: '100%' }}
-              priority
-            />
-          </a>
-          
-          <nav className="flex gap-1 sm:gap-2 items-center">
-            <a
-              href="/"
-              className="px-2 py-2 sm:px-4 sm:py-2.5 md:px-6 md:py-3 bg-black/20 border border-purple-500/20 rounded-lg text-gray-400 text-xs sm:text-sm md:text-base font-medium hover:bg-purple-500/10 hover:text-gray-300 transition-all whitespace-nowrap"
-            >
-              <span className="hidden sm:inline">Item Database</span>
-              <span className="sm:hidden">Items</span>
-            </a>
-            <a
-              href="/crafting-graph?item=Power%20Rod"
-              className="px-2 py-2 sm:px-4 sm:py-2.5 md:px-6 md:py-3 bg-purple-500/20 border border-purple-500/50 rounded-lg text-purple-300 text-xs sm:text-sm md:text-base font-medium hover:bg-purple-500/30 transition-all whitespace-nowrap"
-            >
-              <span className="hidden sm:inline">Crafting Graph</span>
-              <span className="sm:hidden">Graph</span>
-            </a>
-            <a
-              href="https://github.com/wangyz1999/arcforge"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="w-10 h-10 sm:w-11 sm:h-11 md:w-12 md:h-12 flex-shrink-0 flex items-center justify-center bg-black/20 border border-purple-500/20 rounded-lg text-gray-400 hover:bg-purple-500/10 hover:text-gray-300 transition-all"
-              aria-label="View on GitHub"
-            >
-              <FontAwesomeIcon icon={faGithub} className="text-lg sm:text-xl" />
-            </a>
-          </nav>
-        </div>
-      </header>
+      <Header activePage="graph" />
 
       {/* Graph Canvas */}
       <div className="flex-1 relative bg-[#07020b] overflow-hidden">
