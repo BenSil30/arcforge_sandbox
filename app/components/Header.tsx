@@ -1,6 +1,7 @@
 import Image from 'next/image';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faGithub } from '@fortawesome/free-brands-svg-icons';
+import { faCoffee } from '@fortawesome/free-solid-svg-icons';
 
 interface HeaderProps {
   activePage: 'database' | 'graph';
@@ -58,6 +59,15 @@ export default function Header({ activePage }: HeaderProps) {
             {isGraphActive && (
               <div className="absolute inset-0 bg-gradient-to-br from-purple-400/0 to-purple-600/20 rounded-lg md:rounded-xl opacity-0 group-hover:opacity-100 transition-opacity" />
             )}
+          </a>
+          <a
+            href="https://buymeacoffee.com/wangyz1999"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="w-10 h-10 sm:w-11 sm:h-11 md:w-12 md:h-12 flex-shrink-0 flex items-center justify-center bg-black/40 backdrop-blur-sm border border-purple-500/30 rounded-lg md:rounded-xl text-gray-300 hover:bg-yellow-500/20 hover:text-yellow-300 hover:border-yellow-400/50 transition-all duration-300 hover:scale-105"
+            aria-label="Buy me a coffee"
+          >
+            <FontAwesomeIcon icon={faCoffee} className="text-lg sm:text-xl" />
           </a>
           <a
             href="https://github.com/wangyz1999/arcforge"
