@@ -7,8 +7,7 @@ const EDGE_TYPE_PRIORITY: { [key: string]: number } = {
   'upgrade': 2,
   'recycle': 3,
   'salvage': 4,
-  'sold_by': 5,
-  'trader': 5, // Same as sold_by
+  'trade': 5,
 };
 
 // Helper function to clean relation names
@@ -24,7 +23,13 @@ export const getEdgePriority = (edge: Edge): number => {
 
 // Helper function to format edge label with level, quantity, and price
 export const formatEdgeLabel = (edge: Edge): string => {
-  const relation = cleanRelationName(edge.relation);
+  let relation = cleanRelationName(edge.relation);
+  
+  // Rename trader/sold_by to trade for display
+  if (relation === 'trader' || relation === 'sold_by') {
+    relation = 'trade';
+  }
+  
   const quantity = edge.quantity && edge.quantity > 1 ? `${edge.quantity}x` : '';
   const levelInfo = edge.input_level || edge.output_level || '';
   
@@ -71,9 +76,9 @@ export const buildGraphElements = (
     // Relations can be: craft_from, craft_to, recycle_from, etc.
     const cleanedRelation = cleanRelationName(relation);
     
-    // Map both 'trader' and 'sold_by' to the 'sold_by' filter
+    // Map both 'trader' and 'sold_by' to the 'trade' filter
     if (cleanedRelation === 'trader' || cleanedRelation === 'sold_by') {
-      return selectedEdgeTypes.has('sold_by');
+      return selectedEdgeTypes.has('trade');
     }
     
     return selectedEdgeTypes.has(cleanedRelation);

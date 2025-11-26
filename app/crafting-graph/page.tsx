@@ -35,7 +35,7 @@ function CraftingTreeContent() {
       return filterParam === '' ? new Set() : new Set(filterParam.split(',').filter(f => f));
     }
     // Default to all types if no filters param
-    return new Set(['craft', 'repair', 'recycle', 'salvage', 'upgrade', 'sold_by']);
+    return new Set(['craft', 'repair', 'recycle', 'salvage', 'upgrade', 'trade']);
   });
 
   // Sync edge types with URL when searchParams change
@@ -46,7 +46,7 @@ function CraftingTreeContent() {
       setSelectedEdgeTypes(filterParam === '' ? new Set() : new Set(filterParam.split(',').filter(f => f)));
     } else {
       // If no filters param in URL, reset to all
-      setSelectedEdgeTypes(new Set(['craft', 'repair', 'recycle', 'salvage', 'upgrade', 'sold_by']));
+      setSelectedEdgeTypes(new Set(['craft', 'repair', 'recycle', 'salvage', 'upgrade', 'trade']));
     }
   }, [searchParams]);
 
@@ -237,7 +237,7 @@ function CraftingTreeContent() {
       <button
         onClick={() => setIsSettingsOpen(true)}
         className="fixed bottom-8 right-8 z-30 w-14 h-14 flex items-center justify-center bg-gradient-to-br from-purple-500/30 to-pink-500/20 backdrop-blur-xl rounded-full shadow-2xl hover:from-purple-500/40 hover:to-pink-500/30 transition-all duration-300 border border-white/20 hover:border-white/30 hover:shadow-purple-500/50 hover:scale-105"
-        aria-label="Open edge filters"
+        aria-label="Open relation filters"
       >
         <div className="absolute inset-0 bg-gradient-to-br from-white/10 to-transparent rounded-full pointer-events-none"></div>
         <FontAwesomeIcon icon={faCog} className="text-white text-xl relative z-10 drop-shadow-lg" />

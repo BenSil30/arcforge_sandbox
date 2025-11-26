@@ -153,7 +153,7 @@ export const cytoscapeStyles = [
     }
   },
   {
-    selector: 'edge[relation*="trader"], edge[relation*="sold_by"]',
+    selector: 'edge[relation*="trader"], edge[relation*="sold_by"], edge[relation*="trade"]',
     style: {
       'line-color': '#fbbf24',
     }

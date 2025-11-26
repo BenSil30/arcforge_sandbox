@@ -14,7 +14,7 @@ const EDGE_TYPES = [
   { id: 'recycle', label: 'Recycle', color: '#34d399', bgColor: 'rgba(52, 211, 153, 0.15)' },
   { id: 'salvage', label: 'Salvage', color: '#10b981', bgColor: 'rgba(16, 185, 129, 0.15)' },
   { id: 'upgrade', label: 'Upgrade', color: '#ec4899', bgColor: 'rgba(236, 72, 153, 0.15)' },
-  { id: 'sold_by', label: 'Trader', color: '#fbbf24', bgColor: 'rgba(251, 191, 36, 0.15)' },
+  { id: 'trade', label: 'Trade', color: '#fbbf24', bgColor: 'rgba(251, 191, 36, 0.15)' },
 ];
 
 export default function GraphSettingsPanel({
@@ -55,7 +55,7 @@ export default function GraphSettingsPanel({
           <div className="flex items-center justify-between mb-4">
             <h2 className="text-lg font-bold text-transparent bg-clip-text bg-gradient-to-r from-purple-300 to-pink-300 flex items-center gap-2">
               <FontAwesomeIcon icon={faCog} className="text-purple-400 text-sm" />
-              Edge Filters
+              Relation Filters
             </h2>
             <button
               onClick={onClose}
