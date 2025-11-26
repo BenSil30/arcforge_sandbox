@@ -1040,6 +1040,7 @@ export default function Home() {
                 <h2 className="text-2xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-blue-300 to-purple-300 flex items-center gap-3">
                   Tracked Items
                 </h2>
+                <p className="text-transparent bg-clip-text bg-gradient-to-r from-blue-300 to-purple-300 flex items-center gap-3">Click an item to navigate to its details</p>
                 <div className="flex">
                   <button
                     onClick={() => {
