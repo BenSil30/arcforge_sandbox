@@ -332,3 +332,9 @@ Lightweight Stock
 Padded Stock
 Kinetic Converter
 Anvil Splitter
+Light Ammo
+Medium Ammo
+Heavy Ammo
+Shotgun Ammo
+Launcher Ammo
+Energy Clip

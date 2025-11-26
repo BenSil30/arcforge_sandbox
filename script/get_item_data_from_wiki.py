@@ -283,6 +283,19 @@ def parse_recipe_table(table_text: str, table_type: str) -> List[Dict[str, Any]]
         if table_type == 'craft' and not '[[' in line and not 'style=' in line and re.search(r'\b(I{1,3}|IV)\b', line):
             current_recipe['result_level'] = clean_text(line.strip())
         
+        # Parse output quantity for craft tables (e.g., "25x Light Ammo", "5x {{PAGENAME}}")
+        if table_type == 'craft' and not '[[' in line:
+            # Check for quantity pattern like "25x Light Ammo" or "6x {{PAGENAME}}"
+            quantity_match = re.search(r'(\d+)x\s*(.+)', line.strip())
+            if quantity_match:
+                output_quantity = int(quantity_match.group(1))
+                output_item = quantity_match.group(2).strip()
+                # Only set if not already set and this looks like an output
+                if 'output_quantity' not in current_recipe and output_quantity > 1:
+                    current_recipe['output_quantity'] = output_quantity
+                    if '{{PAGENAME}}' in output_item:
+                        current_recipe['output_item'] = '{{PAGENAME}}'
+        
         # Parse durability for repair
         if '+' in line and line.replace('+', '').replace(' ', '').isdigit():
             durability_value = line.strip().replace('+', '')
@@ -298,6 +311,92 @@ def parse_recipe_table(table_text: str, table_type: str) -> List[Dict[str, Any]]
         recipes.append(current_recipe)
     
     return recipes
+
+
+def parse_recycling_wiki_table(table_text: str) -> List[Dict[str, Any]]:
+    """Parse a regular wiki table for recycling/salvaging materials."""
+    # For simple tables without |- row separators, collect all cells in order
+    lines = table_text.split('\n')
+    cells = []
+    
+    for line in lines:
+        line = line.strip()
+        
+        # Skip table start/end and empty lines
+        if not line or line.startswith('{|') or line == '|}':
+            continue
+        
+        # Cell lines start with |
+        if line.startswith('|'):
+            # Remove leading pipe
+            cell_content = line[1:].strip()
+            
+            # Skip arrow cells
+            if cell_content == "'''→'''" or cell_content == '→':
+                continue
+            
+            cells.append(cell_content)
+    
+    # Now parse the cells - for recycling/salvaging tables:
+    # Pattern is typically: input cell, output materials cell
+    # We expect 2 cells per row (after skipping arrows)
+    materials = []
+    
+    # Process cells in pairs (input, output)
+    i = 0
+    while i < len(cells):
+        if i + 1 < len(cells):
+            input_cell = cells[i]
+            output_cell = cells[i + 1]
+            
+            # Parse input (should contain {{PAGENAME}} or item link)
+            input_item = None
+            if '{{PAGENAME}}' in input_cell:
+                quantity_match = re.search(r'(\d+)x\s*\{\{PAGENAME\}\}', input_cell)
+                if quantity_match:
+                    input_item = f"{quantity_match.group(1)}x {{PAGENAME}}"
+                else:
+                    input_item = "1x {{PAGENAME}}"
+            else:
+                # Try to extract item from wiki link
+                quantity_match = re.search(r'(\d+)x\s*\[\[([^\]|]+)(?:\|[^\]]+)?\]\]', input_cell)
+                if quantity_match:
+                    input_item = f"{quantity_match.group(1)}x {clean_text(quantity_match.group(2))}"
+                else:
+                    item_match = re.search(r'\[\[([^\]|]+)(?:\|[^\]]+)?\]\]', input_cell)
+                    if item_match:
+                        input_item = f"1x {clean_text(item_match.group(1))}"
+            
+            # Parse output materials (may have multiple items separated by <br>)
+            output_materials = []
+            parts = re.split(r'<br>|<br/>', output_cell)
+            for part in parts:
+                part = part.strip()
+                match = re.search(r'(\d+)x\s*\[\[([^\]|]+)(?:\|[^\]]+)?\]\]', part)
+                if match:
+                    output_materials.append({
+                        "quantity": int(match.group(1)),
+                        "item": clean_text(match.group(2))
+                    })
+                elif '[[' in part:
+                    item_match = re.search(r'\[\[([^\]|]+)(?:\|[^\]]+)?\]\]', part)
+                    if item_match:
+                        output_materials.append({
+                            "quantity": 1,
+                            "item": clean_text(item_match.group(1))
+                        })
+            
+            if input_item and output_materials:
+                materials.append({
+                    "input": input_item,
+                    "materials": output_materials
+                })
+            
+            i += 2  # Move to next pair
+        else:
+            i += 1
+    
+    return materials
 
 
 def parse_recycling_table(source_text: str) -> Dict[str, Any]:
@@ -514,10 +613,45 @@ def parse_item_from_wiki(item_name: str, delay: float = 0.5, include_raw: bool =
             if repairs:
                 item_data["repairs"] = repairs
         
-        # Parse recycling section
+        # Parse recycling section (template format)
         recycling_data = parse_recycling_table(source_text)
         if recycling_data['recycling'] or recycling_data['salvaging']:
             item_data["recycling"] = recycling_data
+        
+        # Parse recycling section (wiki table format)
+        if not recycling_data['recycling']:
+            recycled_section = extract_section(source_text, 'Recycled Material')
+            if recycled_section:
+                recycled_materials = parse_recycling_wiki_table(recycled_section)
+                if recycled_materials:
+                    if "recycling" not in item_data:
+                        item_data["recycling"] = {"recycling": [], "salvaging": []}
+                    item_data["recycling"]["recycling"] = recycled_materials
+        
+        # Parse salvaging section (wiki table format)
+        if not recycling_data['salvaging']:
+            salvaged_section = extract_section(source_text, 'Salvaged Material')
+            if salvaged_section:
+                salvaged_materials = parse_recycling_wiki_table(salvaged_section)
+                if salvaged_materials:
+                    if "recycling" not in item_data:
+                        item_data["recycling"] = {"recycling": [], "salvaging": []}
+                    item_data["recycling"]["salvaging"] = salvaged_materials
+        
+        # Replace {PAGENAME} placeholders with actual item name in recycling data
+        if "recycling" in item_data:
+            for recycle_entry in item_data["recycling"].get("recycling", []):
+                if "input" in recycle_entry:
+                    recycle_entry["input"] = recycle_entry["input"].replace("{PAGENAME}", item_name)
+            for salvage_entry in item_data["recycling"].get("salvaging", []):
+                if "input" in salvage_entry:
+                    salvage_entry["input"] = salvage_entry["input"].replace("{PAGENAME}", item_name)
+        
+        # Replace {{PAGENAME}} placeholders in crafting output
+        if "crafting" in item_data:
+            for craft_entry in item_data["crafting"]:
+                if "output_item" in craft_entry and craft_entry["output_item"] == "{{PAGENAME}}":
+                    craft_entry["output_item"] = item_name
         
         # Store raw source for reference (optional, makes file much larger)
         if include_raw:
@@ -585,12 +719,12 @@ def update_specific_items(item_names: List[str], include_raw: bool = False) -> N
     print(f"[OK] Successfully updated: {len(updated_items)} items")
     if updated_items:
         for item in updated_items:
-            print(f"  ✓ {item}")
+            print(f"  + {item}")
     
     if failed_items:
         print(f"\n[FAILED] Failed: {len(failed_items)} items")
         for item in failed_items:
-            print(f"  ✗ {item}")
+            print(f"  - {item}")
     
     print(f"\n[OK] Database saved to: {database_file}")
     print(f"  Total items: {len(items_database)}")
@@ -661,10 +795,13 @@ if __name__ == "__main__":
     # UPDATE SPECIFIC WEAPONS - Modify this list to update specific items
     # =============================================================================
     ITEMS_TO_UPDATE = [
-        "Radio Relay",
-        # Add more item names here to update them
-        # "Kettle",
-        # "ARC Helmet",
+        # Add item names here to update them
+        # "Light Ammo",
+        # "Medium Ammo",
+        # "Heavy Ammo",
+        # "Shotgun Ammo",
+        # "Launcher Ammo",
+        # "Energy Clip",
     ]
     
     # Choose mode:

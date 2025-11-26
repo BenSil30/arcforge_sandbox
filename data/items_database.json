@@ -20758,7 +20758,35 @@
         "workshop": "Gunsmith 2",
         "blueprint_locked": true
       }
-    ]
+    ],
+    "recycling": {
+      "recycling": [
+        {
+          "input": "1x Stable Stock II",
+          "materials": [
+            {
+              "quantity": 1,
+              "item": "Mechanical Components"
+            },
+            {
+              "quantity": 1,
+              "item": "Duct Tape"
+            }
+          ]
+        }
+      ],
+      "salvaging": [
+        {
+          "input": "1x Stable Stock II",
+          "materials": [
+            {
+              "quantity": 1,
+              "item": "Mechanical Components"
+            }
+          ]
+        }
+      ]
+    }
   },
   {
     "name": "Compensator III",
@@ -22018,5 +22046,223 @@
         }
       ]
     }
+  },
+  {
+    "name": "Light Ammo",
+    "wiki_url": "https://arcraiders.wiki/wiki/Light_Ammo",
+    "source_url": "https://arcraiders.wiki/w/index.php?title=Light_Ammo&action=edit",
+    "infobox": {
+      "image": "LightAmmo_Box.png",
+      "name": "Light Ammo",
+      "rarity": "Common",
+      "type": "Ammo",
+      "weight": 0.01,
+      "sellprice": 4,
+      "stacksize": 100
+    },
+    "image_urls": {
+      "thumb": "https://arcraiders.wiki/w/images/thumb/4/4a/LightAmmo_Box.png/348px-LightAmmo_Box.png.webp",
+      "original": "https://arcraiders.wiki/w/images/4/4a/LightAmmo_Box.png",
+      "file_page": "https://arcraiders.wiki/wiki/File:LightAmmo_Box.png"
+    },
+    "crafting": [
+      {
+        "recipe": [
+          {
+            "quantity": 3,
+            "item": "Metal Parts"
+          },
+          {
+            "quantity": 2,
+            "item": "Chemicals"
+          }
+        ],
+        "workshop": "Workbench 1",
+        "output_quantity": 25
+      }
+    ]
+  },
+  {
+    "name": "Medium Ammo",
+    "wiki_url": "https://arcraiders.wiki/wiki/Medium_Ammo",
+    "source_url": "https://arcraiders.wiki/w/index.php?title=Medium_Ammo&action=edit",
+    "infobox": {
+      "image": "MediumAmmo_Box.png",
+      "name": "Medium Ammo",
+      "quote": "Somewhat effective against ARC armor",
+      "rarity": "Common",
+      "type": "Ammo",
+      "weight": 0.025,
+      "sellprice": 6,
+      "stacksize": 80
+    },
+    "image_urls": {
+      "thumb": "https://arcraiders.wiki/w/images/thumb/0/0c/MediumAmmo_Box.png/348px-MediumAmmo_Box.png.webp",
+      "original": "https://arcraiders.wiki/w/images/0/0c/MediumAmmo_Box.png",
+      "file_page": "https://arcraiders.wiki/wiki/File:MediumAmmo_Box.png"
+    },
+    "crafting": [
+      {
+        "recipe": [
+          {
+            "quantity": 3,
+            "item": "Metal Parts"
+          },
+          {
+            "quantity": 2,
+            "item": "Chemicals"
+          }
+        ],
+        "workshop": "Workbench 1",
+        "output_quantity": 20
+      }
+    ]
+  },
+  {
+    "name": "Heavy Ammo",
+    "wiki_url": "https://arcraiders.wiki/wiki/Heavy_Ammo",
+    "source_url": "https://arcraiders.wiki/w/index.php?title=Heavy_Ammo&action=edit",
+    "infobox": {
+      "image": "HeavyAmmo_Box.png",
+      "name": "Heavy Ammo",
+      "rarity": "Common",
+      "type": "Ammo",
+      "weight": 0.05,
+      "sellprice": 12,
+      "stacksize": 40
+    },
+    "image_urls": {
+      "thumb": "https://arcraiders.wiki/w/images/thumb/4/47/HeavyAmmo_Box.png/348px-HeavyAmmo_Box.png.webp",
+      "original": "https://arcraiders.wiki/w/images/4/47/HeavyAmmo_Box.png",
+      "file_page": "https://arcraiders.wiki/wiki/File:HeavyAmmo_Box.png"
+    },
+    "crafting": [
+      {
+        "recipe": [
+          {
+            "quantity": 3,
+            "item": "Metal Parts"
+          },
+          {
+            "quantity": 2,
+            "item": "Chemicals"
+          }
+        ],
+        "workshop": "Workbench 1",
+        "output_quantity": 10
+      }
+    ]
+  },
+  {
+    "name": "Shotgun Ammo",
+    "wiki_url": "https://arcraiders.wiki/wiki/Shotgun_Ammo",
+    "source_url": "https://arcraiders.wiki/w/index.php?title=Shotgun_Ammo&action=edit",
+    "infobox": {
+      "image": "ShotgunAmmo_Box.png",
+      "name": "Shotgun Ammo",
+      "rarity": "Common",
+      "type": "Ammo",
+      "weight": 0.085,
+      "sellprice": 20,
+      "stacksize": 20
+    },
+    "image_urls": {
+      "thumb": "https://arcraiders.wiki/w/images/thumb/c/c1/ShotgunAmmo_Box.png/348px-ShotgunAmmo_Box.png.webp",
+      "original": "https://arcraiders.wiki/w/images/c/c1/ShotgunAmmo_Box.png",
+      "file_page": "https://arcraiders.wiki/wiki/File:ShotgunAmmo_Box.png"
+    },
+    "crafting": [
+      {
+        "recipe": [
+          {
+            "quantity": 3,
+            "item": "Metal Parts"
+          },
+          {
+            "quantity": 2,
+            "item": "Chemicals"
+          }
+        ],
+        "workshop": "Workbench 1",
+        "output_quantity": 5
+      }
+    ]
+  },
+  {
+    "name": "Launcher Ammo",
+    "wiki_url": "https://arcraiders.wiki/wiki/Launcher_Ammo",
+    "source_url": "https://arcraiders.wiki/w/index.php?title=Launcher_Ammo&action=edit",
+    "infobox": {
+      "image": "Launcher Ammo.png",
+      "name": "Launcher Ammo",
+      "quote": "Extremely effective against ARC armor.",
+      "rarity": "Rare",
+      "type": "Ammo",
+      "weight": 0.1,
+      "sellprice": 250,
+      "stacksize": 24
+    },
+    "image_urls": {
+      "thumb": "https://arcraiders.wiki/w/images/thumb/9/99/Launcher_Ammo.png/348px-Launcher_Ammo.png.webp",
+      "original": "https://arcraiders.wiki/w/images/9/99/Launcher_Ammo.png",
+      "file_page": "https://arcraiders.wiki/wiki/File:Launcher_Ammo.png"
+    },
+    "sources": [
+      "Crafting",
+      "Sold by Tian Wen"
+    ],
+    "crafting": [
+      {
+        "recipe": [
+          {
+            "quantity": 1,
+            "item": "ARC Motion Core"
+          },
+          {
+            "quantity": 2,
+            "item": "Crude Explosives"
+          }
+        ],
+        "workshop": "Workbench 1",
+        "output_quantity": 6,
+        "output_item": "Launcher Ammo"
+      }
+    ]
+  },
+  {
+    "name": "Energy Clip",
+    "wiki_url": "https://arcraiders.wiki/wiki/Energy_Clip",
+    "source_url": "https://arcraiders.wiki/w/index.php?title=Energy_Clip&action=edit",
+    "infobox": {
+      "image": "Energy Clip.png",
+      "name": "Energy Clip",
+      "quote": "Extremely effective against ARC armor.",
+      "rarity": "Rare",
+      "type": "Ammo",
+      "weight": 0.3,
+      "sellprice": 5,
+      "stacksize": 5
+    },
+    "image_urls": {
+      "thumb": "https://arcraiders.wiki/w/images/thumb/0/08/Energy_Clip.png/348px-Energy_Clip.png.webp",
+      "original": "https://arcraiders.wiki/w/images/0/08/Energy_Clip.png",
+      "file_page": "https://arcraiders.wiki/wiki/File:Energy_Clip.png"
+    },
+    "crafting": [
+      {
+        "recipe": [
+          {
+            "quantity": 1,
+            "item": "Advanced ARC Powercell"
+          },
+          {
+            "quantity": 2,
+            "item": "Battery"
+          }
+        ],
+        "workshop": "Workbench 1",
+        "output_quantity": 5
+      }
+    ]
   }
 ]

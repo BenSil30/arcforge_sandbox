@@ -94,6 +94,7 @@ const typeToCategory: { [key: string]: string } = {
   'Trinket': 'Loots',
   'Augment': 'Equipment',
   'Shield': 'Equipment',
+  'Ammo': 'Equipment',
 };
 
 const allCategories = ['Weapon', 'Modification', 'Quick Use', 'Equipment', 'Loots'];

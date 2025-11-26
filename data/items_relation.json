@@ -46,6 +46,18 @@
             "name": "Medical Lab 2"
           }
         ]
+      },
+      {
+        "name": "Energy Clip",
+        "direction": "out",
+        "relation": "craft_to",
+        "quantity": 1,
+        "dependency": [
+          {
+            "type": "workshop",
+            "name": "Workbench 1"
+          }
+        ]
       }
     ]
   },
@@ -3425,6 +3437,18 @@
         "direction": "in",
         "relation": "recycle_from",
         "quantity": 1
+      },
+      {
+        "name": "Launcher Ammo",
+        "direction": "out",
+        "relation": "craft_to",
+        "quantity": 1,
+        "dependency": [
+          {
+            "type": "workshop",
+            "name": "Workbench 1"
+          }
+        ]
       }
     ]
   },
@@ -4124,6 +4148,18 @@
         "direction": "in",
         "relation": "salvage_from",
         "quantity": 1
+      },
+      {
+        "name": "Energy Clip",
+        "direction": "out",
+        "relation": "craft_to",
+        "quantity": 2,
+        "dependency": [
+          {
+            "type": "workshop",
+            "name": "Workbench 1"
+          }
+        ]
       }
     ]
   },
@@ -5640,6 +5676,54 @@
         "direction": "in",
         "relation": "salvage_from",
         "quantity": 3
+      },
+      {
+        "name": "Light Ammo",
+        "direction": "out",
+        "relation": "craft_to",
+        "quantity": 2,
+        "dependency": [
+          {
+            "type": "workshop",
+            "name": "Workbench 1"
+          }
+        ]
+      },
+      {
+        "name": "Medium Ammo",
+        "direction": "out",
+        "relation": "craft_to",
+        "quantity": 2,
+        "dependency": [
+          {
+            "type": "workshop",
+            "name": "Workbench 1"
+          }
+        ]
+      },
+      {
+        "name": "Heavy Ammo",
+        "direction": "out",
+        "relation": "craft_to",
+        "quantity": 2,
+        "dependency": [
+          {
+            "type": "workshop",
+            "name": "Workbench 1"
+          }
+        ]
+      },
+      {
+        "name": "Shotgun Ammo",
+        "direction": "out",
+        "relation": "craft_to",
+        "quantity": 2,
+        "dependency": [
+          {
+            "type": "workshop",
+            "name": "Workbench 1"
+          }
+        ]
       }
     ]
   },
@@ -6326,6 +6410,18 @@
         "direction": "in",
         "relation": "salvage_from",
         "quantity": 1
+      },
+      {
+        "name": "Launcher Ammo",
+        "direction": "out",
+        "relation": "craft_to",
+        "quantity": 2,
+        "dependency": [
+          {
+            "type": "workshop",
+            "name": "Workbench 1"
+          }
+        ]
       }
     ]
   },
@@ -7418,6 +7514,19 @@
             "name": "required"
           }
         ]
+      },
+      {
+        "name": "Stable Stock II",
+        "direction": "in",
+        "relation": "recycle_from",
+        "quantity": 1,
+        "dependency": [
+          {
+            "type": "recycle_level",
+            "name": "1x Stable Stock II"
+          }
+        ],
+        "output_level": "1x Stable Stock II"
       },
       {
         "name": "Angled Grip III",
@@ -13870,6 +13979,32 @@
         ]
       },
       {
+        "name": "Stable Stock II",
+        "direction": "in",
+        "relation": "recycle_from",
+        "quantity": 1,
+        "dependency": [
+          {
+            "type": "recycle_level",
+            "name": "1x Stable Stock II"
+          }
+        ],
+        "output_level": "1x Stable Stock II"
+      },
+      {
+        "name": "Stable Stock II",
+        "direction": "in",
+        "relation": "salvage_from",
+        "quantity": 1,
+        "dependency": [
+          {
+            "type": "salvage_level",
+            "name": "1x Stable Stock II"
+          }
+        ],
+        "output_level": "1x Stable Stock II"
+      },
+      {
         "name": "Extended Barrel",
         "direction": "in",
         "relation": "salvage_from",
@@ -16709,6 +16844,54 @@
           }
         ],
         "input_level": "1x Shotgun Choke I"
+      },
+      {
+        "name": "Light Ammo",
+        "direction": "out",
+        "relation": "craft_to",
+        "quantity": 3,
+        "dependency": [
+          {
+            "type": "workshop",
+            "name": "Workbench 1"
+          }
+        ]
+      },
+      {
+        "name": "Medium Ammo",
+        "direction": "out",
+        "relation": "craft_to",
+        "quantity": 3,
+        "dependency": [
+          {
+            "type": "workshop",
+            "name": "Workbench 1"
+          }
+        ]
+      },
+      {
+        "name": "Heavy Ammo",
+        "direction": "out",
+        "relation": "craft_to",
+        "quantity": 3,
+        "dependency": [
+          {
+            "type": "workshop",
+            "name": "Workbench 1"
+          }
+        ]
+      },
+      {
+        "name": "Shotgun Ammo",
+        "direction": "out",
+        "relation": "craft_to",
+        "quantity": 3,
+        "dependency": [
+          {
+            "type": "workshop",
+            "name": "Workbench 1"
+          }
+        ]
       }
     ]
   },
@@ -45361,6 +45544,45 @@
             "name": "required"
           }
         ]
+      },
+      {
+        "name": "Mechanical Components",
+        "direction": "out",
+        "relation": "recycle_to",
+        "quantity": 1,
+        "dependency": [
+          {
+            "type": "recycle_level",
+            "name": "1x Stable Stock II"
+          }
+        ],
+        "input_level": "1x Stable Stock II"
+      },
+      {
+        "name": "Duct Tape",
+        "direction": "out",
+        "relation": "recycle_to",
+        "quantity": 1,
+        "dependency": [
+          {
+            "type": "recycle_level",
+            "name": "1x Stable Stock II"
+          }
+        ],
+        "input_level": "1x Stable Stock II"
+      },
+      {
+        "name": "Mechanical Components",
+        "direction": "out",
+        "relation": "salvage_to",
+        "quantity": 1,
+        "dependency": [
+          {
+            "type": "salvage_level",
+            "name": "1x Stable Stock II"
+          }
+        ],
+        "input_level": "1x Stable Stock II"
       }
     ]
   },
@@ -46809,6 +47031,383 @@
     ]
   },
   {
+    "name": "Light Ammo",
+    "node_type": "item",
+    "wiki_url": "https://arcraiders.wiki/wiki/Light_Ammo",
+    "source_url": "https://arcraiders.wiki/w/index.php?title=Light_Ammo&action=edit",
+    "infobox": {
+      "image": "LightAmmo_Box.png",
+      "name": "Light Ammo",
+      "rarity": "Common",
+      "type": "Ammo",
+      "weight": 0.01,
+      "sellprice": 4,
+      "stacksize": 100
+    },
+    "image_urls": {
+      "thumb": "https://arcraiders.wiki/w/images/thumb/4/4a/LightAmmo_Box.png/348px-LightAmmo_Box.png.webp",
+      "original": "https://arcraiders.wiki/w/images/4/4a/LightAmmo_Box.png",
+      "file_page": "https://arcraiders.wiki/wiki/File:LightAmmo_Box.png"
+    },
+    "edges": [
+      {
+        "name": "Metal Parts",
+        "direction": "in",
+        "relation": "craft_from",
+        "quantity": 3,
+        "dependency": [
+          {
+            "type": "workshop",
+            "name": "Workbench 1"
+          }
+        ]
+      },
+      {
+        "name": "Chemicals",
+        "direction": "in",
+        "relation": "craft_from",
+        "quantity": 2,
+        "dependency": [
+          {
+            "type": "workshop",
+            "name": "Workbench 1"
+          }
+        ]
+      },
+      {
+        "name": "Tian Wen",
+        "direction": "in",
+        "relation": "sold_by",
+        "quantity": 1,
+        "dependency": [
+          {
+            "type": "price",
+            "amount": 900,
+            "currency": "Coins"
+          },
+          {
+            "type": "ammo_count",
+            "value": 25
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "name": "Medium Ammo",
+    "node_type": "item",
+    "wiki_url": "https://arcraiders.wiki/wiki/Medium_Ammo",
+    "source_url": "https://arcraiders.wiki/w/index.php?title=Medium_Ammo&action=edit",
+    "infobox": {
+      "image": "MediumAmmo_Box.png",
+      "name": "Medium Ammo",
+      "quote": "Somewhat effective against ARC armor",
+      "rarity": "Common",
+      "type": "Ammo",
+      "weight": 0.025,
+      "sellprice": 6,
+      "stacksize": 80
+    },
+    "image_urls": {
+      "thumb": "https://arcraiders.wiki/w/images/thumb/0/0c/MediumAmmo_Box.png/348px-MediumAmmo_Box.png.webp",
+      "original": "https://arcraiders.wiki/w/images/0/0c/MediumAmmo_Box.png",
+      "file_page": "https://arcraiders.wiki/wiki/File:MediumAmmo_Box.png"
+    },
+    "edges": [
+      {
+        "name": "Metal Parts",
+        "direction": "in",
+        "relation": "craft_from",
+        "quantity": 3,
+        "dependency": [
+          {
+            "type": "workshop",
+            "name": "Workbench 1"
+          }
+        ]
+      },
+      {
+        "name": "Chemicals",
+        "direction": "in",
+        "relation": "craft_from",
+        "quantity": 2,
+        "dependency": [
+          {
+            "type": "workshop",
+            "name": "Workbench 1"
+          }
+        ]
+      },
+      {
+        "name": "Tian Wen",
+        "direction": "in",
+        "relation": "sold_by",
+        "quantity": 1,
+        "dependency": [
+          {
+            "type": "price",
+            "amount": 900,
+            "currency": "Coins"
+          },
+          {
+            "type": "ammo_count",
+            "value": 20
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "name": "Heavy Ammo",
+    "node_type": "item",
+    "wiki_url": "https://arcraiders.wiki/wiki/Heavy_Ammo",
+    "source_url": "https://arcraiders.wiki/w/index.php?title=Heavy_Ammo&action=edit",
+    "infobox": {
+      "image": "HeavyAmmo_Box.png",
+      "name": "Heavy Ammo",
+      "rarity": "Common",
+      "type": "Ammo",
+      "weight": 0.05,
+      "sellprice": 12,
+      "stacksize": 40
+    },
+    "image_urls": {
+      "thumb": "https://arcraiders.wiki/w/images/thumb/4/47/HeavyAmmo_Box.png/348px-HeavyAmmo_Box.png.webp",
+      "original": "https://arcraiders.wiki/w/images/4/47/HeavyAmmo_Box.png",
+      "file_page": "https://arcraiders.wiki/wiki/File:HeavyAmmo_Box.png"
+    },
+    "edges": [
+      {
+        "name": "Metal Parts",
+        "direction": "in",
+        "relation": "craft_from",
+        "quantity": 3,
+        "dependency": [
+          {
+            "type": "workshop",
+            "name": "Workbench 1"
+          }
+        ]
+      },
+      {
+        "name": "Chemicals",
+        "direction": "in",
+        "relation": "craft_from",
+        "quantity": 2,
+        "dependency": [
+          {
+            "type": "workshop",
+            "name": "Workbench 1"
+          }
+        ]
+      },
+      {
+        "name": "Tian Wen",
+        "direction": "in",
+        "relation": "sold_by",
+        "quantity": 1,
+        "dependency": [
+          {
+            "type": "price",
+            "amount": 900,
+            "currency": "Coins"
+          },
+          {
+            "type": "ammo_count",
+            "value": 10
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "name": "Shotgun Ammo",
+    "node_type": "item",
+    "wiki_url": "https://arcraiders.wiki/wiki/Shotgun_Ammo",
+    "source_url": "https://arcraiders.wiki/w/index.php?title=Shotgun_Ammo&action=edit",
+    "infobox": {
+      "image": "ShotgunAmmo_Box.png",
+      "name": "Shotgun Ammo",
+      "rarity": "Common",
+      "type": "Ammo",
+      "weight": 0.085,
+      "sellprice": 20,
+      "stacksize": 20
+    },
+    "image_urls": {
+      "thumb": "https://arcraiders.wiki/w/images/thumb/c/c1/ShotgunAmmo_Box.png/348px-ShotgunAmmo_Box.png.webp",
+      "original": "https://arcraiders.wiki/w/images/c/c1/ShotgunAmmo_Box.png",
+      "file_page": "https://arcraiders.wiki/wiki/File:ShotgunAmmo_Box.png"
+    },
+    "edges": [
+      {
+        "name": "Metal Parts",
+        "direction": "in",
+        "relation": "craft_from",
+        "quantity": 3,
+        "dependency": [
+          {
+            "type": "workshop",
+            "name": "Workbench 1"
+          }
+        ]
+      },
+      {
+        "name": "Chemicals",
+        "direction": "in",
+        "relation": "craft_from",
+        "quantity": 2,
+        "dependency": [
+          {
+            "type": "workshop",
+            "name": "Workbench 1"
+          }
+        ]
+      },
+      {
+        "name": "Tian Wen",
+        "direction": "in",
+        "relation": "sold_by",
+        "quantity": 1,
+        "dependency": [
+          {
+            "type": "price",
+            "amount": 900,
+            "currency": "Coins"
+          },
+          {
+            "type": "ammo_count",
+            "value": 5
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "name": "Launcher Ammo",
+    "node_type": "item",
+    "wiki_url": "https://arcraiders.wiki/wiki/Launcher_Ammo",
+    "source_url": "https://arcraiders.wiki/w/index.php?title=Launcher_Ammo&action=edit",
+    "infobox": {
+      "image": "Launcher Ammo.png",
+      "name": "Launcher Ammo",
+      "quote": "Extremely effective against ARC armor.",
+      "rarity": "Rare",
+      "type": "Ammo",
+      "weight": 0.1,
+      "sellprice": 250,
+      "stacksize": 24
+    },
+    "image_urls": {
+      "thumb": "https://arcraiders.wiki/w/images/thumb/9/99/Launcher_Ammo.png/348px-Launcher_Ammo.png.webp",
+      "original": "https://arcraiders.wiki/w/images/9/99/Launcher_Ammo.png",
+      "file_page": "https://arcraiders.wiki/wiki/File:Launcher_Ammo.png"
+    },
+    "edges": [
+      {
+        "name": "ARC Motion Core",
+        "direction": "in",
+        "relation": "craft_from",
+        "quantity": 1,
+        "dependency": [
+          {
+            "type": "workshop",
+            "name": "Workbench 1"
+          }
+        ]
+      },
+      {
+        "name": "Crude Explosives",
+        "direction": "in",
+        "relation": "craft_from",
+        "quantity": 2,
+        "dependency": [
+          {
+            "type": "workshop",
+            "name": "Workbench 1"
+          }
+        ]
+      },
+      {
+        "name": "Tian Wen",
+        "direction": "in",
+        "relation": "sold_by",
+        "quantity": 1,
+        "dependency": [
+          {
+            "type": "price",
+            "amount": 4500,
+            "currency": "Coins"
+          },
+          {
+            "type": "ammo_count",
+            "value": 6
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "name": "Energy Clip",
+    "node_type": "item",
+    "wiki_url": "https://arcraiders.wiki/wiki/Energy_Clip",
+    "source_url": "https://arcraiders.wiki/w/index.php?title=Energy_Clip&action=edit",
+    "infobox": {
+      "image": "Energy Clip.png",
+      "name": "Energy Clip",
+      "quote": "Extremely effective against ARC armor.",
+      "rarity": "Rare",
+      "type": "Ammo",
+      "weight": 0.3,
+      "sellprice": 5,
+      "stacksize": 5
+    },
+    "image_urls": {
+      "thumb": "https://arcraiders.wiki/w/images/thumb/0/08/Energy_Clip.png/348px-Energy_Clip.png.webp",
+      "original": "https://arcraiders.wiki/w/images/0/08/Energy_Clip.png",
+      "file_page": "https://arcraiders.wiki/wiki/File:Energy_Clip.png"
+    },
+    "edges": [
+      {
+        "name": "Advanced ARC Powercell",
+        "direction": "in",
+        "relation": "craft_from",
+        "quantity": 1,
+        "dependency": [
+          {
+            "type": "workshop",
+            "name": "Workbench 1"
+          }
+        ]
+      },
+      {
+        "name": "Battery",
+        "direction": "in",
+        "relation": "craft_from",
+        "quantity": 2,
+        "dependency": [
+          {
+            "type": "workshop",
+            "name": "Workbench 1"
+          }
+        ]
+      },
+      {
+        "name": "Tian Wen",
+        "direction": "in",
+        "relation": "sold_by",
+        "quantity": 1,
+        "dependency": [
+          {
+            "type": "price",
+            "amount": 3000,
+            "currency": "Coins"
+          }
+        ]
+      }
+    ]
+  },
+  {
     "name": "Celeste",
     "node_type": "trader",
     "wiki_url": "https://arcraiders.wiki/wiki/Celeste",
@@ -47811,140 +48410,6 @@
             "type": "stock",
             "value": "5/5",
             "is_limited": true
-          }
-        ]
-      }
-    ]
-  },
-  {
-    "name": "Energy Clip",
-    "node_type": "item",
-    "edges": [
-      {
-        "name": "Tian Wen",
-        "direction": "in",
-        "relation": "sold_by",
-        "quantity": 1,
-        "dependency": [
-          {
-            "type": "price",
-            "amount": 3000,
-            "currency": "Coins"
-          }
-        ]
-      }
-    ]
-  },
-  {
-    "name": "Launcher Ammo",
-    "node_type": "item",
-    "edges": [
-      {
-        "name": "Tian Wen",
-        "direction": "in",
-        "relation": "sold_by",
-        "quantity": 1,
-        "dependency": [
-          {
-            "type": "price",
-            "amount": 4500,
-            "currency": "Coins"
-          },
-          {
-            "type": "ammo_count",
-            "value": 6
-          }
-        ]
-      }
-    ]
-  },
-  {
-    "name": "Heavy Ammo",
-    "node_type": "item",
-    "edges": [
-      {
-        "name": "Tian Wen",
-        "direction": "in",
-        "relation": "sold_by",
-        "quantity": 1,
-        "dependency": [
-          {
-            "type": "price",
-            "amount": 900,
-            "currency": "Coins"
-          },
-          {
-            "type": "ammo_count",
-            "value": 10
-          }
-        ]
-      }
-    ]
-  },
-  {
-    "name": "Light Ammo",
-    "node_type": "item",
-    "edges": [
-      {
-        "name": "Tian Wen",
-        "direction": "in",
-        "relation": "sold_by",
-        "quantity": 1,
-        "dependency": [
-          {
-            "type": "price",
-            "amount": 900,
-            "currency": "Coins"
-          },
-          {
-            "type": "ammo_count",
-            "value": 25
-          }
-        ]
-      }
-    ]
-  },
-  {
-    "name": "Medium Ammo",
-    "node_type": "item",
-    "edges": [
-      {
-        "name": "Tian Wen",
-        "direction": "in",
-        "relation": "sold_by",
-        "quantity": 1,
-        "dependency": [
-          {
-            "type": "price",
-            "amount": 900,
-            "currency": "Coins"
-          },
-          {
-            "type": "ammo_count",
-            "value": 20
-          }
-        ]
-      }
-    ]
-  },
-  {
-    "name": "Shotgun Ammo",
-    "node_type": "item",
-    "edges": [
-      {
-        "name": "Tian Wen",
-        "direction": "in",
-        "relation": "sold_by",
-        "quantity": 1,
-        "dependency": [
-          {
-            "type": "price",
-            "amount": 900,
-            "currency": "Coins"
-          },
-          {
-            "type": "ammo_count",
-            "value": 5
           }
         ]
       }

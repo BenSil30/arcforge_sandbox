@@ -28,6 +28,10 @@ def adjust_item_data():
             "Tactical Mk. 3 (Defensive)", "Tactical Mk. 3 (Healing)",
         ],
         "Shield": ["Light Shield", "Medium Shield", "Heavy Shield"],
+        "Ammo": [
+            "Light Ammo", "Medium Ammo", "Heavy Ammo", 
+            "Shotgun Ammo", "Launcher Ammo", "Energy Clip"
+        ],
     }
     
     price_adjustments = {
