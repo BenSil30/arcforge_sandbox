@@ -132,7 +132,6 @@ def parse_table_text(table_text: str) -> List[Dict[str, Any]]:
             "previous_quests": prev_quests,
             "next_quests": next_quests
         }
-        # skip almost-empty rows
         if not quest["name"]:
             continue
         quests.append(quest)
@@ -179,7 +178,6 @@ def parse_quest_tree_from_wiki(quest_name: str):
         prev_raw = extract_field('previous')
         next_raw = extract_field('next')
 
-        # extract all [[links|label]] occurrences as labels; fallback to plain text pieces
         def links_from_text(t: str) -> List[str]:
             if not t:
                 return []
@@ -191,7 +189,6 @@ def parse_quest_tree_from_wiki(quest_name: str):
                     found.append(label)
             if found:
                 return found
-            # fallback: split on <br>, newlines or common separators and clean pieces
             parts = re.split(r'<br\s*/?>|\n|,|;|\||/', t)
             out = []
             for p in parts:
@@ -242,7 +239,6 @@ def parse_quests_from_wiki():
             parsed = parse_table_text(tbl)
             all_quests.extend(parsed)
 
-        # write to json (optional)
         out_path = Path(__file__).parent.parent / "data" / "quest_database.json"
         out_path.parent.mkdir(parents=True, exist_ok=True)
         with open(out_path, "w", encoding="utf-8") as f:
